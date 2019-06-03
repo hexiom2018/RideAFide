@@ -6,7 +6,11 @@ import {
 import { Header, Icon } from 'react-native-elements';
 import { Constants, Location, BarCodeScanner, Permissions, Contacts } from 'expo';
 import Web from '../WebView/webView'
-
+import CameraExample from '../../components/camera/Camera';
+import uuid from 'uuid'
+import firebase from '../../../Config/Firebase'
+import mail from '../../../assets/email/mail.png'
+import scan from '../../../assets/email/scan.png'
 
 class Scan extends React.Component {
     constructor(props) {
@@ -15,7 +19,8 @@ class Scan extends React.Component {
             hasCameraPermission: null,
             lastScannedUrl: null,
             barcode: false,
-            button: false
+            button: false,
+            recordVideo: false
         };
     }
     static navigationOptions = {
@@ -38,7 +43,7 @@ class Scan extends React.Component {
 
     }
     _requestCameraPermission = async () => {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
         this.setState({
             hasCameraPermission: status === 'granted',
         });
@@ -97,9 +102,7 @@ class Scan extends React.Component {
         }
     }
 
-
-
-    Submit = () => {
+    Submit = (downloadUrl) => {
         const { email, currentLocation, lastScannedUrl } = this.state
         this.setState({
             button: false,
@@ -114,122 +117,173 @@ class Scan extends React.Component {
         );
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
+            console.log(this.response)
         }
-        console.log(this.response)
         xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(`url=${lastScannedUrl}&approved=true&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}`);
+        xhttp.send(`url=${lastScannedUrl}&approved=true&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}&video_log=${downloadUrl}`);
 
     }
 
+    back() {
+        this.setState({ recordVideo: false })
+    }
+
+    async uploadImageAsync(uri) {
+        // Why are we using XMLHttpRequest? See:
+        // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+        const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                resolve(xhr.response);
+            };
+            xhr.onerror = function (e) {
+                console.log(e);
+                reject(new TypeError('Network request failed'));
+            };
+            xhr.responseType = 'blob';
+            xhr.open('GET', uri, true);
+            xhr.send(null);
+        });
+
+        const ref = firebase
+            .storage()
+            .ref()
+            .child(uuid.v4());
+        const snapshot = await ref.put(blob);
+
+        // We're done with the blob, close and release it
+        blob.close();
+
+        return await snapshot.ref.getDownloadURL();
+    }
+
+    goback() {
+        const { navigate } = this.props.navigation
+
+        navigate('Email')
+    }
+
+    getUri(uri) {
+        console.log(uri, 'the uri')
+
+        this.uploadImageAsync(uri).then((downloadUrl) => {
+            console.log(downloadUrl, 'download Url')
+            this.Submit(downloadUrl)
+        })
+
+        this.setState({ recordVideo: false })
+    }
+
     render() {
-        const { barcode, lastScannedUrl, button } = this.state
+        const { barcode, lastScannedUrl, button, recordVideo } = this.state
         return (
             <View style={styles.main}>
-                <StatusBar backgroundColor={'#014E70'} />
+                {
+                    recordVideo ?
+                        <CameraExample duration={60000} back={() => this.back()} VideoUri={(uri) => this.getUri(uri)} />
+                        :
+                        <>
+                            <StatusBar hidden={true} />
 
-                {barcode &&
-                    <View style={styles.main}>
-                        {
-                            this.state.hasCameraPermission === null
-                                ? <Text>Requesting for camera permission</Text>
-                                : this.state.hasCameraPermission === false
-                                    ? <Text style={{ color: '#fff' }}>
-                                        Camera permission is not granted
-                </Text>
-                                    : <BarCodeScanner
-                                        onBarCodeRead={this._handleBarCodeRead}
-                                        style={{
-                                            height: Dimensions.get('window').height,
-                                            width: Dimensions.get('window').width,
-                                        }}
-                                    />
-                        }
-                    </View>
-                }
-                {!barcode &&
-                    <View style={styles.main}>
-
-                        <Header
-                            containerStyle={{
-                                backgroundColor: '#0274BD',
-                                borderBottomWidth: 0
-                            }}
-                            // leftComponent={{ icon: 'arrow-back', color: 'white', onPress: () => this.props.navigation.navigate('Home') }}
-                            // centerComponent={{ text: "Create", style: { color: 'white', fontSize: 25, fontWeight: 'bold' } }}
-                            rightComponent={
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-                                    <Icon
-                                        name="select-all"
-                                        color="#fff"
-                                        onPress={() => this.setState({ barcode: true, button: false })}
-                                        Component={TouchableOpacity}
-                                        style={{ justifyContent: 'space-around' }}
-                                        size={28}
-                                    />
-                                    <Icon
-                                        name="more-vert"
-                                        color="#fff"
-                                        size={28}
-                                        onPress={this.goForward}
-                                        Component={TouchableOpacity}
-                                    />
+                            {barcode &&
+                                <View style={styles.main}>
+                                    {
+                                        this.state.hasCameraPermission === null
+                                            ? <Text>{'Requesting for camera permission'}</Text>
+                                            : this.state.hasCameraPermission === false
+                                                ? <Text style={{ color: '#fff' }}>
+                                                    {'Camera permission is not granted'}
+                                                </Text>
+                                                : <BarCodeScanner
+                                                    onBarCodeRead={this._handleBarCodeRead}
+                                                    style={{
+                                                        height: Dimensions.get('window').height,
+                                                        width: Dimensions.get('window').width,
+                                                    }}
+                                                />
+                                    }
                                 </View>
                             }
-                        />
-                        <View style={styles.minDiv}>
-                            <View style={styles.Button}>
-                                <View style={styles.textDivBottom}>
-                                    {lastScannedUrl === null && <View>
-                                        <Text>Scan Barcode</Text>
-                                    </View>}
-                                    {lastScannedUrl !== null &&
-                                        <WebView
-                                            source={{
-                                                uri: lastScannedUrl,
-                                            }}
-                                            onNavigationStateChange={(state) => this.function(state)}
-                                            startInLoadingState
-                                            scalesPageToFit={true}
-                                            javaScriptEnabled
-                                            style={{ flex: 1, height: 100, width: Dimensions.get('window').width, }}
-                                        />}
-                                </View>
-
-                                {
-                                    button ?
-                                        <View style={styles.ButtonDiv}>
-                                            <TouchableOpacity style={styles.buttondiv3} onPress={this.Submit}>
-                                                <Text style={styles.buttonTittle}>
-                                                    EMERGENCY
-                                          </Text>
+                            {!barcode &&
+                                <View style={styles.main}>
+                                    <View style={{ flexDirection: 'row', paddingVertical: '10%' }}>
+                                        <View style={{ flexGrow: 1, height: 50, justifyContent: 'center' }}>
+                                            <Text style={{ color: 'grey', fontSize: 20, fontWeight: 'bold' }}>
+                                                {'Ride A Fide'}
+                                            </Text>
+                                        </View>
+                                        <View style={{ paddingHorizontal: '5%', height: 50 }}>
+                                            <TouchableOpacity
+                                                onPress={() => this.goback()}
+                                                activeOpacity={0.7}>
+                                                <Image
+                                                    // style={{ width: '100%', height: '100%' }}
+                                                    source={mail}
+                                                />
                                             </TouchableOpacity>
-                                            <TouchableOpacity style={styles.buttondiv4} onPress={this.Submit}>
-                                                <Text style={styles.buttonTittle}>
-                                                    SAFE
-                                          </Text>
+                                        </View>
+                                        <View style={{ paddingRight: '5%', height: 50 }}>
+                                            <TouchableOpacity
+                                                onPress={() => this.setState({ barcode: true, button: false })}
+                                                activeOpacity={0.7}>
+                                                <Image
+                                                    // style={{ width: '100%', height: '100%' }}
+                                                    source={scan}
+                                                />
                                             </TouchableOpacity>
-                                        </View> :
-                                        <View style={styles.ButtonDiv}>
-                                            <View style={styles.buttondiv1}>
-                                                <Text style={styles.buttonTittle}>
-                                                    EMERGENCY
-                                          </Text>
+                                        </View>
+                                    </View>
+                                    <View style={{ flex: 1, justifyContent: 'space-around' }}>
+                                        {
+                                            lastScannedUrl ?
+                                                <View style={styles.textDivBottom}>
+                                                    {lastScannedUrl === null && <View>
+                                                        <Text>Scan Barcode</Text>
+                                                    </View>}
+                                                    {lastScannedUrl !== null &&
+                                                        <WebView
+                                                            source={{
+                                                                uri: lastScannedUrl,
+                                                            }}
+                                                            onNavigationStateChange={(state) => this.function(state)}
+                                                            startInLoadingState
+                                                            scalesPageToFit={true}
+                                                            javaScriptEnabled
+                                                            style={{ flex: 1, height: Dimensions.get('screen').height / 2, width: Dimensions.get('window').width, }}
+                                                        />}
+                                                </View>
+                                                :
+                                                <View>
+                                                    <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>
+                                                        {'Image Icon'}
+                                                    </Text>
+                                                </View>
+                                        }
+                                        <View style={{ paddingVertical: 20 }}>
+                                            <View style={{ alignItems: 'center', marginVertical: 10 }}>
+                                                <TouchableOpacity onPress={() => this.setState({ recordVideo: true })} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#77d8c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                                    <View>
+                                                        <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
+                                                            {'SAVE'}
+                                                        </Text>
+                                                    </View>
+                                                </TouchableOpacity>
                                             </View>
-                                            <View style={styles.buttondiv2} >
-                                                <Text style={styles.buttonTittle}>
-                                                    SAFE
-                                          </Text>
+                                            <View style={{ alignItems: 'center', marginVertical: 10 }}>
+                                                <TouchableOpacity onPress={() => this.setState({ recordVideo: true })} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#77d8c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                                    <View>
+                                                        <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
+                                                            {'Emergency'}
+                                                        </Text>
+                                                    </View>
+                                                </TouchableOpacity>
                                             </View>
                                         </View>
-
-
-                                }
-
-                            </View>
-
-                        </View>
-                    </View>
+                                    </View>
+                                </View>
+                            }
+                        </>
                 }
             </View>
         );
@@ -239,7 +293,7 @@ class Scan extends React.Component {
 const styles = StyleSheet.create({
     main: {
         flex: 1,
-        justifyContent: 'space-around'
+        // justifyContent: 'space-around'
     },
     minDiv: {
         flex: 1,
@@ -288,7 +342,7 @@ const styles = StyleSheet.create({
 
     },
     textDivBottom: {
-        height: "90%",
+        height: "77%",
         // borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -364,3 +418,37 @@ const styles = StyleSheet.create({
 
 export default Scan;
 
+
+
+
+
+
+
+
+// <Header
+//     containerStyle={{
+//         backgroundColor: '#0274BD',
+//         borderBottomWidth: 0
+//     }}
+//     // leftComponent={{ icon: 'arrow-back', color: 'white', onPress: () => this.props.navigation.navigate('Home') }}
+//     // centerComponent={{ text: "Create", style: { color: 'white', fontSize: 25, fontWeight: 'bold' } }}
+//     rightComponent={
+//         <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+//             <Icon
+//                 name="select-all"
+//                 color="#fff"
+//                 onPress={() => this.setState({ barcode: true, button: false })}
+//                 Component={TouchableOpacity}
+//                 style={{ justifyContent: 'space-around' }}
+//                 size={28}
+//             />
+//             <Icon
+//                 name="more-vert"
+//                 color="#fff"
+//                 size={28}
+//                 onPress={this.goForward}
+//                 Component={TouchableOpacity}
+//             />
+//         </View>
+//     }
+// />

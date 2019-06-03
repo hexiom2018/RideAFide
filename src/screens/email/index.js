@@ -4,10 +4,15 @@ import {
     Text, StyleSheet, ActivityIndicator, TouchableOpacity, StatusBar, Button,
     TextInput, KeyboardAvoidingView
 } from 'react-native';
-import { Header, Input } from 'react-native-elements';
+import { Header, Input, CheckBox } from 'react-native-elements';
 import { Constants, Location, Permissions, Contacts, Notifications, IntentLauncherAndroid } from 'expo';
 import Modal from 'react-native-modal'
 import { AsyncStorage } from 'react-native';
+import tick from '../../../assets/email/tick-checked.png'
+import Untick from '../../../assets/email/untick.png'
+import mail from '../../../assets/email/mail.png'
+import scan from '../../../assets/email/scan.png'
+
 
 class Email extends React.Component {
     constructor(props) {
@@ -23,7 +28,7 @@ class Email extends React.Component {
     static navigationOptions = {
         header: null
     };
-  
+
     componentDidMount() {
         console.log("hello")
         this._retrieveData()
@@ -40,19 +45,19 @@ class Email extends React.Component {
 
     _retrieveData = async () => {
         try {
-          const value = await AsyncStorage.getItem('UserEmail');
-          if (value !== null) {
-            // We have data!!
-            console.log(value);
-            // this.props.navigation.navigate('Scan', { value })
-            this.setState({
-                email:value
-            })
-          }
+            const value = await AsyncStorage.getItem('UserEmail');
+            if (value !== null) {
+                // We have data!!
+                console.log(value);
+                // this.props.navigation.navigate('Scan', { value })
+                this.setState({
+                    email: value
+                })
+            }
         } catch (error) {
-          // Error retrieving data
+            // Error retrieving data
         }
-      };
+    };
 
     _goToURL = () => {
         const url = "https://rideafide.com/"
@@ -64,17 +69,22 @@ class Email extends React.Component {
             }
         });
     }
+
     Next = () => {
-        const { email } = this.state
+        const { email, checked } = this.state
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (email != null) {
-            if (reg.test(this.state.email) === true) {
-            this. _storeData(email)
-                // console.log("emil")
-                // alert("");
-            }
-            else {
-                alert("Enter correct email ");
+            if (!checked) {
+                alert('Please check Privacy Policy')
+            } else {
+                if (reg.test(this.state.email) === true) {
+                    this._storeData(email)
+                    // console.log("emil")
+                    // alert("");
+                }
+                else {
+                    alert("Enter correct email ");
+                }
             }
         } else {
             alert("Enter the email")
@@ -102,7 +112,7 @@ class Email extends React.Component {
             // console.log( "function run ")
             let { status } = await Permissions.askAsync(Permissions.LOCATION);
             let location = await Location.getCurrentPositionAsync({});
-           
+
             if (status !== 'granted') {
                 this.setState({
                     errorMessage: 'Permission to access location was denied'
@@ -114,7 +124,7 @@ class Email extends React.Component {
                 direction: { lat: location.coords.latitude, lng: location.coords.longitude },
                 date: Date.now(),
             }
-           
+
             this.setState({
                 currentLocation: { lat: location.coords.latitude, lng: location.coords.longitude },
                 get: true,
@@ -156,11 +166,11 @@ class Email extends React.Component {
     }
 
     render() {
-        const { email, openSetting } = this.state
-      
+        const { email, openSetting, checked } = this.state
+
         return (
             <View style={styles.main}>
-                  <Modal
+                <Modal
                     onModalHide={openSetting ? this.openSetting : undefined}
                     isVisible={this.state.isLocationModalVisible}>
                     <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -172,58 +182,93 @@ class Email extends React.Component {
                         </Button>
                     </View>
                 </Modal>
-                <StatusBar backgroundColor={'#014E70'} />
-                <Header
-                    containerStyle={{
-                        backgroundColor: '#0274BD',
-                        borderBottomWidth: 0
-                    }}
-                //  centerComponent={{ text: "Create", style: { color: 'white', fontSize: 25, fontWeight: 'bold' } }}
-                />
+                <StatusBar hidden={true} />
+                <View style={{ flexDirection: 'row', paddingVertical: '6%' }}>
+                    <View style={{ flexGrow: 1, height: 50, justifyContent: 'center' }}>
+                        <Text style={{ color: 'grey', fontSize: 20, fontWeight: 'bold' }}>
+                            {'Ride A Fide'}
+                        </Text>
+                    </View>
+                    <View style={{ paddingHorizontal: '5%', height: 50 }}>
+                        <TouchableOpacity activeOpacity={0.7}>
+                            <Image
+                                // style={{ width: '100%', height: '100%' }}
+                                source={mail}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ paddingRight: '5%', height: 50 }}>
+                        <TouchableOpacity activeOpacity={0.7}>
+                            <Image
+                                // style={{ width: '100%', height: '100%' }}
+                                source={scan}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <View style={styles.minDiv}>
-                    <View style={styles.Email}>
-
-                        <View style={styles.headings}><Text style={styles.HeadingText}>Email</Text></View>
-                        <View style={styles.InputDiv}>
+                    <View style={{
+                        // borderWidth: 1,
+                        // flex: 1,
+                        height: '25%',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                    }}>
+                        <View style={{ width: '80%' }}>
                             <TextInput
-                                style={styles.InputFields}
+                                keyboardType={'email-address'}
+                                placeholder={'Enter email here'}
+                                placeholderTextColor={'#686868'}
                                 onChangeText={(email) => this.setState({ email })}
-                                // placeholder={'Email'}
                                 value={email}
                                 textContentType={'emailAddress'}
+                                style={{
+                                    borderWidth: 1,
+                                    color: '#6a6a6a',
+                                    borderColor: '#77d8c5',
+                                    textAlign: 'center',
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    borderRadius: 7,
+                                }}
                             />
                         </View>
                     </View>
-                    <View style={styles.Button}>
-                        <View style={styles.textDivBottom}>
-                            <Text style={styles.detailText}>
-                                Please enter the email that</Text>
-                            <Text style={styles.detailText}>
-                                you signed up with at</Text>
-                            <Text style={styles.detailText}>
-                                WWW.rideafide.com - if you</Text>
-                            <Text style={styles.detailText}>
-                                dont't have a profile, please</Text>
-                            <Text style={styles.detailText}>
-                                create one for passengers</Text>
-                            <Text style={styles.detailText}>
-                                by visiting out website:
-                         </Text>
-                            <Text style={styles.hyperLink} onPress={this._goToURL}>
-                                WWW.rideafide.com
-                        </Text>
-
+                    <View>
+                        <View style={{ paddingVertical: '6%', paddingHorizontal: '10%' }}>
+                            <Text style={{ textAlign: 'center', fontSize: 17, color: '#686868', fontWeight: '400' }}>
+                                {`Please enter the email that you signed up with at www.rideafide.com, if you dont't have a profile, please create one for passengers by visiting out website:`}
+                            </Text>
                         </View>
-                        <View style={styles.ButtonDiv}>
-                            <TouchableOpacity style={styles.buttondiv4} onPress={this.Next}>
-                                <Text style={styles.buttonTittle}>
-                                    Save
-                              </Text>
+                    </View>
+                    <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: '2%' }}>
+                        <View style={{ alignItems: 'center' }}>
+                            <Text style={styles.hyperLink} onPress={this._goToURL}>
+                                {'www.rideafide.com'}
+                            </Text>
+                        </View>
+                        <View style={{ alignItems: 'center' }}>
+                            <TouchableOpacity onPress={this.Next} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                <View>
+                                    <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
+                                        {'SAVE'}
+                                    </Text>
+                                </View>
                             </TouchableOpacity>
                         </View>
-
                     </View>
-
+                    <View style={{ paddingVertical: '3%', alignItems: 'center' }}>
+                        <View>
+                            <CheckBox
+                                title='Privacy Policy'
+                                checked={checked}
+                                checkedIcon={<Image source={tick} style={{ width: 20, height: 20 }} />}
+                                uncheckedIcon={<Image source={Untick} style={{ width: 20, height: 20 }} />}
+                                onPress={() => this.setState({ checked: !checked })}
+                                containerStyle={{ backgroundColor: 'white', borderColor: 'white' }}
+                            />
+                        </View>
+                    </View>
                 </View>
             </View>
         );
@@ -258,7 +303,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        textAlign:"center"
+        textAlign: "center"
         // flex:1
     },
     HeadingText: {
@@ -299,8 +344,8 @@ const styles = StyleSheet.create({
     hyperLink: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: "#0274BD",
-        marginTop: "10%"
+        color: "#686868",
+        marginTop: "6%"
 
     }, detailText: {
         fontSize: 20,
