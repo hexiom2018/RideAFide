@@ -109,8 +109,8 @@ class Scan extends React.Component {
     Submit = (downloadUrl) => {
         const { email, currentLocation, lastScannedUrl } = this.state
         this.setState({
-            button: false,
-            lastScannedUrl: null,
+            // button: false,
+            // lastScannedUrl: null,
             loader: false
         })
         Alert.alert(
@@ -198,8 +198,8 @@ class Scan extends React.Component {
     recordAsyncSave() {
         const { email, currentLocation, lastScannedUrl } = this.state
         this.setState({
-            button: false,
-            lastScannedUrl: null,
+            // button: false,
+            // lastScannedUrl: null,
             loader: false
         })
         Alert.alert(

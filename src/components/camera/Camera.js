@@ -50,8 +50,11 @@ export default class CameraExample extends React.Component {
                     self.setState({ uri: data.uri, bcolor: 'green' },
                         () => {
                             console.log('Data', data)
+                            this.done()
                         }
                     )
+
+
                 )
         }
         setTimeout(() => {
@@ -72,10 +75,11 @@ export default class CameraExample extends React.Component {
     }
 
     done() {
+        
         const { uri } = this.state
         const { VideoUri } = this.props
         VideoUri(uri)
-        // console.log(uri, 'uri herere')
+        console.log(uri, 'uri done chala hy herr')
     }
 
     retake() {
@@ -125,7 +129,7 @@ export default class CameraExample extends React.Component {
                                     <Icon name='loop' />
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => this.done()} style={styles.opacity3} >
-                                    <Text style={{ textAlign: 'center' }}>Done</Text>
+                                    <Text style={{ textAlign: 'center' }}>Send</Text>
                                     {/* <Icon name='done' /> */}
                                 </TouchableOpacity>
                             </View>
@@ -134,7 +138,7 @@ export default class CameraExample extends React.Component {
                                 <TouchableOpacity onPress={() => this.goBack()} style={styles.opacity2}>
                                     <Icon name='arrow-back' />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.opacity2} onPress={() => {
+                                <TouchableOpacity style={styles.opacity5} onPress={() => {
                                     if (cameraIsRecording) {
                                         if (this.camera) {
                                             clearInterval(this.myTimer);
@@ -149,11 +153,11 @@ export default class CameraExample extends React.Component {
                                 }}>
                                     {
                                         this.state.cameraIsRecording ?
-                                            // <Text>Stop</Text>
-                                            <Icon name='videocam-off' />
+                                            <Text style={{paddingLeft:"22%", fontSize:14,fontWeight: 'bold'}}>SEND</Text>
+                                            // <Icon name='videocam-off' />
                                             :
-                                            // <Text>Start</Text>
-                                            <Icon name='videocam' />
+                                            <Text style={{paddingLeft:"17%", fontSize:14,fontWeight: 'bold'}}>Record</Text>
+                                            // <Icon name='videocam' />
                                         // <Image source={{uri:video}}/>
                                     }
                                 </TouchableOpacity>
@@ -162,7 +166,7 @@ export default class CameraExample extends React.Component {
                                         ? Camera.Constants.Type.front
                                         : Camera.Constants.Type.back,
                                 })} style={styles.opacity2}>
-                                    <Icon name='flip-to-front' />
+                                    {/* <Icon name='flip-to-front' /> */}
                                 </TouchableOpacity>
                             </View>
                     }
@@ -197,9 +201,19 @@ const styles = StyleSheet.create({
         // left: 0,
         width: 70,
         height: 50,
-        // borderWidth: 10,
+        // borderWidth: 2,
         borderRadius: 70,
         borderColor: 'white',
+        backgroundColor: 'white',
+        textAlign: 'center',
+        justifyContent: 'center'
+    },  opacity5: {
+        // left: 10,
+        width: 70,
+        height: 60,
+        borderWidth: 2,
+        borderRadius: 100,
+        borderColor: 'black',
         backgroundColor: 'white',
         textAlign: 'center',
         justifyContent: 'center'
@@ -226,9 +240,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     btn: {
+        height:"12%",
         // flex: 1,
         flexDirection: 'row',
-        // textAlign: 'center',
+        textAlign: 'center',
         justifyContent: 'space-evenly',
         left: 0
     }

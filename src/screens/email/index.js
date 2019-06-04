@@ -70,7 +70,16 @@ class Email extends React.Component {
             }
         });
     }
-
+    PrivacyPolicy = () => {
+        const url = "https://rideafide.com/"
+        Linking.canOpenURL(url).then(supported => {
+            if (supported) {
+                Linking.openURL(url);
+            } else {
+                alert('Don\'t know how to open URI: ' + url);
+            }
+        });
+    }
     Next = () => {
         const { email, checked } = this.state
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -261,7 +270,7 @@ class Email extends React.Component {
                         </View>
                     </View>
                     <View style={{ paddingVertical: '3%', alignItems: 'center' }}>
-                        <View>
+                        <View style={{flexDirection:'row', alignItems: 'center',}}>
                             <CheckBox
                                 title='Privacy Policy'
                                 checked={checked}
@@ -270,6 +279,9 @@ class Email extends React.Component {
                                 onPress={() => this.setState({ checked: !checked })}
                                 containerStyle={{ backgroundColor: 'white', borderColor: 'white' }}
                             />
+                            <Text style={styles.hyperLink2} onPress={this.PrivacyPolicy}>
+                                {'(Read here)'}
+                            </Text>
                         </View>
                     </View>
                 </View>
@@ -350,7 +362,17 @@ const styles = StyleSheet.create({
         color: "#686868",
         marginTop: "6%"
 
-    }, detailText: {
+    }, hyperLink2: {
+        fontSize: 14,
+        // fontWeight: 'bold',
+        color: "#77d8c5",
+        // borderWidth:1,
+        alignItems:'center'
+        ,justifyContent:'center'
+        // marginTop: "6%"
+
+    },
+     detailText: {
         fontSize: 20,
         // fontWeight: 'bold',
         color: "#8B8B8B",

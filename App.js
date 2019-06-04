@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View,ImageBackground } from 'react-native';
 import Navigation from './navigation';
-
+console.disableYellowBox = true;
 
 export default class App extends React.Component {
   render() {
