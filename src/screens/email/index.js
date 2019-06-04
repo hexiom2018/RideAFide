@@ -10,8 +10,9 @@ import Modal from 'react-native-modal'
 import { AsyncStorage } from 'react-native';
 import tick from '../../../assets/email/tick-checked.png'
 import Untick from '../../../assets/email/untick.png'
-import mail from '../../../assets/email/mail.png'
+import mail from '../../../assets/email/mail-selected.png'
 import scan from '../../../assets/email/scan.png'
+import logo from '../../../assets/email/logo.png'
 
 
 class Email extends React.Component {
@@ -184,10 +185,11 @@ class Email extends React.Component {
                 </Modal>
                 <StatusBar hidden={true} />
                 <View style={{ flexDirection: 'row', paddingVertical: '6%' }}>
-                    <View style={{ flexGrow: 1, height: 50, justifyContent: 'center' }}>
-                        <Text style={{ color: 'grey', fontSize: 20, fontWeight: 'bold' }}>
-                            {'Ride A Fide'}
-                        </Text>
+                    <View style={{ width: '62%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
+                        <Image
+                            // style={{ width: 100, height: 100 }}
+                            source={logo}
+                        />
                     </View>
                     <View style={{ paddingHorizontal: '5%', height: 50 }}>
                         <TouchableOpacity activeOpacity={0.7}>
@@ -230,6 +232,7 @@ class Email extends React.Component {
                                     paddingHorizontal: 10,
                                     paddingVertical: 10,
                                     borderRadius: 7,
+                                    fontStyle: 'italic'
                                 }}
                             />
                         </View>

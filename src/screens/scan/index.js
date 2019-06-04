@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     View, ScrollView, Image, LayoutAnimation, Text, StyleSheet, TouchableOpacity,
-    TextInput, StatusBar, Platform, Dimensions, AppState, Linking, WebView, Alert
+    TextInput, StatusBar, Platform, Dimensions, ActivityIndicator, Linking, WebView, Alert
 } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
 import { Constants, Location, BarCodeScanner, Permissions, Contacts } from 'expo';
@@ -10,7 +10,10 @@ import CameraExample from '../../components/camera/Camera';
 import uuid from 'uuid'
 import firebase from '../../../Config/Firebase'
 import mail from '../../../assets/email/mail.png'
-import scan from '../../../assets/email/scan.png'
+import scan from '../../../assets/email/scan-selected.png'
+import logo from '../../../assets/email/logo.png'
+import scanLogo from '../../../assets/email/scan.png'
+
 
 class Scan extends React.Component {
     constructor(props) {
@@ -19,6 +22,7 @@ class Scan extends React.Component {
             hasCameraPermission: null,
             lastScannedUrl: null,
             barcode: false,
+            loader: false,
             button: false,
             recordVideo: false
         };
@@ -106,7 +110,8 @@ class Scan extends React.Component {
         const { email, currentLocation, lastScannedUrl } = this.state
         this.setState({
             button: false,
-            lastScannedUrl: null
+            lastScannedUrl: null,
+            loader: false
         })
         Alert.alert(
             'Success',
@@ -172,11 +177,26 @@ class Scan extends React.Component {
             this.Submit(downloadUrl)
         })
 
-        this.setState({ recordVideo: false })
+        this.setState({ recordVideo: false, loader: true })
     }
 
+    recordAsync() {
+        const { email, currentLocation, lastScannedUrl } = this.state
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            console.log(this.response)
+        }
+        xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(`url=${lastScannedUrl}&approved=true&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}`);
+
+        this.setState({ recordVideo: true })
+    }
+
+
     render() {
-        const { barcode, lastScannedUrl, button, recordVideo } = this.state
+        const { barcode, lastScannedUrl, loader, recordVideo } = this.state
         return (
             <View style={styles.main}>
                 {
@@ -209,9 +229,9 @@ class Scan extends React.Component {
                                 <View style={styles.main}>
                                     <View style={{ flexDirection: 'row', paddingVertical: '10%' }}>
                                         <View style={{ flexGrow: 1, height: 50, justifyContent: 'center' }}>
-                                            <Text style={{ color: 'grey', fontSize: 20, fontWeight: 'bold' }}>
+                                            {/* <Text style={{ color: 'grey', fontSize: 20, fontWeight: 'bold' }}>
                                                 {'Ride A Fide'}
-                                            </Text>
+                                            </Text> */}
                                         </View>
                                         <View style={{ paddingHorizontal: '5%', height: 50 }}>
                                             <TouchableOpacity
@@ -225,7 +245,7 @@ class Scan extends React.Component {
                                         </View>
                                         <View style={{ paddingRight: '5%', height: 50 }}>
                                             <TouchableOpacity
-                                                onPress={() => this.setState({ barcode: true, button: false })}
+                                                // onPress={() => this.setState({ barcode: true, button: false })}
                                                 activeOpacity={0.7}>
                                                 <Image
                                                     // style={{ width: '100%', height: '100%' }}
@@ -235,34 +255,34 @@ class Scan extends React.Component {
                                         </View>
                                     </View>
                                     <View style={{ flex: 1, justifyContent: 'space-around' }}>
-                                        {
-                                            lastScannedUrl ?
-                                                <View style={styles.textDivBottom}>
-                                                    {lastScannedUrl === null && <View>
-                                                        <Text>Scan Barcode</Text>
-                                                    </View>}
-                                                    {lastScannedUrl !== null &&
-                                                        <WebView
-                                                            source={{
-                                                                uri: lastScannedUrl,
-                                                            }}
-                                                            onNavigationStateChange={(state) => this.function(state)}
-                                                            startInLoadingState
-                                                            scalesPageToFit={true}
-                                                            javaScriptEnabled
-                                                            style={{ flex: 1, height: Dimensions.get('screen').height / 2, width: Dimensions.get('window').width, }}
-                                                        />}
-                                                </View>
-                                                :
-                                                <View>
-                                                    <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>
-                                                        {'Image Icon'}
-                                                    </Text>
-                                                </View>
-                                        }
+                                        <View style={{ alignSelf: 'center' }}>
+                                            <Image
+                                                source={logo}
+                                            />
+                                        </View>
+                                        <View style={{ alignItems: 'center' }}>
+                                            <TouchableOpacity
+                                                onPress={() => this.setState({ barcode: true, button: false })}
+                                                activeOpacity={0.7}
+                                            >
+                                                <Image
+                                                    source={scanLogo}
+                                                />
+                                            </TouchableOpacity>
+                                        </View>
                                         <View style={{ paddingVertical: 20 }}>
                                             <View style={{ alignItems: 'center', marginVertical: 10 }}>
-                                                <TouchableOpacity onPress={() => this.setState({ recordVideo: true })} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#77d8c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                                <TouchableOpacity
+                                                    onPress={lastScannedUrl ? () => this.recordAsync() : null}
+                                                    activeOpacity={lastScannedUrl ? 0.7 : 1}
+                                                    style={{
+                                                        width: '70%',
+                                                        backgroundColor: lastScannedUrl ? '#77d8c5' : '#b5b0b0',
+                                                        borderColor: lastScannedUrl ? '#77d8c5' : '#b5b0b0',
+                                                        borderWidth: 1,
+                                                        paddingVertical: 2,
+                                                        borderRadius: 10
+                                                    }}>
                                                     <View>
                                                         <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
                                                             {'SAVE'}
@@ -271,7 +291,17 @@ class Scan extends React.Component {
                                                 </TouchableOpacity>
                                             </View>
                                             <View style={{ alignItems: 'center', marginVertical: 10 }}>
-                                                <TouchableOpacity onPress={() => this.setState({ recordVideo: true })} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#77d8c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                                <TouchableOpacity
+                                                    onPress={lastScannedUrl ? () => this.recordAsync() : null}
+                                                    activeOpacity={lastScannedUrl ? 0.7 : 1}
+                                                    style={{
+                                                        width: '70%',
+                                                        backgroundColor: lastScannedUrl ? '#77d8c5' : '#b5b0b0',
+                                                        borderColor: lastScannedUrl ? '#77d8c5' : '#b5b0b0',
+                                                        borderWidth: 1,
+                                                        paddingVertical: 2,
+                                                        borderRadius: 10
+                                                    }}>
                                                     <View>
                                                         <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
                                                             {'Emergency'}
@@ -284,6 +314,12 @@ class Scan extends React.Component {
                                 </View>
                             }
                         </>
+                }
+                {
+                    loader &&
+                    <View style={{ position: 'absolute', bottom: '50%', left: '45%' }}>
+                        <ActivityIndicator size="large" color="#77d8c5" />
+                    </View>
                 }
             </View>
         );

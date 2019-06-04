@@ -30,10 +30,6 @@ export default class CameraExample extends React.Component {
         }
     }
 
-    setTimer() {
-
-    }
-
 
     takeFilm() {
         const { duration } = this.props
@@ -119,7 +115,7 @@ export default class CameraExample extends React.Component {
                     </View>
                     {
                         uri ?
-                            <View style={styles.btn}>
+                            <View style={[styles.btn, { paddingVertical: 5 }]}>
                                 <TouchableOpacity onPress={() => this.goBack()} style={styles.opacity3}>
                                     <Text style={{ textAlign: 'center' }}>Back</Text>
                                     {/* <Icon name='arrow-back' /> */}
@@ -134,7 +130,7 @@ export default class CameraExample extends React.Component {
                                 </TouchableOpacity>
                             </View>
                             :
-                            <View style={styles.btn}>
+                            <View style={[styles.btn, { paddingVertical: 5 }]}>
                                 <TouchableOpacity onPress={() => this.goBack()} style={styles.opacity2}>
                                     <Icon name='arrow-back' />
                                 </TouchableOpacity>
