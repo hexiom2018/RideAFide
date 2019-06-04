@@ -126,7 +126,7 @@ class Scan extends React.Component {
         }
         xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(`url=${lastScannedUrl}&approved=true&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}&video_log=${downloadUrl}`);
+        xhttp.send(`url=${lastScannedUrl}&approved=false&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}&video_log=${downloadUrl}`);
 
     }
 
@@ -189,11 +189,35 @@ class Scan extends React.Component {
         }
         xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(`url=${lastScannedUrl}&approved=true&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}`);
+        xhttp.send(`url=${lastScannedUrl}&approved=false&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}`);
 
         this.setState({ recordVideo: true })
     }
+    //For Save Button Direct Send the REquest
 
+    recordAsyncSave() {
+        const { email, currentLocation, lastScannedUrl } = this.state
+        this.setState({
+            button: false,
+            lastScannedUrl: null,
+            loader: false
+        })
+        Alert.alert(
+            'Success',
+            'Thanks for submit your feedback.',
+            [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+        );
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            console.log(this.response)
+        }
+        xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(`url=${lastScannedUrl}&approved=true&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}`);
+
+    }
 
     render() {
         const { barcode, lastScannedUrl, loader, recordVideo } = this.state
@@ -273,7 +297,7 @@ class Scan extends React.Component {
                                         <View style={{ paddingVertical: 20 }}>
                                             <View style={{ alignItems: 'center', marginVertical: 10 }}>
                                                 <TouchableOpacity
-                                                    onPress={lastScannedUrl ? () => this.recordAsync() : null}
+                                                    onPress={lastScannedUrl ? () => this.recordAsyncSave() : null}
                                                     activeOpacity={lastScannedUrl ? 0.7 : 1}
                                                     style={{
                                                         width: '70%',
