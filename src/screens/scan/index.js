@@ -126,7 +126,7 @@ class Scan extends React.Component {
         );
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            console.log(this.response,"video ky sath")
+            console.log(this.response, "video ky sath")
         }
         xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -189,7 +189,7 @@ class Scan extends React.Component {
 
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            console.log(this.response,"record ky button py ")
+            console.log(this.response, "record ky button py ")
         }
         xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -201,6 +201,11 @@ class Scan extends React.Component {
 
     recordAsyncSave() {
         const { email, currentLocation, lastScannedUrl } = this.state
+
+        console.log(email, 'email record')
+        console.log(currentLocation, 'currentLocation record')
+        console.log(lastScannedUrl, 'lastScannedUrl record')
+
         this.setState({
             // button: false,
             // lastScannedUrl: null,
@@ -215,7 +220,7 @@ class Scan extends React.Component {
         );
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            console.log(this.response,"response for direct safe")
+            console.log(this.response, "response for direct safe")
         }
         xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -248,7 +253,7 @@ class Scan extends React.Component {
                                                     onBarCodeRead={this._handleBarCodeRead}
                                                     style={[StyleSheet.absoluteFill, styles.container]}
                                                 >
-                                                    <Text style={styles.description}>Scan your QR</Text>
+                                                    <Text style={styles.description}>Scan RideAfide Emblem</Text>
                                                     <Image
                                                         style={styles.qr}
                                                         source={require('../../../assets/white.png')}
@@ -405,17 +410,17 @@ class Scan extends React.Component {
                                     </View>
 
                                     <View style={{ height: "70%", width: '100%', }}>
-                                       
-                                            <WebView
-                                                source={{
-                                                    uri: lastScannedUrl,
-                                                }}
-                                                onNavigationStateChange={(state) => this.function(state)}
-                                                startInLoadingState
-                                                scalesPageToFit={true}
-                                                javaScriptEnabled
-                                                style={{ flex: 1, height:100, width: Dimensions.get('window').width, }}
-                                            />
+
+                                        <WebView
+                                            source={{
+                                                uri: lastScannedUrl,
+                                            }}
+                                            onNavigationStateChange={(state) => this.function(state)}
+                                            startInLoadingState
+                                            scalesPageToFit={true}
+                                            javaScriptEnabled
+                                            style={{ flex: 1, height: 100, width: Dimensions.get('window').width, }}
+                                        />
 
                                     </View>
                                     <View style={{ flexDirection: 'row', backgroundColor: '#1C3136', height: '15%', justifyContent: 'space-evenly', alignItems: 'center' }}>
