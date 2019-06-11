@@ -6,9 +6,9 @@ import {
 import { Header, Icon } from 'react-native-elements';
 import { Constants, Location, BarCodeScanner, Permissions, Contacts } from 'expo';
 import firebase from '../../../Config/Firebase'
-import logo from '../../../assets/email/logo.png'
+import logo from '../../../assets/newlogo2/newlogo.png'
 import { AsyncStorage } from 'react-native';
-
+import UnderLine from "../../../assets/underline.png";
 
 
 class Splash extends React.Component {
@@ -17,13 +17,13 @@ class Splash extends React.Component {
         this.state = {
             welcomeText: [
                 {
-                    text: 'Click on the Proceed button to go to next page'
+                    text: 'Identify by scanning any rideshare drivers RideAfide emblem.'
                 },
                 {
-                    text: 'Enter your email and click on the save button'
+                    text: 'Verify your drivers vehicle, license plate & picture.'
                 },
                 {
-                    text: 'Scan the QR code and record a video maximum one minute'
+                    text: 'Notify your emergency contact through the app if you feel threatened or uncomfortable.'
                 }
             ],
             splash: false
@@ -103,10 +103,16 @@ class Splash extends React.Component {
                                 source={logo}
                             />
                         </View>
-                        <View style={{ paddingVertical: '7%' }}>
+                        <View style={{ paddingVertical: '3%', }}>
                             <Text style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center' }}>
-                                {'How to verify your ride'}
+                                {'How to verify your ride?'}
                             </Text>
+                        </View>
+                         <View style={{ height:2}}>
+                            <Image
+                                style={{ height: 7, width: '100%' }}
+                                source={UnderLine}
+                            />
                         </View>
                         <View style={{ justifyContent: 'center', flexGrow: 1 }}>
                             {

@@ -93,9 +93,7 @@ export default class CameraExample extends React.Component {
 
     render() {
         const { uri, cameraIsRecording, permissionsGranted, duration, timer } = this.state;
-        if (!this.state.permissionsGranted) {
-            return <View><Text>Camera permissions not granted</Text></View>
-        } else {
+      
             return (
                 <View style={{ flex: 1, position: 'relative' }}>
                     <View style={{ flex: 1 }}>
@@ -182,7 +180,7 @@ export default class CameraExample extends React.Component {
                     }
                 </View>)
         }
-    }
+    
 }
 
 const styles = StyleSheet.create({

@@ -263,7 +263,7 @@ class Email extends React.Component {
                             <TouchableOpacity onPress={this.Next} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
                                 <View>
                                     <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
-                                        {'SAVE'}
+                                        {'Proceed'}
                                     </Text>
                                 </View>
                             </TouchableOpacity>

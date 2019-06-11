@@ -13,6 +13,7 @@ const StackNavigator = createStackNavigator({
     Scan: {
         screen: Scan
     },
+  
 },
 );
 
