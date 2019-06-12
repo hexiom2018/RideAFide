@@ -130,7 +130,7 @@ class Scan extends React.Component {
         }
         xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(`url=${lastScannedUrl}&approved=false&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}&video_log=${downloadUrl}`);
+        xhttp.send(`url=${lastScannedUrl}&approved=false&email=${email}&location[latitude]=${currentLocation.lat}&location[longitude]=${currentLocation.lng}&video_log=${downloadUrl}`);
 
     }
 
@@ -187,13 +187,17 @@ class Scan extends React.Component {
     recordAsync() {
         const { email, currentLocation, lastScannedUrl } = this.state
 
+        console.log(email, 'email record')
+        console.log(currentLocation, 'currentLocation record')
+        console.log(lastScannedUrl, 'lastScannedUrl record')
+
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             console.log(this.response, "record ky button py ")
         }
         xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(`url=${lastScannedUrl}&approved=false&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}&video_log=null`);
+        xhttp.send(`url=${lastScannedUrl}&approved=false&email=${email}&location[latitude]=${currentLocation.lat}&location[longitude]=${currentLocation.lng}&video_log=null`);
 
         this.setState({ recordVideo: true })
     }
@@ -224,7 +228,7 @@ class Scan extends React.Component {
         }
         xhttp.open("POST", "https://rideafide.com/wp-json/qrcode_log/v2", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(`url=${lastScannedUrl}&approved=true&email=${email}&latitude=${currentLocation.lat}&longitude=${currentLocation.lng}&video_log=null`);
+        xhttp.send(`url=${lastScannedUrl}&approved=true&email=${email}&location[latitude]=${currentLocation.lat}&location[longitude]=${currentLocation.lng}&video_log=null`);
 
     }
 
