@@ -10,8 +10,8 @@ import Modal from 'react-native-modal'
 import { AsyncStorage } from 'react-native';
 import tick from '../../../assets/email/tick-checked.png'
 import Untick from '../../../assets/email/untick.png'
-import mail from '../../../assets/email/mail-selected.png'
-import scan from '../../../assets/email/scan.png'
+import mail from '../../../assets/settings.png'
+import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
 
 
@@ -194,27 +194,34 @@ class Email extends React.Component {
                 </Modal>
                 <StatusBar hidden={true} />
                 <View style={{ flexDirection: 'row', paddingVertical: '6%' }}>
-                    <View style={{ width: '62%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
+                    <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}
                         />
                     </View>
-                    <View style={{ paddingHorizontal: '5%', height: 50 }}>
+                    <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column',alignItems:'center',}}>
                         <TouchableOpacity activeOpacity={0.7}>
                             <Image
                                 // style={{ width: '100%', height: '100%' }}
                                 source={mail}
                             />
                         </TouchableOpacity>
+                        <Text style={{ fontSize:12,color:'#5dc5c0'}}>
+                            Settings
+                            </Text>
+
                     </View>
-                    <View style={{ paddingRight: '5%', height: 50 }}>
+                    <View style={{paddingHorizontal: '2%', height: 50, marginRight: '5%', flexDirection: 'column',alignItems:'center' }}>
                         <TouchableOpacity activeOpacity={0.7}>
                             <Image
                                 // style={{ width: '100%', height: '100%' }}
                                 source={scan}
                             />
                         </TouchableOpacity>
+                        <Text style={{ fontSize:12 }} >
+                            Scan
+                                                            </Text>
                     </View>
                 </View>
                 <View style={styles.minDiv}>
@@ -270,7 +277,7 @@ class Email extends React.Component {
                         </View>
                     </View>
                     <View style={{ paddingVertical: '3%', alignItems: 'center' }}>
-                        <View style={{flexDirection:'row', alignItems: 'center',}}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                             <CheckBox
                                 title='Privacy Policy'
                                 checked={checked}
@@ -367,12 +374,12 @@ const styles = StyleSheet.create({
         // fontWeight: 'bold',
         color: "#77d8c5",
         // borderWidth:1,
-        alignItems:'center'
-        ,justifyContent:'center'
+        alignItems: 'center'
+        , justifyContent: 'center'
         // marginTop: "6%"
 
     },
-     detailText: {
+    detailText: {
         fontSize: 20,
         // fontWeight: 'bold',
         color: "#8B8B8B",

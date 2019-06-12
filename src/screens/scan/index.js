@@ -9,8 +9,8 @@ import Web from '../WebView/webView'
 import CameraExample from '../../components/camera/Camera';
 import uuid from 'uuid'
 import firebase from '../../../Config/Firebase'
-import mail from '../../../assets/email/mail.png'
-import scan from '../../../assets/email/scan-selected.png'
+import mail from '../../../assets/settings.png'
+import scan from '../../../assets/Scan.png'
 import logo from '../../../assets//newlogo2/newlogo.png'
 import scanLogo from '../../../assets/email/scan.png'
 import { Camera, Constants } from 'expo';
@@ -260,7 +260,7 @@ class Scan extends React.Component {
                                                     <Text style={styles.description}>Scan RideAfide Emblem</Text>
                                                     <Image
                                                         style={styles.qr}
-                                                        source={require('../../../assets/white.png')}
+                                                        source={require('../../../assets/finalborder.png')}
                                                     />
 
                                                 </BarCodeScanner>
@@ -275,27 +275,8 @@ class Scan extends React.Component {
                                                 {'Ride A Fide'}
                                             </Text> */}
                                         </View>
-                                        {/* <View style={{ paddingRight: '5%', height: 50 }}>
-                                            <TouchableOpacity
-                                                // onPress={() => this.setState({ barcode: true, button: false })}
-                                                activeOpacity={0.7}>
-                                                <Image
-                                                    // style={{ width: '100%', height: '100%' }}
-                                                    source={History}
-                                                />
-                                            </TouchableOpacity>
-                                        </View>
-                                        <View style={{ paddingRight: '5%', height: 50 }}>
-                                            <TouchableOpacity
-                                                // onPress={() => this.setState({ barcode: true, button: false })}
-                                                activeOpacity={0.7}>
-                                                <Image
-                                                    // style={{ width: '100%', height: '100%' }}
-                                                    source={Setting}
-                                                />
-                                            </TouchableOpacity>
-                                        </View> */}
-                                        <View style={{ paddingHorizontal: '5%', height: 50 }}>
+
+                                        <View style={{ paddingHorizontal: '5%', height: 50, flexDirection: 'column', alignItems: 'center' }}>
                                             <TouchableOpacity
                                                 onPress={() => this.goback()}
                                                 activeOpacity={0.7}>
@@ -304,8 +285,11 @@ class Scan extends React.Component {
                                                     source={mail}
                                                 />
                                             </TouchableOpacity>
+                                            <Text style={{ fontSize: 12, }}>
+                                                Settings
+                                           </Text>
                                         </View>
-                                        <View style={{ paddingRight: '5%', height: 50 }}>
+                                        <View style={{ paddingHorizontal: '2%', height: 50, flexDirection: 'column', alignItems: 'center', borderWidth: 1, borderColor: "#5dc5c0", marginRight: '2%' }}>
                                             <TouchableOpacity
                                                 // onPress={() => this.setState({ barcode: true, button: false })}
                                                 activeOpacity={0.7}>
@@ -314,9 +298,12 @@ class Scan extends React.Component {
                                                     source={scan}
                                                 />
                                             </TouchableOpacity>
+                                            <Text style={{ fontSize: 12, color: '#5dc5c0' }} >
+                                                Scan
+                                             </Text>
                                         </View>
                                     </View>
-                                    <View style={{ height: 2 }}>
+                                    <View style={{ height: 2 ,marginTop:'1%'}}>
                                         <Image
                                             style={{ height: 7, width: '100%' }}
                                             source={UnderLine}
@@ -335,50 +322,20 @@ class Scan extends React.Component {
                                                 activeOpacity={0.7}
                                             >
                                                 <Image
-                                                    source={scanLogo}
+                                                    source={scan}
                                                 />
                                             </TouchableOpacity>
 
+                                            <Text style={{ fontSize: 18, color: '#5dc5c0',fontWeight:'bold',marginTop:'5%' }} >
+                                                Scan
+                                             </Text>
 
                                         </View>
                                         <View style={{ paddingVertical: 20 }}>
                                             <View style={{ alignItems: 'center', marginVertical: 10 }}>
-                                                {/* <TouchableOpacity
-                                                    onPress={lastScannedUrl ? () => this.recordAsyncSave() : null}
-                                                    activeOpacity={lastScannedUrl ? 0.7 : 1}
-                                                    style={{
-                                                        width: '70%',
-                                                        backgroundColor: lastScannedUrl ? '#77d8c5' : '#b5b0b0',
-                                                        borderColor: lastScannedUrl ? '#77d8c5' : '#b5b0b0',
-                                                        borderWidth: 1,
-                                                        paddingVertical: 2,
-                                                        borderRadius: 10
-                                                    }}>
-                                                    <View>
-                                                        <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
-                                                            {'SAVE'}
-                                                        </Text>
-                                                    </View>
-                                                </TouchableOpacity> */}
                                             </View>
                                             <View style={{ alignItems: 'center', marginVertical: 10 }}>
-                                                {/* <TouchableOpacity
-                                                    onPress={lastScannedUrl ? () => this.recordAsync() : null}
-                                                    activeOpacity={lastScannedUrl ? 0.7 : 1}
-                                                    style={{
-                                                        width: '70%',
-                                                        backgroundColor: lastScannedUrl ? '#77d8c5' : '#b5b0b0',
-                                                        borderColor: lastScannedUrl ? '#77d8c5' : '#b5b0b0',
-                                                        borderWidth: 1,
-                                                        paddingVertical: 2,
-                                                        borderRadius: 10
-                                                    }}>
-                                                    <View>
-                                                        <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
-                                                            {'Emergency'}
-                                                        </Text>
-                                                    </View>
-                                                </TouchableOpacity> */}
+
                                             </View>
                                         </View>
                                     </View>
