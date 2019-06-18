@@ -6,14 +6,14 @@ import LogIn from '../src/screens/authentication/LogIn'
 import SignUp from '../src/screens/authentication/SignUp'
 const StackNavigator = createStackNavigator({
 
+    Splash: {
+        screen: Splash
+    },
     LogIn:{
         screen:LogIn
     },
     SignUp:{
         screen:SignUp
-    },
-    Splash: {
-        screen: Splash
     },
     Email: {
         screen: Email

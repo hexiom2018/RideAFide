@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, KeyboardAvoidingView ,ActivityIndicator} from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Button from '../../components/button/Button'
 
@@ -7,66 +7,108 @@ class SignUp extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            FirstName: '',
-            LastName: '',
+            username: '',
             email: '',
-            address:'',
             password: '',
-            select: false,
-            loading:false
+            loading: false,
+            count: 0
         }
     }
 
-    create() {
-        const { email, password, FirstName, LastName, select,address} = this.state
-        var obj = {
-            email, password, FirstName, LastName,address, status: select ? 'Delivery user' : 'User'
+    _retrieveData = async (getData) => {
+        try {
+            const value = await AsyncStorage.getItem(getData);
+            if (value !== null) {
+                // We have data!!
+                return value
+            }
+        } catch (error) {
+            // Error retrieving data
         }
-        if (FirstName.length < 3 || LastName.length < 3) {
-            alert('Something went wrong')
+    };
+
+    _storeData = async (text, value) => {
+        try {
+            const store = await AsyncStorage.setItem(text, value);
+            return store
+        } catch (error) {
+            // Error saving data
+            console.log(error, 'error')
+        }
+    };
+
+    create() {
+        const { email, password, username } = this.state
+
+
+        if (username.length < 3) {
+            alert('username must be more than 3 characters')
         }
         else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
             alert('Invalid Email')
         }
         else if (password.length < 4) {
-            alert('Week Password')
-        }else if (address.length < 4) {
-            alert('Input complete Address')
+            alert('Weak Password')
         }
         else {
-            console.log('log');
             this.setState({
-                loading:true
+                loading: true,
             })
-            // this.props.userAuth(FirstName, LastName, email, password)
-            const { UserSignUp } = this.props.actions
+            var count = 0
+            const that = this
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
 
-            UserSignUp(obj).then(() => {
-                this.setState({
-                    alert: true,
-                    text: 'Registrering med succes'
-                })
-                const resetAction = StackActions.reset({
-                    index: 0,
-                    actions: [
-                        NavigationActions.navigate({ routeName: 'LogIn' }),
-                    ]
-                })
-                this.props.navigation.dispatch(resetAction)
-            }).catch((err) => {
-                console.log(err, 'error here')
-                alert(err)
-                this.setState({
-                    loading:false
-                })
-            })
+                if (this.status === 200 && !count) {
+                    count = 1
+                    console.log(this.response, 'this response')
+                    var myres = this.response.split(',')[0].slice(9)
+                    var token = myres.slice(0, myres.length - 1)
+                    console.log(token, 'token')
+                    // console.log(response, 'response')
+                    that._storeData('token', token).then(() => {
+                        that.props.navigation.navigate('Email')
+                        that.setState({
+                            loading: false
+                        })
+                    })
+                }
+
+                else if (this.status === 401 && !count) {
+                    count = 1
+                    Alert.alert(
+                        'Message',
+                        'User already exists',
+                        [
+                            { text: 'OK', onPress: () => console.log('OK Pressed') },
+                        ],
+                        { cancelable: false },
+                    )
+                    that.setState({ loading: false })
+                }
+                else if (!count && this.status === 500) {
+                    count = 1
+                    Alert.alert(
+                        'Message',
+                        'Something went wrong, Please try again later',
+                        [
+                            { text: 'OK', onPress: () => console.log('OK Pressed') },
+                        ],
+                        { cancelable: false },
+                    )
+                    that.setState({ loading: false })
+                }
+            }
+            xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/register", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(`username=${username}&password=${password}&email=${email}`);
         }
     }
 
     static navigationOptions = { header: null }
 
     render() {
-        const { email, password, FirstName, LastName, select,address,loading} = this.state
+        const { email, password, username, LastName, select, address, loading } = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', backgroundColor: '#3498db' }}>
 
@@ -75,16 +117,16 @@ class SignUp extends React.Component {
                         <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
                             <Text style={styles.heading}>Create Account</Text>
                             <View style={{ width: '90%' }} >
-                                <Text style={styles.text}>First Name</Text>
+                                <Text style={styles.text}>Username</Text>
                             </View>
                             <View style={styles.container}>
                                 <TextInput
-                                    value={FirstName}
-                                    onChangeText={e => this.setState({ FirstName: e })}
+                                    value={username}
+                                    onChangeText={e => this.setState({ username: e })}
                                     style={styles.input}
                                 />
                             </View>
-                            <View style={{ width: '90%' }} >
+                            {/* <View style={{ width: '90%' }} >
                                 <Text style={styles.text}>Last Name</Text>
                             </View>
                             <View style={styles.container}>
@@ -93,7 +135,7 @@ class SignUp extends React.Component {
                                     onChangeText={e => this.setState({ LastName: e })}
                                     style={styles.input}
                                 />
-                            </View>
+                            </View> */}
                             <View style={{ width: '90%' }} >
                                 <Text style={styles.text}>Email</Text>
                             </View>
@@ -104,7 +146,7 @@ class SignUp extends React.Component {
                                     style={styles.input}
                                 />
                             </View>
-                            <View style={{ width: '90%' }} >
+                            {/* <View style={{ width: '90%' }} >
                                 <Text style={styles.text}>Address</Text>
                             </View>
                             <View style={styles.container}>
@@ -113,7 +155,7 @@ class SignUp extends React.Component {
                                     onChangeText={e => this.setState({ address: e })}
                                     style={styles.input}
                                 />
-                            </View>
+                            </View> */}
                             <View style={{ width: '90%' }}>
                                 <Text style={styles.text}>Password</Text>
                             </View>
@@ -125,22 +167,22 @@ class SignUp extends React.Component {
                                     secureTextEntry={true}
                                 />
                             </View>
-                            <View style={{ width: '90%', marginTop: 10, }}>
+                            {/* <View style={{ width: '90%', marginTop: 10, }}>
                                 <Text onPress={() => this.setState({ select: false })} style={select ? { color: 'black', fontSize: 18, fontWeight: '300', paddingVertical: 8 } : { color: 'white', fontSize: 18, fontWeight: '400', borderColor: 'black', borderWidth: 1, paddingVertical: 8, paddingLeft: 4 }}>User</Text>
                             </View>
                             <View style={{ width: '90%', marginTop: 10, }}>
                                 <Text onPress={() => this.setState({ select: true })} style={select ? { color: 'white', fontSize: 18, fontWeight: '400', borderColor: 'black', borderWidth: 1, paddingVertical: 8, paddingLeft: 4 } : { color: 'black', fontSize: 18, fontWeight: '300', paddingVertical: 8 }}>Delivery Boy</Text>
-                            </View>
+                            </View> */}
                             <View style={styles.button}>
-                            {!loading &&
-                                <Button
-                                    color={true}
-                                    border={true}
-                                    name={'Create Account'}
-                                    background={true}
-                                    buttonAction={() => this.create()}
-                                    textColor={'white'}
-                                />}
+                                {!loading &&
+                                    <Button
+                                        color={true}
+                                        border={true}
+                                        name={'Create Account'}
+                                        background={true}
+                                        buttonAction={() => this.create()}
+                                        textColor={'white'}
+                                    />}
                                 {loading && <ActivityIndicator size="small" color="#00ff00" />}
                             </View>
                         </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, KeyboardAvoidingView ,ActivityIndicator} from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, AsyncStorage, ActivityIndicator } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Button from '../../components/button/Button'
 
@@ -8,44 +8,77 @@ class LogIn extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            email: '',
+            username: '',
             password: '',
             loading: false
         }
     }
 
     componentDidMount() {
-        
+
     }
 
+    _storeData = async (text, value) => {
+        try {
+            const store = await AsyncStorage.setItem(text, value);
+            return store
+        } catch (error) {
+            // Error saving data
+            console.log(error, 'error')
+        }
+    };
+
     LoginAction() {
-        console.log('=====');
 
-        const { email, password, } = this.state
-        if (email && password) {
+        var count = 0
+        const { username, password, } = this.state
+        if (username && password) {
             this.setState({
-                loading:true
+                loading: true
             })
-            const { Action } = this.props.actions
 
-            Action(email, password).then(() => {
-                alert('Login Success')
-                const resetAction = StackActions.reset({
-                    index: 0,
-                    actions: [
-                        NavigationActions.navigate({ routeName: 'Dashboard' }),
-                    ]
-                })
-                this.props.navigation.dispatch(resetAction)
-            }).catch((err) => {
-                alert(err)
-                this.setState({
-                    loading:false
-                })
-            })
+
+            let that = this
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                console.log(this.response, 'eeskdjbsak')
+
+                if (this.status === 200) {
+                    count = 1
+                    var myres = this.response.split(',').pop().slice(7)
+                    var token = myres.slice(0, myres.length - 2)
+
+                    that._storeData('token', token).then((store) => {
+                        console.log(store, 'stotre her')
+                        that.props.navigation.navigate('Email')
+                        that.setState({
+                            loading: false
+                        })
+                    })
+                }
+                else if (this.status === 401 && !count) {
+                    count = 1
+                    alert('Invalid Email Or Password')
+                }
+                else if (!count && this.status === 500) {
+                    count = 1
+                    alert('Something went wrong')
+                }
+                if (this.status) {
+                    that.setState({
+                        loading: false
+                    })
+                }
+            }
+            xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/login", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(`username=${username}&password=${password}`);
+
+
         } else {
             alert('Please Enter Valid Email And Password')
         }
+
     }
 
     createAccount() {
@@ -54,7 +87,7 @@ class LogIn extends React.Component {
 
     static navigationOptions = { header: null }
     render() {
-        const { email, password,loading } = this.state
+        const { username, password, loading } = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', backgroundColor: '#3498db' }}>
 
@@ -62,12 +95,12 @@ class LogIn extends React.Component {
                 {/* <KeyboardAvoidingView behavior={'padding'}> */}
                 <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
                     <View style={{ width: '90%' }} >
-                        <Text style={styles.text}>Email</Text>
+                        <Text style={styles.text}>Username</Text>
                     </View>
                     <View style={styles.container}>
                         <TextInput
-                            value={email}
-                            onChangeText={e => this.setState({ email: e })}
+                            value={username}
+                            onChangeText={e => this.setState({ username: e })}
                             style={styles.input}
                         />
                     </View>
@@ -83,7 +116,7 @@ class LogIn extends React.Component {
                         />
                     </View>
                     <View style={styles.button}>
-                     {!loading &&   <Button
+                        {!loading && <Button
                             color={true}
                             border={true}
                             name={'Log In'}

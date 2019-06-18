@@ -61,7 +61,14 @@ class Splash extends React.Component {
             console.log(user, 'user here')
             const { navigate } = this.props.navigation
             if (user) {
-                navigate('Email')
+                this._retrieveData('token').then((token) => {
+                    console.log(token, 'token')
+                    if (token) {
+                        navigate('Email')
+                    } else {
+                        navigate('LogIn')
+                    }
+                })
             } else {
                 this.setState({ splash: true })
                 this._storeData('true').then((store) => {
@@ -108,7 +115,7 @@ class Splash extends React.Component {
                                 {'How to verify your ride?'}
                             </Text>
                         </View>
-                         <View style={{ height:2}}>
+                        <View style={{ height: 2 }}>
                             <Image
                                 style={{ height: 7, width: '100%' }}
                                 source={UnderLine}
