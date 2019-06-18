@@ -7,9 +7,6 @@ import {
 } from 'react-native';
 import IconFont from 'react-native-vector-icons/FontAwesome'
 // import BackIcon from '../../../assets/back.png'
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { ForgetPasswordAction } from '../../Store/actions/authAction'
 import InputField from '../../components/inputField/InputField';
 import Button from '../../components/button/Button';
 import { Snackbar } from 'react-native-paper'
@@ -46,22 +43,50 @@ class ForgetPassword extends React.Component {
             loading: true
         })
         if (email) {
-            const { ForgetPasswordAction } = this.props.actions
-            ForgetPasswordAction(email).then(() => {
-                this.setState({
-                    alert: true,
-                    checkEmail: true,
-                    loading: false,
-                    text: 'Please check your email'
-                })
-            })
-                .catch((err) => {
-                    this.setState({
+
+            var count = 0
+            let that = this
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                console.log(this.response, 'eeskdjbsak')
+                if(this.status === 200 && !count) {
+                    count = 1
+                    that.setState({
                         alert: true,
-                        text: err.message,
+                        checkEmail: true,
                         loading: false,
+                        text: 'Please check your email'
                     })
-                })
+                }
+                else if(this.status === 401 && !count) {
+                    that.setState({
+                        alert: true,
+                        loading: false,
+                        text: 'A user with that email does not exist'
+                    })
+                }
+                else if(this.state && !count) {
+                    count = 1
+                    that.setState({
+                        alert: true,
+                        loading: false,
+                        text: 'Something went wrong'
+                    })
+                }
+
+            }
+            xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/reset_password", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(`user_login=${email}`);
+
+
+            
+            // this.setState({
+            //     alert: true,
+            //     text: err.message,
+            //     loading: false,
+            // })
+            
         } else {
             this.setState({
                 alert: true,
@@ -186,10 +211,10 @@ function mapStateToProps(states) {
 
 function mapDispatchToProps(dispatch) {
     return ({
-        actions: bindActionCreators({
-            ForgetPasswordAction
-        }, dispatch)
+        // actions: bindActionCreators({
+        //     ForgetPasswordAction
+        // }, dispatch)
     })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForgetPassword);
+export default ForgetPassword;
