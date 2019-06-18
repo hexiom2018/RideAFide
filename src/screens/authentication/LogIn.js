@@ -127,7 +127,7 @@ class LogIn extends React.Component {
                         />}
                         {loading && <ActivityIndicator size="small" color="#00ff00" />}
                     </View>
-                    {/* <Text onPress={() => this.props.navigation.navigate('ForgetPassword')} style={styles.forgot}>Forgot Password?</Text> */}
+                    <Text onPress={() => this.props.navigation.navigate('ForgetPassword')} style={styles.forgot}>Forgot Password?</Text>
                     <Text style={styles.create} onPress={() => this.createAccount()}>Create Account</Text>
                 </View>
                 {/* </KeyboardAvoidingView> */}
