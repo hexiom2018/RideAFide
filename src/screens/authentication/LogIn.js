@@ -2,7 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, AsyncStorage, ActivityIndicator } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Button from '../../components/button/Button'
-
+import tick from '../../../assets/email/tick-checked.png'
+import Untick from '../../../assets/email/untick.png'
+import mail from '../../../assets/settings.png'
+import scan from '../../../assets/Scan.png'
+import logo from '../../../assets/email/logo.png'
 
 class LogIn extends React.Component {
     constructor(props) {

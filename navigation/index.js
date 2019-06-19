@@ -5,10 +5,12 @@ import Splash from '../src/screens/splash/Splash';
 import LogIn from '../src/screens/authentication/LogIn'
 import SignUp from '../src/screens/authentication/SignUp'
 import ForgetPassword from '../src/screens/authentication/forgetPassword'
-
+import UpdatePassword from '../src/screens/authentication/UpdatePassword'
 
 const StackNavigator = createStackNavigator({
-
+    UpdatePassword:{
+        screen:UpdatePassword
+    },
     Splash: {
         screen: Splash
     },
