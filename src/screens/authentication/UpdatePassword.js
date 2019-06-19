@@ -20,6 +20,8 @@ class UpdatePassword extends React.Component {
         super(props);
         this.state = {
             email: '',
+            NewPassword: '',
+            OldPassword: '',
             isLocationModalVisible: false,
             appState: AppState.currentState
         };
@@ -31,19 +33,23 @@ class UpdatePassword extends React.Component {
     };
 
     componentDidMount() {
-       
-        this._retrieveData()
-        
-        
+
+        this._retrieveData('UserEmail')
+
+        this._retrieveData('token').then((token) => {
+            this.setState({ token })
+        })
+
     }
 
 
-    _retrieveData = async () => {
+    _retrieveData = async (text) => {
         try {
-            const value = await AsyncStorage.getItem('UserEmail');
+            const value = await AsyncStorage.getItem(text);
             if (value !== null) {
                 // We have data!!
                 console.log(value);
+                return value
                 // this.props.navigation.navigate('Scan', { value })
                 this.setState({
                     email: value
@@ -52,28 +58,34 @@ class UpdatePassword extends React.Component {
         } catch (error) {
             // Error retrieving data
         }
-    };
+    }
 
-   
- 
+
+
     Next = () => {
-        const { email, checked } = this.state
+        const { email, NewPassword, OldPassword, token } = this.state
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (email != null) {
-            if (!checked) {
-                alert('Please check Privacy Policy')
-            } else {
-                if (reg.test(this.state.email) === true) {
-                    this._storeData(email)
-                    // console.log("emil")
-                    // alert("");
+        if (email && NewPassword && OldPassword) {
+            if (reg.test(this.state.email) === true) {
+
+                var count = 0
+                let that = this
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    console.log(this.response, 'eeskdjbsak')
+
                 }
-                else {
-                    alert("Enter correct email ");
-                }
+                xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/change_password", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(`user_login=${email}&password=${NewPassword}&confirm_password=${NewPassword}&reset_key=${'234126'}`);
+
+
+            }
+            else {
+                alert("Enter correct email ");
             }
         } else {
-            alert("Enter the email")
+            alert("fill the empty fields")
         }
     }
 
@@ -91,15 +103,15 @@ class UpdatePassword extends React.Component {
         }
     };
 
-  
-    
+
+
 
     render() {
-        const { email,  NewPassword } = this.state
+        const { email, NewPassword, OldPassword } = this.state
 
         return (
             <View style={styles.main}>
-               
+
                 <StatusBar hidden={true} />
                 <View style={{ flexDirection: 'row', paddingVertical: '6%' }}>
                     <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
@@ -108,41 +120,41 @@ class UpdatePassword extends React.Component {
                             source={logo}
                         />
                     </View>
-                    <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column',alignItems:'center',}}>
+                    <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column', alignItems: 'center', }}>
                         <TouchableOpacity activeOpacity={0.7}>
                             <Image
                                 // style={{ width: '100%', height: '100%' }}
                                 source={mail}
                             />
                         </TouchableOpacity>
-                        <Text style={{ fontSize:12,color:'#5dc5c0'}}>
-                            Settings
-                            </Text>
+                        <Text style={{ fontSize: 12, color: '#5dc5c0' }}>
+                            {'Settings'}
+                        </Text>
 
                     </View>
-                    <View style={{paddingHorizontal: '2%', height: 50, marginRight: '5%', flexDirection: 'column',alignItems:'center' }}>
+                    <View style={{ paddingHorizontal: '2%', height: 50, marginRight: '5%', flexDirection: 'column', alignItems: 'center' }}>
                         <TouchableOpacity activeOpacity={0.7}>
                             <Image
                                 // style={{ width: '100%', height: '100%' }}
                                 source={scan}
                             />
                         </TouchableOpacity>
-                        <Text style={{ fontSize:12 }} >
-                            Scan
-                                                            </Text>
+                        <Text style={{ fontSize: 12 }} >
+                            {'Scan'}
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.minDiv}>
                     <View style={{
                         // borderWidth: 1,
                         // flex: 1,
-                        height: '25%',
+                        height: '15%',
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
                         <View style={{ width: '80%', }}>
 
-                        <Text style={{ textAlign: 'center', fontSize: 13, color: '#686868', fontWeight: '400',justifyContent:'center'}}>
+                            <Text style={{ textAlign: 'center', fontSize: 13, color: '#686868', fontWeight: '400', justifyContent: 'center' }}>
                                 {`Email:`}
                             </Text>
                             <TextInput
@@ -165,23 +177,57 @@ class UpdatePassword extends React.Component {
                             />
                         </View>
                     </View>
+
                     <View style={{
                         // borderWidth: 1,
                         // flex: 1,
-                        height: '25%',
+                        height: '15%',
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
-                        <View style={{ width: '80%',}}>
+                        <View style={{ width: '80%', }}>
 
-                        <Text style={{ textAlign: 'center', fontSize: 13, color: '#686868', fontWeight: 'bold',}}>
+                            <Text style={{ textAlign: 'center', fontSize: 13, color: '#686868', fontWeight: 'bold', }}>
+                                {`Password:`}
+                            </Text>
+                            <TextInput
+                                keyboardType={'email-address'}
+                                placeholder={'Enter Old Password here'}
+                                placeholderTextColor={'#686868'}
+                                onChangeText={(OldPassword) => this.setState({ OldPassword })}
+                                value={OldPassword}
+                                textContentType={'emailAddress'}
+                                style={{
+                                    borderWidth: 1,
+                                    color: '#6a6a6a',
+                                    borderColor: '#77d8c5',
+                                    textAlign: 'center',
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    borderRadius: 7,
+                                    fontStyle: 'italic'
+                                }}
+                            />
+                        </View>
+                    </View>
+
+                    <View style={{
+                        // borderWidth: 1,
+                        // flex: 1,
+                        height: '15%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        <View style={{ width: '80%', }}>
+
+                            <Text style={{ textAlign: 'center', fontSize: 13, color: '#686868', fontWeight: 'bold', }}>
                                 {`Password:`}
                             </Text>
                             <TextInput
                                 keyboardType={'email-address'}
                                 placeholder={'Enter Password here'}
                                 placeholderTextColor={'#686868'}
-                                onChangeText={(email) => this.setState({ NewPassword })}
+                                onChangeText={(NewPassword) => this.setState({ NewPassword })}
                                 value={NewPassword}
                                 textContentType={'emailAddress'}
                                 style={{
@@ -197,9 +243,11 @@ class UpdatePassword extends React.Component {
                             />
                         </View>
                     </View>
+
+
                     <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: '2%' }}>
                         <View style={{ alignItems: 'center' }}>
-                            
+
                         </View>
                         <View style={{ alignItems: 'center' }}>
                             <TouchableOpacity onPress={this.Next} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
@@ -212,7 +260,7 @@ class UpdatePassword extends React.Component {
                         </View>
                     </View>
                     <View style={{ paddingVertical: '3%', alignItems: 'center' }}>
-                       
+
                     </View>
                 </View>
             </View>
