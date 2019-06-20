@@ -8,11 +8,11 @@ import ForgetPassword from '../src/screens/authentication/forgetPassword'
 import UpdatePassword from '../src/screens/authentication/UpdatePassword'
 
 const StackNavigator = createStackNavigator({
+    LogIn: {
+        screen: Email
+    },
     UpdatePassword: {
         screen: UpdatePassword
-    },
-    LogIn: {
-        screen: LogIn
     },
     Splash: {
         screen: Splash
@@ -23,9 +23,9 @@ const StackNavigator = createStackNavigator({
     ForgetPassword: {
         screen: ForgetPassword
     },
-    Email: {
-        screen: Email
-    },
+    // Email: {
+    //     screen: Email
+    // },
     Scan: {
         screen: Scan
     },

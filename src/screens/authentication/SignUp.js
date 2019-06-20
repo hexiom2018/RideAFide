@@ -67,10 +67,13 @@ class SignUp extends React.Component {
                     console.log(token, 'token')
                     // console.log(response, 'response')
                     that._storeData('token', token).then(() => {
-                        that.props.navigation.navigate('Email')
+                        that.props.navigation.navigate('Scan')
                         that.setState({
                             loading: false
                         })
+                    })
+                    that._storeData('email', email).then(() => {
+
                     })
                 }
 

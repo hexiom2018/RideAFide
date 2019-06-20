@@ -75,9 +75,9 @@ class UpdatePassword extends React.Component {
                     console.log(this.response, 'eeskdjbsak')
 
                 }
-                xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/change_password", true);
+                xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/update_password", true);
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send(`user_login=${email}&password=${NewPassword}&confirm_password=${NewPassword}&reset_key=${'234126'}`);
+                xhttp.send(`username=${email}&password=${NewPassword}&old_password=${OldPassword}`);
 
 
             }
