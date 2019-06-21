@@ -66,7 +66,7 @@ class Splash extends React.Component {
                     if (token) {
                         navigate('Scan')
                     } else {
-                        navigate('Email')
+                        navigate('LogIn')
                     }
                 })
             } else {
