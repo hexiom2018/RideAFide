@@ -1,8 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Button from '../../components/button/Button'
-
+import tick from '../../../assets/email/tick-checked.png'
+import Untick from '../../../assets/email/untick.png'
+import mail from '../../../assets/settings.png'
+import scan from '../../../assets/Scan.png'
+import logo from '../../../assets/email/logo.png'
 class SignUp extends React.Component {
     constructor(props) {
         super(props)
@@ -67,7 +71,7 @@ class SignUp extends React.Component {
                     console.log(token, 'token')
                     // console.log(response, 'response')
                     that._storeData('token', token).then(() => {
-                        that.props.navigation.navigate('Scan')
+                        that.props.navigation.navigate('LogIn')
                         that.setState({
                             loading: false
                         })
@@ -113,21 +117,71 @@ class SignUp extends React.Component {
     render() {
         const { email, password, username, LastName, select, address, loading } = this.state
         return (
-            <View style={{ flex: 1, justifyContent: 'center', backgroundColor: '#3498db' }}>
+            <View style={{ flex: 1, justifyContent: 'center', }}>
+                <View style={{ flexDirection: 'row', paddingVertical: '6%' }}>
+                    <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
+                        <Image
+                            // style={{ width: 100, height: 100 }}
+                            source={logo}
+                        />
+                    </View>
+                    <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column', alignItems: 'center', }}>
+                        <TouchableOpacity activeOpacity={0.7}>
+                            <Image
+                                // style={{ width: '100%', height: '100%' }}
+                                source={mail}
+                            />
+                        </TouchableOpacity>
+                        <Text style={{ fontSize: 12, color: '#5dc5c0' }}>
+                            {'Settings'}
+                        </Text>
 
+                    </View>
+                    <View style={{ paddingHorizontal: '2%', height: 50, marginRight: '5%', flexDirection: 'column', alignItems: 'center' }}>
+                        <TouchableOpacity activeOpacity={0.7}>
+                            <Image
+                                // style={{ width: '100%', height: '100%' }}
+                                source={scan}
+                            />
+                        </TouchableOpacity>
+                        <Text style={{ fontSize: 12 }} >
+                            {'Scan'}
+                        </Text>
+                    </View>
+                </View>
                 <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
                     <ScrollView style={{ flex: 1, marginTop: 24 }} >
                         <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
                             <Text style={styles.heading}>Create Account</Text>
-                            <View style={{ width: '90%' }} >
+                            {/* <View style={{ width: '90%' }} >
                                 <Text style={styles.text}>Username</Text>
-                            </View>
+                            </View> */}
                             <View style={styles.container}>
-                                <TextInput
+                                {/* <TextInput
                                     value={username}
                                     onChangeText={e => this.setState({ username: e })}
                                     style={styles.input}
-                                />
+                                /> */}
+                                 <View style={{ width: '100%' }}>
+                                    <TextInput
+                                        keyboardType={'email-address'}
+                                        placeholder={'Enter User Name'}
+                                        placeholderTextColor={'#686868'}
+                                        onChangeText={e => this.setState({ username: e })}
+                                        value={username}
+                                        textContentType={'emailAddress'}
+                                        style={{
+                                            borderWidth: 1,
+                                            color: '#6a6a6a',
+                                            borderColor: '#77d8c5',
+                                            textAlign: 'center',
+                                            paddingHorizontal: 10,
+                                            paddingVertical: 10,
+                                            borderRadius: 7,
+                                            fontStyle: 'italic'
+                                        }}
+                                    />
+                                </View>
                             </View>
                             {/* <View style={{ width: '90%' }} >
                                 <Text style={styles.text}>Last Name</Text>
@@ -139,15 +193,35 @@ class SignUp extends React.Component {
                                     style={styles.input}
                                 />
                             </View> */}
-                            <View style={{ width: '90%' }} >
+                            {/* <View style={{ width: '90%' }} >
                                 <Text style={styles.text}>Email</Text>
-                            </View>
+                            </View> */}
                             <View style={styles.container}>
-                                <TextInput
+                                {/* <TextInput
                                     value={email}
                                     onChangeText={e => this.setState({ email: e })}
                                     style={styles.input}
-                                />
+                                /> */}
+                                <View style={{ width: '100%' }}>
+                                    <TextInput
+                                        keyboardType={'email-address'}
+                                        placeholder={'Enter email here'}
+                                        placeholderTextColor={'#686868'}
+                                        onChangeText={e => this.setState({ email: e })}
+                                        value={email}
+                                        textContentType={'emailAddress'}
+                                        style={{
+                                            borderWidth: 1,
+                                            color: '#6a6a6a',
+                                            borderColor: '#77d8c5',
+                                            textAlign: 'center',
+                                            paddingHorizontal: 10,
+                                            paddingVertical: 10,
+                                            borderRadius: 7,
+                                            fontStyle: 'italic'
+                                        }}
+                                    />
+                                </View>
                             </View>
                             {/* <View style={{ width: '90%' }} >
                                 <Text style={styles.text}>Address</Text>
@@ -159,34 +233,52 @@ class SignUp extends React.Component {
                                     style={styles.input}
                                 />
                             </View> */}
-                            <View style={{ width: '90%' }}>
+                            {/* <View style={{ width: '90%' }}>
                                 <Text style={styles.text}>Password</Text>
-                            </View>
+                            </View> */}
                             <View style={styles.container}>
-                                <TextInput
+                                {/* <TextInput
                                     value={password}
                                     onChangeText={e => this.setState({ password: e })}
                                     style={styles.input}
                                     secureTextEntry={true}
-                                />
+                                /> */}
+
+                                <View style={{ width: '100%' }}>
+                                    <TextInput
+                                        keyboardType={'ascii-capable'}
+                                        secureTextEntry={true}
+                                        placeholder={'Enter password here'}
+                                        placeholderTextColor={'#686868'}
+                                        onChangeText={e => this.setState({ password: e })}
+                                        value={password}
+                                        textContentType={'password'}
+                                        style={{
+                                            borderWidth: 1,
+                                            color: '#6a6a6a',
+                                            borderColor: '#77d8c5',
+                                            textAlign: 'center',
+                                            paddingHorizontal: 10,
+                                            paddingVertical: 10,
+                                            borderRadius: 7,
+                                            fontStyle: 'italic'
+                                        }}
+                                    />
+                                </View>
                             </View>
-                            {/* <View style={{ width: '90%', marginTop: 10, }}>
-                                <Text onPress={() => this.setState({ select: false })} style={select ? { color: 'black', fontSize: 18, fontWeight: '300', paddingVertical: 8 } : { color: 'white', fontSize: 18, fontWeight: '400', borderColor: 'black', borderWidth: 1, paddingVertical: 8, paddingLeft: 4 }}>User</Text>
-                            </View>
-                            <View style={{ width: '90%', marginTop: 10, }}>
-                                <Text onPress={() => this.setState({ select: true })} style={select ? { color: 'white', fontSize: 18, fontWeight: '400', borderColor: 'black', borderWidth: 1, paddingVertical: 8, paddingLeft: 4 } : { color: 'black', fontSize: 18, fontWeight: '300', paddingVertical: 8 }}>Delivery Boy</Text>
-                            </View> */}
-                            <View style={styles.button}>
-                                {!loading &&
-                                    <Button
-                                        color={true}
-                                        border={true}
-                                        name={'Create Account'}
-                                        background={true}
-                                        buttonAction={() => this.create()}
-                                        textColor={'white'}
-                                    />}
-                                {loading && <ActivityIndicator size="small" color="#00ff00" />}
+
+                            <View style={{ alignItems: 'center', width: '90%' }}>
+                                <TouchableOpacity onPress={() => this.create()} activeOpacity={0.7} style={{ width: '90%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                    {
+                                        !loading &&
+                                        <View>
+                                            <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
+                                                {'Create Account'}
+                                            </Text>
+                                        </View>
+                                    }
+                                    {loading && <ActivityIndicator size="small" color="#00ff00" />}
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </ScrollView>
@@ -198,17 +290,17 @@ class SignUp extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
-        borderRadius: 4,
+        // backgroundColor: 'white',
+        // borderRadius: 4,
         width: '90%',
-        shadowOffset: {
-            width: 3,
-            height: 3,
-        },
-        shadowOpacity: 0.51,
-        shadowRadius: 4.16,
-        elevation: 5,
-        shadowColor: 'grey',
+        // shadowOffset: {
+        //     width: 3,
+        //     height: 3,
+        // },
+        // shadowOpacity: 0.51,
+        // shadowRadius: 4.16,
+        // elevation: 5,
+        // shadowColor: 'grey',
         marginTop: 10,
         marginBottom: 20,
         alignItems: "center",
@@ -235,7 +327,7 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 24,
         fontWeight: '600',
-        color: "white",
+        // color: "#77d8c5",
         paddingVertical: 20
     },
     create: {
