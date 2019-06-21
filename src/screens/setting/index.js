@@ -185,14 +185,14 @@ class Setting extends React.Component {
                 </View>
                 <View style={styles.minDiv}>
 
-                    <View style={{ alignItems: 'center' }}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ForgetPassword')}>
-                            <View style={{ paddingVertical: 10 }}>
+                    <View style={{ justifyContent:'flex-start' }}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('UpdatePassword')}>
+                            <View style={{ paddingVertical: 10, borderBottomColor:'black',borderBottomWidth:1 }}>
                                 <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Update Password?</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ForgetPassword')}>
-                            <View style={{ paddingVertical: 10 }}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')}>
+                            <View style={{ paddingVertical: 10 , borderBottomColor:'black',borderBottomWidth:1 }}>
                                 <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Logout</Text>
                             </View>
                         </TouchableOpacity>
