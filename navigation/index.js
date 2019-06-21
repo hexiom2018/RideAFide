@@ -6,6 +6,7 @@ import LogIn from '../src/screens/authentication/LogIn'
 import SignUp from '../src/screens/authentication/SignUp'
 import ForgetPassword from '../src/screens/authentication/forgetPassword'
 import UpdatePassword from '../src/screens/authentication/UpdatePassword'
+import Setting from  '../src/screens/setting'
 
 const StackNavigator = createStackNavigator({
     LogIn: {
@@ -23,9 +24,9 @@ const StackNavigator = createStackNavigator({
     ForgetPassword: {
         screen: ForgetPassword
     },
-    // Email: {
-    //     screen: Email
-    // },
+    Setting: {
+        screen: Setting
+    },
     Scan: {
         screen: Scan
     },

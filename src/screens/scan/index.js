@@ -170,7 +170,7 @@ class Scan extends React.Component {
     goback() {
         const { navigate } = this.props.navigation
 
-        navigate('Email')
+        navigate('Setting')
     }
 
     getUri(uri) {
