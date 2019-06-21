@@ -9,14 +9,14 @@ import UpdatePassword from '../src/screens/authentication/UpdatePassword'
 import Setting from  '../src/screens/setting'
 
 const StackNavigator = createStackNavigator({
+    Splash: {
+        screen: Splash
+    },
     LogIn: {
         screen: Email
     },
     UpdatePassword: {
         screen: UpdatePassword
-    },
-    Splash: {
-        screen: Splash
     },
     SignUp: {
         screen: SignUp
