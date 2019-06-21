@@ -288,7 +288,7 @@ class Email extends React.Component {
                         <View style={{ width: '80%' }}>
                             <TextInput
                                 keyboardType={'email-address'}
-                                placeholder={'Enter email here'}
+                                placeholder={'Enter user name here'}
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(username) => this.setState({ username })}
                                 value={username}
