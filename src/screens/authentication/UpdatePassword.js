@@ -65,25 +65,24 @@ class UpdatePassword extends React.Component {
     Next = () => {
         const { email, NewPassword, OldPassword, token } = this.state
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        console.log(token,'ye token ahra hy ')
         if (email && NewPassword && OldPassword) {
-            if (reg.test(this.state.email) === true) {
+            
 
                 var count = 0
                 let that = this
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
-                    console.log(this.response, 'eeskdjbsak')
+                    console.log(this.response, 'ye ajye to kam hoga ')
 
                 }
                 xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/update_password", true);
+                xhttp.setRequestHeader("Authorization", 'Bearer ' + token);
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhttp.send(`username=${email}&password=${NewPassword}&old_password=${OldPassword}`);
 
 
-            }
-            else {
-                alert("Enter correct email ");
-            }
+           
         } else {
             alert("fill the empty fields")
         }
@@ -155,11 +154,11 @@ class UpdatePassword extends React.Component {
                         <View style={{ width: '80%', }}>
 
                             <Text style={{ textAlign: 'center', fontSize: 13, color: '#686868', fontWeight: '400', justifyContent: 'center' }}>
-                                {`Email:`}
+                                {`User-Name:`}
                             </Text>
                             <TextInput
                                 keyboardType={'email-address'}
-                                placeholder={'Enter email here'}
+                                placeholder={'Enter User name here'}
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(email) => this.setState({ email })}
                                 value={email}
@@ -196,7 +195,7 @@ class UpdatePassword extends React.Component {
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(OldPassword) => this.setState({ OldPassword })}
                                 value={OldPassword}
-                                textContentType={'emailAddress'}
+                                textContentType={'password'}
                                 style={{
                                     borderWidth: 1,
                                     color: '#6a6a6a',
@@ -229,7 +228,7 @@ class UpdatePassword extends React.Component {
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(NewPassword) => this.setState({ NewPassword })}
                                 value={NewPassword}
-                                textContentType={'emailAddress'}
+                                textContentType={'password'}
                                 style={{
                                     borderWidth: 1,
                                     color: '#6a6a6a',
