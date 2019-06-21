@@ -2,7 +2,7 @@ import React from 'react';
 import {
     View, Platform, Dimensions, AppState, Linking, Image,
     Text, StyleSheet, ActivityIndicator, TouchableOpacity, StatusBar, Button,
-    TextInput, KeyboardAvoidingView
+    TextInput, KeyboardAvoidingView,Alert
 } from 'react-native';
 import { Header, Input, CheckBox } from 'react-native-elements';
 import { Constants, Location, Permissions, Contacts, Notifications, IntentLauncherAndroid } from 'expo';
@@ -73,8 +73,16 @@ class UpdatePassword extends React.Component {
                 let that = this
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
-                    console.log(this.response, 'ye ajye to kam hoga ')
-
+                    console.log(this.status, 'ye ajye to kam hoga ')
+                    if (this.status === 200) {
+                        Alert.alert(
+                            'Sucess',
+                            'Password is sucessfully  change',
+                            [
+                              {text: 'OK', onPress: () => that.props.navigation.navigate('Scan')},
+                            ],
+                          );
+                    }
                 }
                 xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/update_password", true);
                 xhttp.setRequestHeader("Authorization", 'Bearer ' + token);

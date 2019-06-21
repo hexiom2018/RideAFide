@@ -70,65 +70,33 @@ class Setting extends React.Component {
         }
     };
 
+    goback() {
+        const { navigate } = this.props.navigation
 
-
-
-
-
-    LoginAction() {
-
-        var count = 0
-        const { username, password, } = this.state
-        if (username && password) {
-            this.setState({
-                loading: true
-            })
-
-
-            let that = this
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                console.log(this.response, 'eeskdjbsak')
-
-                if (this.status === 200) {
-                    count = 1
-                    var myres = this.response.split(',').pop().slice(7)
-                    var token = myres.slice(0, myres.length - 2)
-
-                    that._storeData('token', token).then((store) => {
-                        that.props.navigation.navigate('Scan')
-                        that.setState({
-                            loading: false
-                        })
-                        that._storeData('email', email).then(() => {
-
-                        })
-                    })
-                }
-                else if (this.status === 401 && !count) {
-                    count = 1
-                    alert('Invalid Email Or Password')
-                }
-                else if (!count && this.status === 500) {
-                    count = 1
-                    alert('Something went wrong')
-                }
-                if (this.status) {
-                    that.setState({
-                        loading: false
-                    })
-                }
-            }
-            xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/login", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send(`username=${username}&password=${password}`);
-
-
-        } else {
-            alert('Please Enter Valid Email And Password')
-        }
-
+        navigate('Scan')
     }
+
+    Logout() {
+        const { navigate } = this.props.navigation
+        // this.removeItemValue()
+        AsyncStorage.removeItem('token')
+        navigate('LogIn')
+    }
+
+    removeItemValue = async () => {
+        try {
+            await AsyncStorage.removeItem(key, 'token');
+            return true
+        }
+        catch (exception) {
+            return false;
+        }
+    }
+
+
+
+
+
     goback() {
         const { navigate } = this.props.navigation
 
@@ -185,14 +153,14 @@ class Setting extends React.Component {
                 </View>
                 <View style={styles.minDiv}>
 
-                    <View style={{ justifyContent:'flex-start' }}>
+                    <View style={{ justifyContent: 'flex-start' }}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('UpdatePassword')}>
-                            <View style={{ paddingVertical: 10, borderBottomColor:'black',borderBottomWidth:1 }}>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1 }}>
                                 <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Update Password?</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')}>
-                            <View style={{ paddingVertical: 10 , borderBottomColor:'black',borderBottomWidth:1 }}>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1 }}>
                                 <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Logout</Text>
                             </View>
                         </TouchableOpacity>
