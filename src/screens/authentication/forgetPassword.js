@@ -162,7 +162,8 @@ class ForgetPassword extends React.Component {
                                     keyboardType={'email-address'}
                                     placeholder={'Enter email here'}
                                     placeholderTextColor={'#686868'}
-                                    change={(value) => this.onChange(value, 'email')}
+                                    // change={(value) => this.onChange(value, 'email')}
+                                    onChangeText={(email) => this.setState({ email })}
                                     // value={username}
                                     textContentType={'emailAddress'}
                                     style={{
@@ -216,12 +217,12 @@ class ForgetPassword extends React.Component {
                 >
                     {text}
                 </Snackbar>
-                <View style={{ position: 'absolute', bottom: '50%', left: '45%' }}>
+                {/* <View style={{ position: 'absolute', bottom: '50%', left: '45%' }}>
                     {
                         loading &&
                         <ActivityIndicator size="large" color="blue" />
                     }
-                </View>
+                </View> */}
             </KeyboardAvoidingView >
         )
     }
