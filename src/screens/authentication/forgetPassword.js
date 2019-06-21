@@ -112,14 +112,14 @@ class ForgetPassword extends React.Component {
 
 
             <KeyboardAvoidingView style={{ flex: 1, position: 'relative', }} behavior={'padding'} enabled>
-                <View style={{ flexDirection: 'row', paddingVertical: '6%' }}>
+                <View style={{ flexDirection: 'row', paddingVertical: '6%',justifyContent: 'center' }}>
                     <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}
                         />
                     </View>
-                    <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column', alignItems: 'center', }}>
+                    {/* <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column', alignItems: 'center', }}>
                         <TouchableOpacity activeOpacity={0.7}>
                             <Image
                                 // style={{ width: '100%', height: '100%' }}
@@ -130,8 +130,8 @@ class ForgetPassword extends React.Component {
                             {'Settings'}
                         </Text>
 
-                    </View>
-                    <View style={{ paddingHorizontal: '2%', height: 50, marginRight: '5%', flexDirection: 'column', alignItems: 'center' }}>
+                    </View> */}
+                    {/* <View style={{ paddingHorizontal: '2%', height: 50, marginRight: '5%', flexDirection: 'column', alignItems: 'center' }}>
                         <TouchableOpacity activeOpacity={0.7}>
                             <Image
                                 // style={{ width: '100%', height: '100%' }}
@@ -141,7 +141,7 @@ class ForgetPassword extends React.Component {
                         <Text style={{ fontSize: 12 }} >
                             {'Scan'}
                         </Text>
-                    </View>
+                    </View> */}
                 </View>
                 <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingVertical: 40 }}>
                     <View>
