@@ -76,9 +76,6 @@ class SignUp extends React.Component {
                             loading: false
                         })
                     })
-                    that._storeData('email', email).then(() => {
-
-                    })
                 }
 
                 else if (this.status === 401 && !count) {

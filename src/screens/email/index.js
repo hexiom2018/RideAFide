@@ -193,13 +193,13 @@ class Email extends React.Component {
                     var myres = this.response.split(',').pop().slice(7)
                     var token = myres.slice(0, myres.length - 2)
 
+                    that._storeData('email', username).then(() => {
+
+                    })
                     that._storeData('token', token).then((store) => {
                         that.props.navigation.navigate('Scan')
                         that.setState({
                             loading: false
-                        })
-                        that._storeData('email', email).then(() => {
-
                         })
                     })
                 }

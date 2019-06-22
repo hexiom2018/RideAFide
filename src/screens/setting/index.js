@@ -80,22 +80,9 @@ class Setting extends React.Component {
         const { navigate } = this.props.navigation
         // this.removeItemValue()
         AsyncStorage.removeItem('token')
+        AsyncStorage.removeItem('userEmail')
         navigate('LogIn')
     }
-
-    removeItemValue = async () => {
-        try {
-            await AsyncStorage.removeItem(key, 'token');
-            return true
-        }
-        catch (exception) {
-            return false;
-        }
-    }
-
-
-
-
 
     goback() {
         const { navigate } = this.props.navigation
@@ -159,7 +146,7 @@ class Setting extends React.Component {
                                 <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Update Password?</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')}>
+                        <TouchableOpacity onPress={() => this.Logout()}>
                             <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1 }}>
                                 <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Logout</Text>
                             </View>

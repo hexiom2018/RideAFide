@@ -52,6 +52,10 @@ class LogIn extends React.Component {
                     var myres = this.response.split(',').pop().slice(7)
                     var token = myres.slice(0, myres.length - 2)
 
+                    that._storeData('email', toString(username)).then(() => {
+
+                    })
+
                     that._storeData('token', token).then((store) => {
                         console.log(store, 'stotre her')
                         that.props.navigation.navigate('Email')
@@ -59,6 +63,7 @@ class LogIn extends React.Component {
                             loading: false
                         })
                     })
+
                 }
                 else if (this.status === 401 && !count) {
                     count = 1

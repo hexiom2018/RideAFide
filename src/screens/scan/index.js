@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    View, ScrollView, Image, LayoutAnimation, Text, StyleSheet, TouchableOpacity,
+    View, ScrollView, Image, LayoutAnimation, Text, StyleSheet, TouchableOpacity, AsyncStorage,
     TextInput, StatusBar, Platform, Dimensions, ActivityIndicator, Linking, WebView, Alert
 } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
@@ -36,15 +36,33 @@ class Scan extends React.Component {
         header: null
     };
 
+    _retrieveData = async (getData) => {
+        try {
+            const value = await AsyncStorage.getItem(getData);
+            if (value !== null) {
+                // We have data!!
+                return value
+            }
+        } catch (error) {
+            // Error retrieving data
+        }
+    };
+
     componentDidMount() {
         const { navigation, } = this.props
-        const email = navigation.getParam('email')
-        console.log(email, '>>>>email')
-        if (email) {
-            this.setState({
-                email,
-            })
-        }
+        // const email = navigation.getParam('email')
+        // console.log(email, '>>>>email')
+
+        this._retrieveData('email').then((email) => {
+            console.log(email, 'email from localstorage')
+            if (email) {
+                this.setState({
+                    email,
+                })
+            }
+        })
+
+
         this._requestCameraPermission();
         this._getLocationAsync();
 
@@ -109,6 +127,8 @@ class Scan extends React.Component {
             );
         }
     }
+
+
 
     Submit = (downloadUrl) => {
         const { email, currentLocation, lastScannedUrl } = this.state
@@ -303,7 +323,7 @@ class Scan extends React.Component {
                                              </Text>
                                         </View>
                                     </View>
-                                    <View style={{ height: 2 ,marginTop:'1%'}}>
+                                    <View style={{ height: 2, marginTop: '1%' }}>
                                         <Image
                                             style={{ height: 7, width: '100%' }}
                                             source={UnderLine}
@@ -326,7 +346,7 @@ class Scan extends React.Component {
                                                 />
                                             </TouchableOpacity>
 
-                                            <Text style={{ fontSize: 18, color: '#5dc5c0',fontWeight:'bold',marginTop:'5%' }} >
+                                            <Text style={{ fontSize: 18, color: '#5dc5c0', fontWeight: 'bold', marginTop: '5%' }} >
                                                 Scan
                                              </Text>
 
