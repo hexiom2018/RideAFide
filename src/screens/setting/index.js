@@ -94,18 +94,7 @@ class Setting extends React.Component {
 
         return (
             <View style={styles.main}>
-                <Modal
-                    onModalHide={openSetting ? this.openSetting : undefined}
-                    isVisible={this.state.isLocationModalVisible}>
-                    <View style={{ flex: 1, justifyContent: 'center' }}>
 
-                        <Button title='Enabel Location Services' onPress={() => this.setState({
-                            isLocationModalVisible: false, openSetting: true
-                        })}>
-
-                        </Button>
-                    </View>
-                </Modal>
                 <StatusBar hidden={true} />
                 <View style={{ flexDirection: 'row', paddingVertical: '6%', justifyContent: 'center' }}>
                     <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
@@ -138,19 +127,144 @@ class Setting extends React.Component {
                         </Text>
                     </View>
                 </View>
+                <TouchableOpacity activeOpacity={0.7} style={{ width: '95%', backgroundColor: '#807E81', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginLeft: 3 }}>
+                    <View>
+                        <Text style={{ textAlign: 'center', fontSize: 20, color: '#77d8c5' }}>
+                            {'Settings'}
+                        </Text>
+                    </View>
+                </TouchableOpacity>
                 <View style={styles.minDiv}>
 
                     <View style={{ justifyContent: 'flex-start' }}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('UpdatePassword')}>
-                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1 }}>
-                                <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Update Password?</Text>
+                    
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
+                                <View style={{  width: '50%',}}>
+
+                                    <Text style={{ color: '#000000',   fontSize: 16}}>Profile Details</Text>
+                                </View>
+                                <View style={{  width: '50%', alignItems:'flex-end'}}>
+
+                                    {/* <Text style={{ color: '#6a6a6a', fontSize: 20,  paddingRight:4}}>></Text> */}
+                                </View>
                             </View>
+                          
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
+                                <View style={{  width: '80%',}}>
+
+                                    <Text style={{ color: '#000000',   fontSize: 16}}>Emergency Constants</Text>
+                                </View>
+                                <View style={{  width: '20%', alignItems:'flex-end'}}>
+
+                                    <Text style={{ color: '#000000', fontSize: 20,  paddingRight:4}}>></Text>
+                                </View>
+                            </View>
+                            {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
+                            </View> */}
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
+                                <View style={{  width: '50%',}}>
+
+                                    <Text style={{ color: '#000000',   fontSize: 16}}>Scan History</Text>
+                                </View>
+                                <View style={{  width: '50%', alignItems:'flex-end'}}>
+
+                                    <Text style={{ color: '#000000', fontSize: 20,  paddingRight:4}}>></Text>
+                                </View>
+                            </View>
+                            {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
+                            </View> */}
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
+                                <View style={{  width: '50%',}}>
+
+                                    <Text style={{ color: '#000000',   fontSize: 16}}>About Us</Text>
+                                </View>
+                                <View style={{  width: '50%', alignItems:'flex-end'}}>
+
+                                    <Text style={{ color: '#000000', fontSize: 20,  paddingRight:4}}>></Text>
+                                </View>
+                            </View>
+                            {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
+                            </View> */}
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
+                                <View style={{  width: '90%',}}>
+
+                                    <Text style={{ color: '#000000',   fontSize: 16}}>{`Terms & Conditions / Privacy Policy`}</Text>
+                                </View>
+                                <View style={{  width: '10%', alignItems:'flex-end'}}>
+
+                                    <Text style={{ color: '#000000', fontSize: 20,  paddingRight:4}}>></Text>
+                                </View>
+                            </View>
+                            {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
+                            </View> */}
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('UpdatePassword')}>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
+                                <View style={{  width: '50%',}}>
+
+                                    <Text style={{ color: '#000000',   fontSize: 16}}>Change Password</Text>
+                                </View>
+                                <View style={{  width: '50%', alignItems:'flex-end'}}>
+
+                                    <Text style={{ color: '#000000', fontSize: 20,  paddingRight:4}}>></Text>
+                                </View>
+                            </View>
+                            {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
+                            </View> */}
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
+                                <View style={{  width: '50%',}}>
+
+                                    <Text style={{ color: '#000000',   fontSize: 16}}>Contact Us</Text>
+                                </View>
+                                <View style={{  width: '50%', alignItems:'flex-end'}}>
+
+                                    <Text style={{ color: '#000000', fontSize: 20,  paddingRight:4}}>></Text>
+                                </View>
+                            </View>
+                            {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
+                            </View> */}
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
+                                <View style={{  width: '50%',}}>
+
+                                    <Text style={{ color: '#000000',   fontSize: 16}}>App Version</Text>
+                                </View>
+                                <View style={{  width: '50%', alignItems:'flex-end'}}>
+
+                                    <Text style={{ color: '#000000', fontSize: 18,  paddingRight:4}}>1.0.1</Text>
+                                </View>
+                            </View>
+                            {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
+                            </View> */}
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.Logout()}>
-                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1 }}>
-                                <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Logout</Text>
+                            <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
+                                <View style={{  width: '50%',}}>
+
+                                    <Text style={{ color: '#000000',   fontSize: 16}}>Logout</Text>
+                                </View>
+                                <View style={{  width: '50%', alignItems:'flex-end'}}>
+
+                                    <Text style={{ color: '#000000', fontSize: 20,  paddingRight:4}}>></Text>
+                                </View>
                             </View>
+                            {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
+                            </View> */}
                         </TouchableOpacity>
+                        
                     </View>
 
 
@@ -165,11 +279,19 @@ class Setting extends React.Component {
 const styles = StyleSheet.create({
     main: {
         flex: 1,
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        borderColor: '#807E81',
+        borderWidth: 2,
     },
     minDiv: {
         flex: 1,
         flexDirection: 'column',
+        borderColor: '#807E81',
+        borderWidth: 1,
+        margin: 1,
+        paddingHorizontal: 1,
+        backgroundColor: '#D9D9D9',
+        marginBottom:4
     },
     Email: {
         // borderWidth: 1,
