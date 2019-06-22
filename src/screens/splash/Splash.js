@@ -9,7 +9,7 @@ import firebase from '../../../Config/Firebase'
 import logo from '../../../assets/newlogo2/newlogo.png'
 import { AsyncStorage } from 'react-native';
 import UnderLine from "../../../assets/underline.png";
-
+import { StackActions, NavigationActions } from 'react-navigation';
 
 class Splash extends React.Component {
     constructor(props) {
@@ -64,9 +64,24 @@ class Splash extends React.Component {
                 this._retrieveData('token').then((token) => {
                     console.log(token, 'token')
                     if (token) {
-                        navigate('Scan')
+                        // navigate('Scan')
+                        const resetAction = StackActions.reset({
+                            index: 0,
+                            actions: [
+                                NavigationActions.navigate({ routeName: 'Scan' }),
+                            ]
+                        })
+                        this.props.navigation.dispatch(resetAction)
+            
                     } else {
-                        navigate('LogIn')
+                        // navigate('LogIn')
+                        const resetAction = StackActions.reset({
+                            index: 0,
+                            actions: [
+                                NavigationActions.navigate({ routeName: 'LogIn' }),
+                            ]
+                        })
+                        this.props.navigation.dispatch(resetAction)
                     }
                 })
             } else {
