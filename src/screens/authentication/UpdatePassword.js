@@ -166,7 +166,7 @@ class UpdatePassword extends React.Component {
                             </Text>
                             <TextInput
                                 keyboardType={'email-address'}
-                                placeholder={'Enter User name here'}
+                                placeholder={'Enter User name '}
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(email) => this.setState({ email })}
                                 value={email}
@@ -199,10 +199,11 @@ class UpdatePassword extends React.Component {
                             </Text>
                             <TextInput
                                 keyboardType={'email-address'}
-                                placeholder={'Enter Old Password here'}
+                                placeholder={'Enter Old Password '}
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(OldPassword) => this.setState({ OldPassword })}
                                 value={OldPassword}
+                                secureTextEntry={true}
                                 textContentType={'password'}
                                 style={{
                                     borderWidth: 1,
@@ -232,10 +233,11 @@ class UpdatePassword extends React.Component {
                             </Text>
                             <TextInput
                                 keyboardType={'email-address'}
-                                placeholder={'Enter Password here'}
+                                placeholder={'Enter Password '}
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(NewPassword) => this.setState({ NewPassword })}
                                 value={NewPassword}
+                                secureTextEntry={true}
                                 textContentType={'password'}
                                 style={{
                                     borderWidth: 1,
