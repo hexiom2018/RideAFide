@@ -211,18 +211,13 @@ class ForgetPassword extends React.Component {
                     action={{
                         label: 'Ok',
                         onPress: () => {
-                            // Do something
+                            this.goBack()
                         },
                     }}
                 >
                     {text}
                 </Snackbar>
-                {/* <View style={{ position: 'absolute', bottom: '50%', left: '45%' }}>
-                    {
-                        loading &&
-                        <ActivityIndicator size="large" color="blue" />
-                    }
-                </View> */}
+               
             </KeyboardAvoidingView >
         )
     }
