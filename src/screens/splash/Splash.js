@@ -136,7 +136,7 @@ class Splash extends React.Component {
                             }
                         </View>
                         <View style={{ alignItems: 'center', flexGrow: 1, justifyContent: 'center', marginVertical: 10 }}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Email')} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#77d8c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#77d8c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
                                 <View>
                                     <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
                                         {'Proceed'}
