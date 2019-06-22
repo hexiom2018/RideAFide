@@ -13,7 +13,7 @@ import Untick from '../../../assets/email/untick.png'
 import mail from '../../../assets/settings.png'
 import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
-
+import { StackActions, NavigationActions } from 'react-navigation';
 
 class Email extends React.Component {
     constructor(props) {
@@ -177,53 +177,77 @@ class Email extends React.Component {
 
         var count = 0
         const { username, password, } = this.state
+        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (username && password) {
             this.setState({
                 loading: true
             })
+            if (reg.test(username) === true) {
 
+                let that = this
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    console.log(this.response, 'eeskdjbsak')
 
-            let that = this
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                console.log(this.response, 'eeskdjbsak')
+                    if (this.status === 200) {
+                        count = 1
+                        var myres = this.response.split(',').pop().slice(7)
+                        var token = myres.slice(0, myres.length - 2)
 
-                if (this.status === 200) {
-                    count = 1
-                    var myres = this.response.split(',').pop().slice(7)
-                    var token = myres.slice(0, myres.length - 2)
+                        that._storeData('email', username).then(() => {
 
-                    that._storeData('email', username).then(() => {
+                        })
+                        that._storeData('token', token).then((store) => {
+                            const resetAction = StackActions.reset({
+                                index: 0,
+                                actions: [
+                                    NavigationActions.navigate({ routeName: 'Scan' }),
+                                ]
+                            })
+                            that.props.navigation.dispatch(resetAction)
+                            // that.props.navigation.navigate('Scan')
 
-                    })
-                    that._storeData('token', token).then((store) => {
-                        that.props.navigation.navigate('Scan')
+                            // that.setState({
+                            //     loading: false
+                            // })
+                        })
+                    }
+                    else if (this.status === 401 && !count) {
+                        count = 1
+                        alert('Invalid Email Or Password')
                         that.setState({
                             loading: false
                         })
-                    })
+                    }
+                    else if (!count && this.status === 500) {
+                        count = 1
+                        alert('Something went wrong')
+                        that.setState({
+                            loading: false
+                        })
+                    }
+                    // if (this.status) {
+                    //     that.setState({
+                    //         loading: false
+                    //     })
+                    // }
                 }
-                else if (this.status === 401 && !count) {
-                    count = 1
-                    alert('Invalid Email Or Password')
-                }
-                else if (!count && this.status === 500) {
-                    count = 1
-                    alert('Something went wrong')
-                }
-                if (this.status) {
-                    that.setState({
-                        loading: false
-                    })
-                }
+                xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/login", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(`username=${username}&password=${password}`);
+
             }
-            xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/login", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send(`username=${username}&password=${password}`);
-
-
+            else {
+                alert("Enter correct email ");
+                this.setState({
+                    loading: false
+                })
+            }
         } else {
             alert('Please Enter Valid Email And Password')
+            this.setState({
+                loading: false
+            })
         }
 
     }
@@ -246,51 +270,27 @@ class Email extends React.Component {
                     </View>
                 </Modal>
                 <StatusBar hidden={true} />
-                <View style={{ flexDirection: 'row', paddingVertical: '6%',justifyContent: 'center'}}>
+                <View style={{ flexDirection: 'row', paddingVertical: '6%', justifyContent: 'center' }}>
                     <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
                         <Image
-                            // style={{ width: 100, height: 100 }}
                             source={logo}
                         />
                     </View>
-                    {/* <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column', alignItems: 'center', }}>
-                        <TouchableOpacity activeOpacity={0.7}>
-                            <Image
-                                // style={{ width: '100%', height: '100%' }}
-                                source={mail}
-                            />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 12, color: '#5dc5c0' }}>
-                            {'Settings'}
-                        </Text>
 
-                    </View> */}
-                    {/* <View style={{ paddingHorizontal: '2%', height: 50, marginRight: '5%', flexDirection: 'column', alignItems: 'center' }}>
-                        <TouchableOpacity activeOpacity={0.7}>
-                            <Image
-                                // style={{ width: '100%', height: '100%' }}
-                                source={scan}
-                            />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 12 }} >
-                            {'Scan'}
-                        </Text>
-                    </View> */}
                 </View>
                 <View style={styles.minDiv}>
 
-                    
+
                     <View style={{
-                        // borderWidth: 1,
-                        // flex: 1,
-                        height: '25%',
+                        height: '20%',
                         alignItems: 'center',
                         justifyContent: 'flex-end',
+                        // borderWidth:1
                     }}>
                         <View style={{ width: '80%' }}>
                             <TextInput
                                 keyboardType={'email-address'}
-                                placeholder={'Enter user name here'}
+                                placeholder={'Enter Email '}
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(username) => this.setState({ username })}
                                 value={username}
@@ -310,18 +310,16 @@ class Email extends React.Component {
                     </View>
 
                     <View style={{
-                        // borderWidth: 1,
-                        // flex: 1,
-                        height: '25%',
+                        height: '20%',
                         alignItems: 'center',
-                        paddingVertical: 10
-                        // justifyContent: 'flex-end',
+                        paddingVertical: 10,
+                        // borderWidth:1
                     }}>
                         <View style={{ width: '80%' }}>
                             <TextInput
                                 keyboardType={'ascii-capable'}
                                 secureTextEntry={true}
-                                placeholder={'Enter password here'}
+                                placeholder={'Enter password '}
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(password) => this.setState({ password })}
                                 value={password}
@@ -340,31 +338,21 @@ class Email extends React.Component {
                         </View>
                     </View>
 
-                    {/* <View>
-                        <View style={{ paddingVertical: '6%', paddingHorizontal: '10%' }}>
-                            <Text style={{ textAlign: 'center', fontSize: 17, color: '#686868', fontWeight: '400' }}>
-                                {`Please enter the email that you signed up with at www.rideafide.com, if you dont't have a profile, please create one for passengers by visiting out website:`}
-                            </Text>
-                        </View>
-                    </View> */}
-                    <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: '2%' }}>
-                        {/* <View style={{ alignItems: 'center' }}>
-                            <Text style={styles.hyperLink} onPress={this._goToURL}>
-                                {'www.rideafide.com'}
-                            </Text>
-                        </View> */}
+
+                    <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: '5%', }}>
+
                         <View style={{ alignItems: 'center' }}>
-                            <TouchableOpacity onPress={() => this.LoginAction()} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
-                                {
-                                    !loading &&
+                            {
+                                !loading &&
+                                <TouchableOpacity onPress={() => this.LoginAction()} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
                                     <View>
                                         <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
                                             {'Login'}
                                         </Text>
                                     </View>
-                                }
-                                {loading && <ActivityIndicator size="small" color="#00ff00" />}
-                            </TouchableOpacity>
+                                </TouchableOpacity>
+                            }
+                            {loading && <ActivityIndicator size="large" color="#00ff00" />}
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('ForgetPassword')}>
                                 <View style={{ paddingVertical: 10 }}>
                                     <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Forgot Password?</Text>
@@ -385,21 +373,7 @@ class Email extends React.Component {
                         </View>
 
                     </View>
-                    {/* <View style={{ paddingVertical: '3%', alignItems: 'center' }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                            <CheckBox
-                                title='Privacy Policy'
-                                checked={checked}
-                                checkedIcon={<Image source={tick} style={{ width: 20, height: 20 }} />}
-                                uncheckedIcon={<Image source={Untick} style={{ width: 20, height: 20 }} />}
-                                onPress={() => this.setState({ checked: !checked })}
-                                containerStyle={{ backgroundColor: 'white', borderColor: 'white' }}
-                            />
-                            <Text style={styles.hyperLink2} onPress={this.PrivacyPolicy}>
-                                {'(Read here)'}
-                            </Text>
-                        </View>
-                    </View> */}
+
                 </View>
             </View>
         );
