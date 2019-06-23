@@ -89,6 +89,41 @@ class Setting extends React.Component {
 
         navigate('Scan')
     }
+
+    _goToURLabout = () => {
+        const url = "https://rideafide.com/about/"
+        Linking.canOpenURL(url).then(supported => {
+            if (supported) {
+                Linking.openURL(url);
+            } else {
+                alert('Don\'t know how to open URI: ' + url);
+            }
+        });
+    } 
+     _goToURLtermsuser = () => {
+        const url = "https://rideafide.com/terms-of-user/"
+        Linking.canOpenURL(url).then(supported => {
+            if (supported) {
+                Linking.openURL(url);
+            } else {
+                alert('Don\'t know how to open URI: ' + url);
+            }
+        });
+    }
+    _goToURLsupport = () => {
+        const url = "https://rideafide.com/support"
+        Linking.canOpenURL(url).then(supported => {
+            if (supported) {
+                Linking.openURL(url);
+            } else {
+                alert('Don\'t know how to open URI: ' + url);
+            }
+        });
+    }
+
+
+
+
     render() {
         const { username, openSetting, password, loading } = this.state
 
@@ -146,7 +181,7 @@ class Setting extends React.Component {
                                 </View>
                                 <View style={{  width: '50%', alignItems:'flex-end'}}>
 
-                                    {/* <Text style={{ color: '#6a6a6a', fontSize: 20,  paddingRight:4}}>></Text> */}
+                                    <Text style={{ color: '#6a6a6a', fontSize: 20,  paddingRight:4}}>></Text>
                                 </View>
                             </View>
                           
@@ -155,7 +190,7 @@ class Setting extends React.Component {
                             <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
                                 <View style={{  width: '80%',}}>
 
-                                    <Text style={{ color: '#000000',   fontSize: 16}}>Emergency Constants</Text>
+                                    <Text style={{ color: '#000000',   fontSize: 16}}>Emergency Contacts</Text>
                                 </View>
                                 <View style={{  width: '20%', alignItems:'flex-end'}}>
 
@@ -179,7 +214,7 @@ class Setting extends React.Component {
                             {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
                             </View> */}
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                        <TouchableOpacity onPress={this._goToURLabout}>
                             <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
                                 <View style={{  width: '50%',}}>
 
@@ -193,7 +228,7 @@ class Setting extends React.Component {
                             {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
                             </View> */}
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                        <TouchableOpacity  onPress={this._goToURLtermsuser}>
                             <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
                                 <View style={{  width: '90%',}}>
 
@@ -222,7 +257,7 @@ class Setting extends React.Component {
                             </View> */}
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                        <TouchableOpacity onPress={this._goToURLsupport}>
                             <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
                                 <View style={{  width: '50%',}}>
 
