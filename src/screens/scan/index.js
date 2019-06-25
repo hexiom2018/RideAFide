@@ -5,7 +5,6 @@ import {
 } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
 import { Location, BarCodeScanner, Permissions, Contacts } from 'expo';
-import Web from '../WebView/webView'
 import CameraExample from '../../components/camera/Camera';
 import uuid from 'uuid'
 import firebase from '../../../Config/Firebase'

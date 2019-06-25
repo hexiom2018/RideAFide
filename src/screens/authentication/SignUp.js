@@ -71,7 +71,7 @@ class SignUp extends React.Component {
                     console.log(token, 'token')
                     // console.log(response, 'response')
                     that._storeData('token', token).then(() => {
-                        that.props.navigation.navigate('LogIn')
+                        that.props.navigation.navigate('PersonalInfo')
                         that.setState({
                             loading: false
                         })
