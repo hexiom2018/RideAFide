@@ -17,7 +17,7 @@ class PersonalInfo extends React.Component {
             password: '',
             loading: false,
             count: 0,
-            checked1:true,
+            checked1: true,
             sms: 'yes'
         }
     }
@@ -49,15 +49,26 @@ class PersonalInfo extends React.Component {
             // Error retrieving data
         }
     }
+
+    _storeData = async (text, value) => {
+        try {
+            const store = await AsyncStorage.setItem(text, value);
+            return store
+        } catch (error) {
+            // Error saving data
+            console.log(error, 'error')
+        }
+    };
+
     create() {
-        const { address, phone, full_name, country, zip, state,  city, sms ,token} = this.state
+        const { address, phone, full_name, country, zip, state, city, sms, token } = this.state
 
 
-        if (full_name.length < 3) {
+        if (full_name && full_name.length < 3) {
             alert('username must be more than 3 characters')
         }
-        
-        else if (phone.length < 4) {
+
+        else if (phone && phone.length < 4) {
             alert('Enter valid phone number')
         }
         else if (!address) {
@@ -78,7 +89,7 @@ class PersonalInfo extends React.Component {
         else if (!sms) {
             alert('Select sms service')
         }
-       
+
         else {
             this.setState({
                 loading: true,
@@ -87,27 +98,30 @@ class PersonalInfo extends React.Component {
             const that = this
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
+                console.log(this.response, 'this response')
 
-                if (this.status === 200  && !count) {
-                     // console.log(this.response, 'this response')
-                     count = 1
-                    
-                     Alert.alert(
+                if (this.status === 200 && !count) {
+                    count = 1
+
+                    Alert.alert(
                         'Sucess',
-                        `'Thank's for submit` ,
+                        `'Thank's for submit`,
                         [
                             { text: 'Next', onPress: () => that.props.navigation.navigate('Emergency') },
                         ],
                         { cancelable: false },
                     )
-                    that
                     that.setState({
                         loading: false
                     })
-                }
-               
+                    that._storeData('detailpg1', 'true').then(() => {
 
-                
+                    })
+                    that._storeData('detailpg2', 'false').then(() => {
+
+                    })
+                }
+
             }
             xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/passenger/update_passenger", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -119,13 +133,13 @@ class PersonalInfo extends React.Component {
     static navigationOptions = { header: null }
 
     checkedBox1() {
-        const {checked1,checked2 } = this.state
+        const { checked1, checked2 } = this.state
         this.setState({ checked1: !checked1 })
         this.setState({ checked2: !checked2 })
         this.setState({ sms: 'yes' })
     }
     checkedBox2() {
-        const {checked1,checked2 } = this.state
+        const { checked1, checked2 } = this.state
         this.setState({ checked1: !checked1 })
         this.setState({ checked2: !checked2 })
         this.setState({ sms: 'no' })
@@ -133,7 +147,7 @@ class PersonalInfo extends React.Component {
 
 
     render() {
-        const { address, phone, full_name, country, zip, state, loading, city, checked1,checked2 } = this.state
+        const { address, phone, full_name, country, zip, state, loading, city, checked1, checked2 } = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', }}>
                 <View style={{ flexDirection: 'row', paddingVertical: '6%', justifyContent: 'center' }}>

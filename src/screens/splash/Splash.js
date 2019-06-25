@@ -65,14 +65,48 @@ class Splash extends React.Component {
                     console.log(token, 'token')
                     if (token) {
                         // navigate('Scan')
-                        const resetAction = StackActions.reset({
-                            index: 0,
-                            actions: [
-                                NavigationActions.navigate({ routeName: 'Scan' }),
-                            ]
+                        this._retrieveData('detailpg1').then((detail1) => {
+                            this._retrieveData('detailpg2').then((detail2) => {
+                                console.log(detail1, detail2, 'detail1 and detaol2')
+                                if (detail1 === 'true' && detail2 === 'true') {
+                                    const resetAction = StackActions.reset({
+                                        index: 0,
+                                        actions: [
+                                            NavigationActions.navigate({ routeName: 'Scan' }),
+                                        ]
+                                    })
+                                    this.props.navigation.dispatch(resetAction)
+                                }
+                                else if (detail1 === 'true' && detail2 === 'false') {
+                                    const resetAction = StackActions.reset({
+                                        index: 0,
+                                        actions: [
+                                            NavigationActions.navigate({ routeName: 'Emergency' }),
+                                        ]
+                                    })
+                                    this.props.navigation.dispatch(resetAction)
+                                }
+                                else if (detail1 === 'false' && detail2 === 'false') {
+                                    const resetAction = StackActions.reset({
+                                        index: 0,
+                                        actions: [
+                                            NavigationActions.navigate({ routeName: 'PersonalInfo' }),
+                                        ]
+                                    })
+                                    this.props.navigation.dispatch(resetAction)
+                                } else {
+                                    const resetAction = StackActions.reset({
+                                        index: 0,
+                                        actions: [
+                                            NavigationActions.navigate({ routeName: 'LogIn' }),
+                                        ]
+                                    })
+                                    this.props.navigation.dispatch(resetAction)
+                                }
+
+                            })
                         })
-                        this.props.navigation.dispatch(resetAction)
-            
+
                     } else {
                         // navigate('LogIn')
                         const resetAction = StackActions.reset({

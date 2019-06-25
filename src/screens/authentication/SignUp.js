@@ -63,13 +63,19 @@ class SignUp extends React.Component {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
 
-                if (this.status === 200 && !count) {
+                if (this.status === 200 && !count && this.response) {
                     count = 1
                     console.log(this.response, 'this response')
                     var myres = this.response.split(',')[0].slice(9)
                     var token = myres.slice(0, myres.length - 1)
                     console.log(token, 'token')
                     // console.log(response, 'response')
+                    that._storeData('detailpg1', 'false').then(() => {
+
+                    })
+                    that._storeData('detailpg2', 'false').then(() => {
+
+                    })
                     that._storeData('token', token).then(() => {
                         that.props.navigation.navigate('PersonalInfo')
                         that.setState({
@@ -115,7 +121,7 @@ class SignUp extends React.Component {
         const { email, password, username, LastName, select, address, loading } = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', }}>
-                <View style={{ flexDirection: 'row', paddingVertical: '6%',justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row', paddingVertical: '6%', justifyContent: 'center' }}>
                     <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
@@ -159,7 +165,7 @@ class SignUp extends React.Component {
                                     onChangeText={e => this.setState({ username: e })}
                                     style={styles.input}
                                 /> */}
-                                 <View style={{ width: '100%' }}>
+                                <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'email-address'}
                                         placeholder={'Enter User Name'}

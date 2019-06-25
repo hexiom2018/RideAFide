@@ -44,6 +44,15 @@ class Emergency extends React.Component {
         }
     }
 
+    _storeData = async (text, value) => {
+        try {
+            const store = await AsyncStorage.setItem(text, value);
+            return store
+        } catch (error) {
+            // Error saving data
+            console.log(error, 'error')
+        }
+    };
 
 
     create() {
@@ -102,7 +111,9 @@ class Emergency extends React.Component {
 
                     // console.log(this.response, 'this response')
                     count = 1
-                    
+                    that._storeData('detailpg2', 'true').then(() => {
+
+                    })
                     Alert.alert(
                         'Sucess',
                         `Thank's for submit` ,
