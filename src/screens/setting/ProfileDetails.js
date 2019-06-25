@@ -17,17 +17,97 @@ class ProfileDetails extends React.Component {
             password: '',
             loading: false,
             count: 0,
-            checked1:true,
+            checked1: true,
             sms: 'yes'
         }
+    }
+
+    getValue(response, value, length, index) {
+        var myres = response.split(',')[index]
+        var text
+        console.log(myres, 'myres')
+        switch (value) {
+            case 'fullname':
+                var fullname = myres.slice(length, myres.length - 1);
+                text = fullname
+                break;
+            case 'address':
+                var address = myres.slice(length, myres.length - 1);
+                text = address
+                break;
+            case 'sms_allowed':
+                var sms_allowed = myres.slice(length, myres.length - 1);
+                text = sms_allowed
+                break;
+            case 'phone':
+                var phone = myres.slice(length, myres.length - 1);
+                text = phone
+                break;
+            case 'country':
+                var country = myres.slice(length, myres.length - 1);
+                text = country
+                break;
+            case 'zip':
+                var zip = myres.slice(length, myres.length - 1);
+                text = zip
+                break;
+            case 'state':
+                var state = myres.slice(length, myres.length - 2);
+                text = state
+                break;
+            case 'city':
+                var city = myres.slice(length, myres.length - 2);
+                text = city
+                break;
+            default:
+                break;
+        }
+
+        return text
+
+    }
+
+    update(token) {
+        var count = 0
+        const that = this
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.status === 200 && this.response) {
+                console.log(this.response, 'my response')
+                that.setState({
+                    full_name: that.getValue(this.response, 'fullname', 14, 0),
+                    address: that.getValue(this.response, 'address', 11, 1),
+                    sms_allowed: that.getValue(this.response, 'sms_allowed', 15, 2),
+                    phone: that.getValue(this.response, 'phone', 9, 3),
+                    country: that.getValue(this.response, 'country', 11, 4),
+                    zip: that.getValue(this.response, 'zip', 7, 5),
+                    state: that.getValue(this.response, 'state', 10, 6),
+                    city: that.getValue(this.response, 'city', 9, 7),
+                })
+
+            }
+
+        }
+        xhttp.open("GET", "https://rideafide.com/wp-json/app/v2/passenger/get_all_info", true);
+        // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.setRequestHeader("Authorization", 'Bearer ' + token);
+        xhttp.send()
+        // xhttp.send(`action=${`personal_info_section`}&address=${address}&sms_allowed=${sms}&phone=${phone}&country=${country}&zip=${zip}&state=${state}&city=${city}&full_name=${full_name}`);
+    }
+
+
+    componentWillMount() {
+
     }
 
     componentDidMount() {
 
         // console.log(AsyncStorage.getItem('token'), 'token')
 
+
         this._retrieveData('token').then((token) => {
             this.setState({ token })
+            this.update(token)
         })
 
     }
@@ -50,13 +130,13 @@ class ProfileDetails extends React.Component {
         }
     }
     create() {
-        const { address, phone, full_name, country, zip, state,  city, sms ,token} = this.state
+        const { address, phone, full_name, country, zip, state, city, sms, token } = this.state
 
 
         if (full_name.length < 3) {
             alert('username must be more than 3 characters')
         }
-        
+
         else if (phone.length < 4) {
             alert('Enter valid phone number')
         }
@@ -78,7 +158,7 @@ class ProfileDetails extends React.Component {
         else if (!sms) {
             alert('Select sms service')
         }
-       
+
         else {
             this.setState({
                 loading: true,
@@ -88,15 +168,15 @@ class ProfileDetails extends React.Component {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
 
-                if (this.status === 200  && !count) {
-                     // console.log(this.response, 'this response')
-                     count = 1
-                    
-                     Alert.alert(
+                if (this.status === 200 && !count) {
+                    // console.log(this.response, 'this response')
+                    count = 1
+
+                    Alert.alert(
                         'Sucess',
-                        `'Thank's for submit` ,
+                        `'Thank's for submit`,
                         [
-                            { text: 'Next', onPress: () => that.props.navigation.navigate('Emergency') },
+                            { text: 'ok', onPress: () => that.props.navigation.navigate('Scan') },
                         ],
                         { cancelable: false },
                     )
@@ -105,9 +185,9 @@ class ProfileDetails extends React.Component {
                         loading: false
                     })
                 }
-               
 
-                
+
+
             }
             xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/passenger/update_passenger", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -119,13 +199,13 @@ class ProfileDetails extends React.Component {
     static navigationOptions = { header: null }
 
     checkedBox1() {
-        const {checked1,checked2 } = this.state
+        const { checked1, checked2 } = this.state
         this.setState({ checked1: !checked1 })
         this.setState({ checked2: !checked2 })
         this.setState({ sms: 'yes' })
     }
     checkedBox2() {
-        const {checked1,checked2 } = this.state
+        const { checked1, checked2 } = this.state
         this.setState({ checked1: !checked1 })
         this.setState({ checked2: !checked2 })
         this.setState({ sms: 'no' })
@@ -133,7 +213,7 @@ class ProfileDetails extends React.Component {
 
 
     render() {
-        const { address, phone, full_name, country, zip, state, loading, city, checked1,checked2 } = this.state
+        const { address, phone, full_name, country, zip, state, loading, city, checked1, checked2 } = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', }}>
                 <View style={{ flexDirection: 'row', paddingVertical: '6%', justifyContent: 'center' }}>
@@ -382,7 +462,7 @@ class ProfileDetails extends React.Component {
                                     <TouchableOpacity onPress={() => this.create()} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
                                         <View>
                                             <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
-                                                {'Submit'}
+                                                {'Update'}
                                             </Text>
                                         </View>
                                     </TouchableOpacity>
