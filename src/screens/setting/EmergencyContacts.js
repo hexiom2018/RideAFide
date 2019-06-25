@@ -13,6 +13,7 @@ class EmergencyContacts extends React.Component {
         this.state = {
             loading: false,
             count: 0,
+            dataLoading: false
 
         }
     }
@@ -53,6 +54,7 @@ class EmergencyContacts extends React.Component {
                     Email_1: that.getValue(this.response, 'parent_emails', 17, 8),
                     numbers_1: that.getValue(this.response, 'parent_numbers', 18, 9),
                     message: that.getValue(this.response, 'message', 11, 10),
+                    dataLoading: true
                 })
 
             }
@@ -181,7 +183,7 @@ class EmergencyContacts extends React.Component {
     static navigationOptions = { header: null }
 
     render() {
-        const { numbers_1, numbers_2, message, Email_1, Email_2, loading, Update } = this.state
+        const { numbers_1, numbers_2, message, Email_1, Email_2, loading, Update, dataLoading } = this.state
         return (
             <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
                 <ScrollView style={{ flex: 1, marginTop: 24 }} >
@@ -195,148 +197,155 @@ class EmergencyContacts extends React.Component {
                             </View>
 
                         </View>
-
-
+                        {!dataLoading && 
                         <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
-                            <Text style={styles.heading}> emergency_section</Text>
-                            <View style={{ width: '90%' }} >
-                                <Text style={styles.text}>parent_emails</Text>
-                            </View>
-                            <View style={styles.container}>
+                        <Text style={styles.heading}> emergency_section</Text>
+                        <ActivityIndicator size="large" color="#00ff00" /></View>
+                    }
 
-                                <View style={{ width: '100%' }}>
-                                    <TextInput
-                                        keyboardType={'email-address'}
-                                        placeholder={'Enter emails 1'}
-                                        placeholderTextColor={'#686868'}
-                                        onChangeText={e => this.setState({ Email_1: e })}
-                                        value={Email_1}
-                                        textContentType={'emailAddress'}
-                                        style={{
-                                            borderWidth: 1,
-                                            color: '#6a6a6a',
-                                            borderColor: '#77d8c5',
-                                            textAlign: 'center',
-                                            paddingHorizontal: 10,
-                                            paddingVertical: 10,
-                                            borderRadius: 7,
-                                            fontStyle: 'italic', marginBottom: 2
-                                        }}
-                                    />
+
+                        {dataLoading &&
+                            <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
+                                <Text style={styles.heading}> emergency_section</Text>
+                                <View style={{ width: '90%' }} >
+                                    <Text style={styles.text}>parent_emails</Text>
                                 </View>
-                                <View style={{ width: '100%' }}>
-                                    <TextInput
-                                        keyboardType={'email-address'}
-                                        placeholder={'Enter emails 2'}
-                                        placeholderTextColor={'#686868'}
-                                        onChangeText={e => this.setState({ Email_2: e })}
-                                        value={Email_2}
-                                        textContentType={'emailAddress'}
-                                        style={{
-                                            borderWidth: 1,
-                                            color: '#6a6a6a',
-                                            borderColor: '#77d8c5',
-                                            textAlign: 'center',
-                                            paddingHorizontal: 10,
-                                            paddingVertical: 10,
-                                            borderRadius: 7,
-                                            fontStyle: 'italic', marginTop: 2
-                                        }}
-                                    />
+                                <View style={styles.container}>
+
+                                    <View style={{ width: '100%' }}>
+                                        <TextInput
+                                            keyboardType={'email-address'}
+                                            placeholder={'Enter emails 1'}
+                                            placeholderTextColor={'#686868'}
+                                            onChangeText={e => this.setState({ Email_1: e })}
+                                            value={Email_1}
+                                            textContentType={'emailAddress'}
+                                            style={{
+                                                borderWidth: 1,
+                                                color: '#6a6a6a',
+                                                borderColor: '#77d8c5',
+                                                textAlign: 'center',
+                                                paddingHorizontal: 10,
+                                                paddingVertical: 10,
+                                                borderRadius: 7,
+                                                fontStyle: 'italic', marginBottom: 2
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={{ width: '100%' }}>
+                                        <TextInput
+                                            keyboardType={'email-address'}
+                                            placeholder={'Enter emails 2'}
+                                            placeholderTextColor={'#686868'}
+                                            onChangeText={e => this.setState({ Email_2: e })}
+                                            value={Email_2}
+                                            textContentType={'emailAddress'}
+                                            style={{
+                                                borderWidth: 1,
+                                                color: '#6a6a6a',
+                                                borderColor: '#77d8c5',
+                                                textAlign: 'center',
+                                                paddingHorizontal: 10,
+                                                paddingVertical: 10,
+                                                borderRadius: 7,
+                                                fontStyle: 'italic', marginTop: 2
+                                            }}
+                                        />
+                                    </View>
+                                </View>
+
+                                <View style={{ width: '90%' }} >
+                                    <Text style={styles.text}>Emergency Contact's</Text>
+                                </View>
+                                <View style={styles.container}>
+
+                                    <View style={{ width: '100%' }}>
+                                        <TextInput
+                                            keyboardType={'email-address'}
+                                            placeholder={' Contact 1 '}
+                                            placeholderTextColor={'#686868'}
+                                            onChangeText={e => this.setState({ numbers_1: e })}
+                                            value={numbers_1}
+                                            keyboardType={"number-pad"}
+                                            style={{
+                                                borderWidth: 1,
+                                                color: '#6a6a6a',
+                                                borderColor: '#77d8c5',
+                                                textAlign: 'center',
+                                                paddingHorizontal: 10,
+                                                paddingVertical: 10,
+                                                borderRadius: 7,
+                                                fontStyle: 'italic', marginBottom: 2
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={{ width: '100%' }}>
+                                        <TextInput
+                                            keyboardType={'email-address'}
+                                            placeholder={'Contact 2'}
+                                            placeholderTextColor={'#686868'}
+                                            onChangeText={e => this.setState({ numbers_2: e })}
+                                            value={numbers_2}
+                                            textContentType={'emailAddress'}
+                                            keyboardType={"number-pad"}
+                                            style={{
+                                                borderWidth: 1,
+                                                color: '#6a6a6a',
+                                                borderColor: '#77d8c5',
+                                                textAlign: 'center',
+                                                paddingHorizontal: 10,
+                                                paddingVertical: 10,
+                                                borderRadius: 7,
+                                                fontStyle: 'italic', marginTop: 2
+                                            }}
+                                        />
+                                    </View>
+                                </View>
+
+                                <View style={{ width: '90%' }}>
+                                    <Text style={styles.text}>Message</Text>
+                                </View>
+                                <View style={styles.container}>
+
+
+                                    <View style={{ width: '100%' }}>
+                                        <TextInput
+                                            keyboardType={'ascii-capable'}
+                                            placeholder={'Enter message '}
+                                            placeholderTextColor={'#686868'}
+                                            onChangeText={e => this.setState({ message: e })}
+                                            value={message}
+
+                                            style={{
+                                                borderWidth: 1,
+                                                color: '#6a6a6a',
+                                                borderColor: '#77d8c5',
+                                                textAlign: 'center',
+                                                paddingHorizontal: 10,
+                                                paddingVertical: 10,
+                                                borderRadius: 7,
+                                                fontStyle: 'italic'
+                                            }}
+                                        />
+                                    </View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', width: '90%', paddingBottom: 3 }}>
+
+                                    {
+                                        !loading &&
+                                        <TouchableOpacity onPress={() => this.create()} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                            <View>
+                                                <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
+                                                    {'Submit'}
+                                                </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    }
+                                    {loading && <ActivityIndicator size="large" color="#00ff00" />}
                                 </View>
                             </View>
-
-                            <View style={{ width: '90%' }} >
-                                <Text style={styles.text}>Emergency Contact's</Text>
-                            </View>
-                            <View style={styles.container}>
-
-                                <View style={{ width: '100%' }}>
-                                    <TextInput
-                                        keyboardType={'email-address'}
-                                        placeholder={' Contact 1 '}
-                                        placeholderTextColor={'#686868'}
-                                        onChangeText={e => this.setState({ numbers_1: e })}
-                                        value={numbers_1}
-                                        keyboardType={"number-pad"}
-                                        style={{
-                                            borderWidth: 1,
-                                            color: '#6a6a6a',
-                                            borderColor: '#77d8c5',
-                                            textAlign: 'center',
-                                            paddingHorizontal: 10,
-                                            paddingVertical: 10,
-                                            borderRadius: 7,
-                                            fontStyle: 'italic', marginBottom: 2
-                                        }}
-                                    />
-                                </View>
-                                <View style={{ width: '100%' }}>
-                                    <TextInput
-                                        keyboardType={'email-address'}
-                                        placeholder={'Contact 2'}
-                                        placeholderTextColor={'#686868'}
-                                        onChangeText={e => this.setState({ numbers_2: e })}
-                                        value={numbers_2}
-                                        textContentType={'emailAddress'}
-                                        keyboardType={"number-pad"}
-                                        style={{
-                                            borderWidth: 1,
-                                            color: '#6a6a6a',
-                                            borderColor: '#77d8c5',
-                                            textAlign: 'center',
-                                            paddingHorizontal: 10,
-                                            paddingVertical: 10,
-                                            borderRadius: 7,
-                                            fontStyle: 'italic', marginTop: 2
-                                        }}
-                                    />
-                                </View>
-                            </View>
-
-                            <View style={{ width: '90%' }}>
-                                <Text style={styles.text}>Message</Text>
-                            </View>
-                            <View style={styles.container}>
-
-
-                                <View style={{ width: '100%' }}>
-                                    <TextInput
-                                        keyboardType={'ascii-capable'}
-                                        placeholder={'Enter message '}
-                                        placeholderTextColor={'#686868'}
-                                        onChangeText={e => this.setState({ message: e })}
-                                        value={message}
-
-                                        style={{
-                                            borderWidth: 1,
-                                            color: '#6a6a6a',
-                                            borderColor: '#77d8c5',
-                                            textAlign: 'center',
-                                            paddingHorizontal: 10,
-                                            paddingVertical: 10,
-                                            borderRadius: 7,
-                                            fontStyle: 'italic'
-                                        }}
-                                    />
-                                </View>
-                            </View>
-
-                            <View style={{ alignItems: 'center', width: '90%', paddingBottom: 3 }}>
-
-                                {
-                                    !loading &&
-                                    <TouchableOpacity onPress={() => this.create()} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
-                                        <View>
-                                            <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
-                                                {'Submit'}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                }
-                                {loading && <ActivityIndicator size="large" color="#00ff00" />}
-                            </View>
-                        </View>
+                        }
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>

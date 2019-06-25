@@ -94,7 +94,8 @@ class Splash extends React.Component {
                                         ]
                                     })
                                     this.props.navigation.dispatch(resetAction)
-                                } else {
+                                }
+                                 else {
                                     const resetAction = StackActions.reset({
                                         index: 0,
                                         actions: [
