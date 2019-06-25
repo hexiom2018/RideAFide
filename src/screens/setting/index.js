@@ -173,7 +173,7 @@ class Setting extends React.Component {
 
                     <View style={{ justifyContent: 'flex-start' }}>
                     
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileDetails')}>
                             <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
                                 <View style={{  width: '50%',}}>
 
@@ -186,7 +186,7 @@ class Setting extends React.Component {
                             </View>
                           
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('EmergencyContacts')}>
                             <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
                                 <View style={{  width: '80%',}}>
 
