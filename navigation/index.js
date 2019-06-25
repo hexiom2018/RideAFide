@@ -8,9 +8,9 @@ import ForgetPassword from '../src/screens/authentication/forgetPassword'
 import UpdatePassword from '../src/screens/authentication/UpdatePassword'
 import PersonalInfo from '../src/screens/authentication/personal_info'
 import Emergency from '../src/screens/authentication/emergency_section'
-
+import EmergencyContacts from '../src/screens/setting/EmergencyContacts'
 import Setting from  '../src/screens/setting'
-
+import ProfileDetails from '../src/screens/setting/ProfileDetails'
 const StackNavigator = createStackNavigator({
     
     Splash: {
@@ -40,7 +40,13 @@ const StackNavigator = createStackNavigator({
     Emergency: {
         screen: Emergency
     },
-   
+    EmergencyContacts: {
+        screen: EmergencyContacts
+    },
+    ProfileDetails: {
+        screen: ProfileDetails
+    },
+
 
 },
 );
