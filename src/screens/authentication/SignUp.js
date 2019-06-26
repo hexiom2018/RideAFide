@@ -66,7 +66,7 @@ class SignUp extends React.Component {
                 if (this.status === 200 && !count && this.response) {
                     count = 1
                     console.log(this.response, 'this response')
-                    var myres = this.response.split(',')[0].slice(9)
+                    var myres = this.response.split(',')[0].slice(8)
                     var token = myres.slice(0, myres.length - 1)
                     console.log(token, 'token')
                     // console.log(response, 'response')
