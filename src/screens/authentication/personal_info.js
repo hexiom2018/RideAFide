@@ -150,7 +150,7 @@ class PersonalInfo extends React.Component {
         const { address, phone, full_name, country, zip, state, loading, city, checked1, checked2 } = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', }}>
-                <View style={{ flexDirection: 'row', paddingVertical: '6%', justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
                     <View style={{ width: '60%', paddingLeft: 15, height: 30, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
@@ -159,6 +159,7 @@ class PersonalInfo extends React.Component {
                     </View>
 
                 </View>
+                <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
                 <View style={{ justifyContent: 'center', alignContent: 'center', width: '100%' }}>
                     <Text style={styles.heading}>User Information</Text>
                 </View>

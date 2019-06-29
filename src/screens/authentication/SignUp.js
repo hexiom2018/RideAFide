@@ -1,12 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
-import Button from '../../components/button/Button'
-import tick from '../../../assets/email/tick-checked.png'
-import Untick from '../../../assets/email/untick.png'
-import mail from '../../../assets/settings.png'
-import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
+import tick from '../../../assets/green-tick1.png'
+import checkBox from '../../../assets/Shape 2.png'
+import signing from '../../../assets/signing.png'
+
 class SignUp extends React.Component {
     constructor(props) {
         super(props)
@@ -15,7 +14,8 @@ class SignUp extends React.Component {
             email: '',
             password: '',
             loading: false,
-            count: 0
+            count: 0,
+            ticked: false
         }
     }
 
@@ -43,7 +43,7 @@ class SignUp extends React.Component {
     };
 
     create() {
-        const { email, password, username } = this.state
+        const { email, password, username, ticked } = this.state
 
 
         if (username.length < 3) {
@@ -54,6 +54,9 @@ class SignUp extends React.Component {
         }
         else if (password.length < 4) {
             alert('Weak Password')
+        }
+        else if (!ticked) {
+            alert('Please check the terms and privacy policy')
         }
         else {
             this.setState({
@@ -85,35 +88,10 @@ class SignUp extends React.Component {
                             })
                         })
                     });
-                   
+
                 })
                 .catch(error => {
                     console.error(error.data.status, 'ye error ');
-                    // if (error.data.status === 401) {
-
-                    //     Alert.alert(
-                    //         'Message',
-                    //         'User already exists',
-                    //         [
-                    //             { text: 'OK', onPress: () => console.log('OK Pressed') },
-                    //         ],
-                    //         { cancelable: false },
-                    //     )
-                    //     that.setState({ loading: false })
-                    // }
-                    // else if (error.data.status === 500) {
-                    //     count = 1
-                    //     Alert.alert(
-                    //         'Message',
-                    //         'Something went wrong, Please try again later',
-                    //         [
-                    //             { text: 'OK', onPress: () => console.log('OK Pressed') },
-                    //         ],
-                    //         { cancelable: false },
-                    //     )
-                    //     that.setState({ loading: false })
-                    // }
-
                 })
 
         }
@@ -122,42 +100,20 @@ class SignUp extends React.Component {
     static navigationOptions = { header: null }
 
     render() {
-        const { email, password, username, LastName, select, address, loading } = this.state
+        const { email, password, username, LastName, select, ticked, loading } = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', }}>
-                <View style={{ flexDirection: 'row', paddingVertical: '6%', justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row', paddingVertical: '7%', justifyContent: 'center' }}>
                     <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}
                         />
                     </View>
-                    {/* <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column', alignItems: 'center', }}>
-                        <TouchableOpacity activeOpacity={0.7}>
-                            <Image
-                                // style={{ width: '100%', height: '100%' }}
-                                source={mail}
-                            />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 12, color: '#5dc5c0' }}>
-                            {'Settings'}
-                        </Text>
-
-                    </View> */}
-                    {/* <View style={{ paddingHorizontal: '2%', height: 50, marginRight: '5%', flexDirection: 'column', alignItems: 'center' }}>
-                        <TouchableOpacity activeOpacity={0.7}>
-                            <Image
-                                // style={{ width: '100%', height: '100%' }}
-                                source={scan}
-                            />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 12 }} >
-                            {'Scan'}
-                        </Text>
-                    </View> */}
                 </View>
+                <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
                 <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
-                    <ScrollView style={{ flex: 1, marginTop: 24 }} >
+                    <ScrollView style={{ flex: 1, marginTop: '5%' }} >
                         <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
                             <Text style={styles.heading}>Create Account</Text>
                             {/* <View style={{ width: '90%' }} >
@@ -172,7 +128,7 @@ class SignUp extends React.Component {
                                 <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'email-address'}
-                                        placeholder={'Enter User Name'}
+                                        placeholder={'Enter username'}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ username: e })}
                                         value={username}
@@ -183,36 +139,18 @@ class SignUp extends React.Component {
                                             borderColor: '#77d8c5',
                                             textAlign: 'center',
                                             paddingHorizontal: 10,
-                                            paddingVertical: 10,
+                                            paddingVertical: 7,
                                             borderRadius: 7,
                                             fontStyle: 'italic'
                                         }}
                                     />
                                 </View>
                             </View>
-                            {/* <View style={{ width: '90%' }} >
-                                <Text style={styles.text}>Last Name</Text>
-                            </View>
                             <View style={styles.container}>
-                                <TextInput
-                                    value={LastName}
-                                    onChangeText={e => this.setState({ LastName: e })}
-                                    style={styles.input}
-                                />
-                            </View> */}
-                            {/* <View style={{ width: '90%' }} >
-                                <Text style={styles.text}>Email</Text>
-                            </View> */}
-                            <View style={styles.container}>
-                                {/* <TextInput
-                                    value={email}
-                                    onChangeText={e => this.setState({ email: e })}
-                                    style={styles.input}
-                                /> */}
                                 <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'email-address'}
-                                        placeholder={'Enter email here'}
+                                        placeholder={'Enter email '}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ email: e })}
                                         value={email}
@@ -223,39 +161,20 @@ class SignUp extends React.Component {
                                             borderColor: '#77d8c5',
                                             textAlign: 'center',
                                             paddingHorizontal: 10,
-                                            paddingVertical: 10,
+                                            paddingVertical: 7,
                                             borderRadius: 7,
                                             fontStyle: 'italic'
                                         }}
                                     />
                                 </View>
                             </View>
-                            {/* <View style={{ width: '90%' }} >
-                                <Text style={styles.text}>Address</Text>
-                            </View>
                             <View style={styles.container}>
-                                <TextInput
-                                    value={address}
-                                    onChangeText={e => this.setState({ address: e })}
-                                    style={styles.input}
-                                />
-                            </View> */}
-                            {/* <View style={{ width: '90%' }}>
-                                <Text style={styles.text}>Password</Text>
-                            </View> */}
-                            <View style={styles.container}>
-                                {/* <TextInput
-                                    value={password}
-                                    onChangeText={e => this.setState({ password: e })}
-                                    style={styles.input}
-                                    secureTextEntry={true}
-                                /> */}
 
                                 <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'ascii-capable'}
                                         secureTextEntry={true}
-                                        placeholder={'Enter password here'}
+                                        placeholder={'Enter password '}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ password: e })}
                                         value={password}
@@ -266,15 +185,40 @@ class SignUp extends React.Component {
                                             borderColor: '#77d8c5',
                                             textAlign: 'center',
                                             paddingHorizontal: 10,
-                                            paddingVertical: 10,
+                                            paddingVertical: 7,
                                             borderRadius: 7,
                                             fontStyle: 'italic'
                                         }}
                                     />
                                 </View>
                             </View>
-
-                            <View style={{ alignItems: 'center', width: '90%' }}>
+                            <View style={{ flexDirection: 'row', color: '', width: '100%', paddingVertical: '5%', paddingHorizontal: '11%' }}>
+                                <View style={{ width: '20%', justifyContent: 'center' }}>
+                                    <TouchableOpacity activeOpacity={0.7} onPress={() => this.setState({ ticked: !ticked })}>
+                                        <View style={{ width: 21, height: 22, position: 'relative', alignSelf: 'center', justifyContent: 'center', borderWidth: 2, borderColor: '#77d8c5' }}>
+                                            <View style={{ alignSelf: 'center', position: 'absolute', bottom: '25%', left: '25%' }}>
+                                                {
+                                                    ticked ?
+                                                        <Image
+                                                            width={{ width: '100%', height: '100%' }}
+                                                            source={tick}
+                                                        />
+                                                        :
+                                                        null
+                                                }
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: '80%' }}>
+                                    <TouchableOpacity activeOpacity={0.8} onPress={() => this.setState({ ticked: !ticked })}>
+                                        <Text style={{ color: '#787878', fontSize: 14, fontWeight: '500' }}>
+                                            {'By signing up you agree that you are 18 years or older and agree to the Terms of Use and Privacy Policy.'}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={{ alignItems: 'center', width: '90%', marginTop: 7 }}>
                                 <TouchableOpacity onPress={() => this.create()} activeOpacity={0.7} style={{ width: '90%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
                                     {
                                         !loading &&
@@ -285,6 +229,18 @@ class SignUp extends React.Component {
                                         </View>
                                     }
                                     {loading && <ActivityIndicator size="small" color="#00ff00" />}
+                                </TouchableOpacity>
+                                <View style={{ alignItems: 'center', paddingVertical: 15 }}>
+                                    <Text style={{ fontSize: 20, color: 'grey' }}>
+                                        {'OR'}
+                                    </Text>
+                                </View>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')} activeOpacity={0.7} style={{ width: '90%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                    <View>
+                                        <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
+                                            {'Login'}
+                                        </Text>
+                                    </View>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -308,8 +264,8 @@ const styles = StyleSheet.create({
         // shadowRadius: 4.16,
         // elevation: 5,
         // shadowColor: 'grey',
-        marginTop: 10,
-        marginBottom: 20,
+        marginTop: 7,
+        marginBottom: 10,
         alignItems: "center",
         justifyContent: 'space-between'
     },
@@ -325,7 +281,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 15,
         opacity: 1,
-        marginBottom: 10
+        // marginBottom: 10
     },
     text: {
         fontSize: 16,

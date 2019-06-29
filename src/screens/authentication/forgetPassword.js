@@ -112,13 +112,14 @@ class ForgetPassword extends React.Component {
 
 
             <KeyboardAvoidingView style={{ flex: 1, position: 'relative', }} behavior={'padding'} enabled>
-                <View style={{ flexDirection: 'row', paddingVertical: '6%',justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
                     <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}
                         />
                     </View>
+
                     {/* <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column', alignItems: 'center', }}>
                         <TouchableOpacity activeOpacity={0.7}>
                             <Image
@@ -143,6 +144,8 @@ class ForgetPassword extends React.Component {
                         </Text>
                     </View> */}
                 </View>
+                <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
+
                 <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingVertical: 40 }}>
                     <View>
                         <View style={styles.form}>
@@ -217,7 +220,7 @@ class ForgetPassword extends React.Component {
                 >
                     {text}
                 </Snackbar>
-               
+
             </KeyboardAvoidingView >
         )
     }

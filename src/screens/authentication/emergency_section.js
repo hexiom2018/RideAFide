@@ -107,7 +107,7 @@ class Emergency extends React.Component {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
 
-                if (this.status === 200  && !count) {
+                if (this.status === 200 && !count) {
 
                     // console.log(this.response, 'this response')
                     count = 1
@@ -116,7 +116,7 @@ class Emergency extends React.Component {
                     })
                     Alert.alert(
                         'Sucess',
-                        `Thank's for submit` ,
+                        `Thank's for submit`,
                         [
                             { text: 'OK', onPress: () => that.props.navigation.navigate('LogIn') },
                         ],
@@ -128,7 +128,7 @@ class Emergency extends React.Component {
                     })
                 }
 
-              
+
             }
             xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/passenger/update_passenger", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -154,6 +154,9 @@ class Emergency extends React.Component {
                             </View>
 
                         </View>
+
+                        <View style={{ backgroundColor: '#1cbbb4', height: 7, width: '100%' }} />
+
 
                         <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
                             <Text style={styles.heading}> emergency_section</Text>

@@ -42,7 +42,7 @@ class Email extends React.Component {
         } else {
             this._getLocationAsync();
         }
-        
+
     }
 
 
@@ -186,45 +186,51 @@ class Email extends React.Component {
             if (reg.test(username) === true) {
 
                 let that = this
-              
+
                 let request = {
                     method: "POST",
                     headers: {
                         'Content-Type': "application/x-www-form-urlencoded; charset=UTF=8"
                     },
-                    body:`username=${username}&password=${password}`,
+                    body: `username=${username}&password=${password}`,
                 };
                 fetch('https://rideafide.com/wp-json/app/v2/auth/login', request)
                     .then(response => {
-                        // console.log(response, 'ye dhekho response');
+                        console.log(response, 'ye dhekho response');
+                        if (response.status === 401) {
+                            this.setState({
+                                loading: false
+                            })
+                            alert('Invalid email or password')
+                        }
                         response.json().then(function (data) {
                             console.log(data.jwt, 'ye dhekho token');
-                            var token =  data.jwt
+                            var token = data.jwt
                             that._storeData('email', username).then(() => {
 
-                                        })
+                            })
                             that._storeData('token', token).then((store) => {
-                                            const resetAction = StackActions.reset({
-                                                index: 0,
-                                                actions: [
-                                                    NavigationActions.navigate({ routeName: 'Scan' }),
-                                                ]
-                                            })
-                                            that.props.navigation.dispatch(resetAction)
-                                            that.props.navigation.navigate('Scan')
-                
-                                            that.setState({
-                                                loading: false
-                                            })
-                                        })
-                                    
+                                const resetAction = StackActions.reset({
+                                    index: 0,
+                                    actions: [
+                                        NavigationActions.navigate({ routeName: 'Scan' }),
+                                    ]
+                                })
+                                that.props.navigation.dispatch(resetAction)
+                                that.props.navigation.navigate('Scan')
+
+                                that.setState({
+                                    loading: false
+                                })
+                            })
+
                         });
                     })
                     .catch(error => {
                         console.error(error, 'ye error ');
-    
+
                     })
-                
+
 
                 //     if (this.status === 200) {
                 //         count = 1
@@ -304,7 +310,7 @@ class Email extends React.Component {
                     </View>
                 </Modal>
                 <StatusBar hidden={true} />
-                <View style={{ flexDirection: 'row', paddingVertical: '6%', justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
                     <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
                         <Image
                             source={logo}
@@ -312,6 +318,8 @@ class Email extends React.Component {
                     </View>
 
                 </View>
+                <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
+
                 <View style={styles.minDiv}>
 
 

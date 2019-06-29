@@ -2,7 +2,7 @@ import React from 'react';
 import {
     View, Platform, Dimensions, AppState, Linking, Image,
     Text, StyleSheet, ActivityIndicator, TouchableOpacity, StatusBar, Button,
-    TextInput, KeyboardAvoidingView,Alert
+    TextInput, KeyboardAvoidingView, Alert
 } from 'react-native';
 import { Header, Input, CheckBox } from 'react-native-elements';
 import { Constants, Location, Permissions, Contacts, Notifications, IntentLauncherAndroid } from 'expo';
@@ -65,32 +65,32 @@ class UpdatePassword extends React.Component {
     Next = () => {
         const { email, NewPassword, OldPassword, token } = this.state
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        console.log(token,'ye token ahra hy ')
+        console.log(token, 'ye token ahra hy ')
         if (email && NewPassword && OldPassword) {
-            
 
-                var count = 0
-                let that = this
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    console.log(this.status, 'ye ajye to kam hoga ')
-                    if (this.status === 200) {
-                        Alert.alert(
-                            'Sucess',
-                            'Password is sucessfully  change',
-                            [
-                              {text: 'OK', onPress: () => that.props.navigation.navigate('Scan')},
-                            ],
-                          );
-                    }
+
+            var count = 0
+            let that = this
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                console.log(this.status, 'ye ajye to kam hoga ')
+                if (this.status === 200) {
+                    Alert.alert(
+                        'Sucess',
+                        'Password is sucessfully  change',
+                        [
+                            { text: 'OK', onPress: () => that.props.navigation.navigate('Scan') },
+                        ],
+                    );
                 }
-                xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/update_password", true);
-                xhttp.setRequestHeader("Authorization", 'Bearer ' + token);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send(`username=${email}&password=${NewPassword}&old_password=${OldPassword}`);
+            }
+            xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/update_password", true);
+            xhttp.setRequestHeader("Authorization", 'Bearer ' + token);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(`username=${email}&password=${NewPassword}&old_password=${OldPassword}`);
 
 
-           
+
         } else {
             alert("fill the empty fields")
         }
@@ -120,13 +120,14 @@ class UpdatePassword extends React.Component {
             <View style={styles.main}>
 
                 <StatusBar hidden={true} />
-                <View style={{ flexDirection: 'row', paddingVertical: '6%' }}>
+                <View style={{ flexDirection: 'row', paddingVertical: '10%' }}>
                     <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}
                         />
                     </View>
+
                     <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column', alignItems: 'center', }}>
                         <TouchableOpacity activeOpacity={0.7}>
                             <Image
@@ -151,7 +152,9 @@ class UpdatePassword extends React.Component {
                         </Text>
                     </View>
                 </View>
-                <View style={styles.minDiv}>
+                <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
+
+                <View style={[styles.minDiv, { paddingVertical: '6%' }]}>
                     <View style={{
                         // borderWidth: 1,
                         // flex: 1,

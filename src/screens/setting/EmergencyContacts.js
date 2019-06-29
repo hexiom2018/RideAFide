@@ -180,7 +180,7 @@ class EmergencyContacts extends React.Component {
             <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
                 <ScrollView style={{ flex: 1, marginTop: 24 }} >
                     <View style={{ flex: 1, justifyContent: 'center', }}>
-                        <View style={{ flexDirection: 'row', paddingVertical: '6%', justifyContent: 'center' }}>
+                        <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
                             <View style={{ width: '60%', paddingLeft: 15, height: 30, justifyContent: 'center' }}>
                                 <Image
                                     // style={{ width: 100, height: 100 }}
@@ -189,6 +189,9 @@ class EmergencyContacts extends React.Component {
                             </View>
 
                         </View>
+
+                        <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
+
                         {!dataLoading &&
                             <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
                                 <Text style={styles.heading}> emergency_section</Text>
