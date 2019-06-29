@@ -13,6 +13,7 @@ import Untick from '../../../assets/email/untick.png'
 import mail from '../../../assets/settings.png'
 import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
+import { StackActions, NavigationActions } from 'react-navigation';
 
 
 class Setting extends React.Component {
@@ -81,7 +82,14 @@ class Setting extends React.Component {
         // this.removeItemValue()
         AsyncStorage.removeItem('token')
         AsyncStorage.removeItem('userEmail')
-        navigate('LogIn')
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({ routeName: 'LogIn' }),
+            ]
+        })
+        this.props.navigation.dispatch(resetAction)
+      
     }
 
     goback() {
@@ -200,7 +208,7 @@ class Setting extends React.Component {
                             {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
                             </View> */}
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('QrHistory')}>
                             <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
                                 <View style={{  width: '50%',}}>
 

@@ -11,10 +11,17 @@ import Emergency from '../src/screens/authentication/emergency_section'
 import EmergencyContacts from '../src/screens/setting/EmergencyContacts'
 import Setting from  '../src/screens/setting'
 import ProfileDetails from '../src/screens/setting/ProfileDetails'
+import QrHistory from '../src/screens/setting/QrHistory'
+
 const StackNavigator = createStackNavigator({
-    
     Splash: {
         screen: Splash
+    },
+    QrHistory: {
+        screen: QrHistory
+    },
+    SignUp: {
+        screen: SignUp
     },
     LogIn: {
         screen: Email
@@ -22,9 +29,7 @@ const StackNavigator = createStackNavigator({
     UpdatePassword: {
         screen: UpdatePassword
     },
-    SignUp: {
-        screen: SignUp
-    },
+    
     ForgetPassword: {
         screen: ForgetPassword
     },
@@ -46,8 +51,6 @@ const StackNavigator = createStackNavigator({
     ProfileDetails: {
         screen: ProfileDetails
     },
-
-
 },
 );
 

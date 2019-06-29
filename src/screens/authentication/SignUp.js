@@ -19,6 +19,7 @@ class SignUp extends React.Component {
         }
     }
 
+
     _retrieveData = async (getData) => {
         try {
             const value = await AsyncStorage.getItem(getData);
@@ -58,60 +59,63 @@ class SignUp extends React.Component {
             this.setState({
                 loading: true,
             })
-            var count = 0
             const that = this
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
+            let request = {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded; charset=UTF=8"
+                },
+                body: `username=${username}&password=${password}&email=${email}`
+            };
+            fetch('https://rideafide.com/wp-json/app/v2/auth/register', request)
+                .then(response => {
+                    response.json().then(function (data) {
+                        console.log(data, 'ye dhekho data');
+                        var token = data.jwt
+                        that._storeData('detailpg1', 'false').then(() => {
 
-                if (this.status === 200 && !count && this.response) {
-                    count = 1
-                    console.log(this.response, 'this response')
-                    var myres = this.response.split(',')[0].slice(8)
-                    var token = myres.slice(0, myres.length - 1)
-                    console.log(token, 'token')
-                    // console.log(response, 'response')
-                    that._storeData('detailpg1', 'false').then(() => {
-
-                    })
-                    that._storeData('detailpg2', 'false').then(() => {
-
-                    })
-                    that._storeData('token', token).then(() => {
-                        that.props.navigation.navigate('PersonalInfo')
-                        that.setState({
-                            loading: false
                         })
-                    })
-                }
+                        that._storeData('detailpg2', 'false').then(() => {
 
-                else if (this.status === 401 && !count) {
-                    count = 1
-                    Alert.alert(
-                        'Message',
-                        'User already exists',
-                        [
-                            { text: 'OK', onPress: () => console.log('OK Pressed') },
-                        ],
-                        { cancelable: false },
-                    )
-                    that.setState({ loading: false })
-                }
-                else if (!count && this.status === 500) {
-                    count = 1
-                    Alert.alert(
-                        'Message',
-                        'Something went wrong, Please try again later',
-                        [
-                            { text: 'OK', onPress: () => console.log('OK Pressed') },
-                        ],
-                        { cancelable: false },
-                    )
-                    that.setState({ loading: false })
-                }
-            }
-            xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/register", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send(`username=${username}&password=${password}&email=${email}`);
+                        })
+                        that._storeData('token', token).then(() => {
+                            that.props.navigation.navigate('PersonalInfo')
+                            that.setState({
+                                loading: false
+                            })
+                        })
+                    });
+                   
+                })
+                .catch(error => {
+                    console.error(error.data.status, 'ye error ');
+                    // if (error.data.status === 401) {
+
+                    //     Alert.alert(
+                    //         'Message',
+                    //         'User already exists',
+                    //         [
+                    //             { text: 'OK', onPress: () => console.log('OK Pressed') },
+                    //         ],
+                    //         { cancelable: false },
+                    //     )
+                    //     that.setState({ loading: false })
+                    // }
+                    // else if (error.data.status === 500) {
+                    //     count = 1
+                    //     Alert.alert(
+                    //         'Message',
+                    //         'Something went wrong, Please try again later',
+                    //         [
+                    //             { text: 'OK', onPress: () => console.log('OK Pressed') },
+                    //         ],
+                    //         { cancelable: false },
+                    //     )
+                    //     that.setState({ loading: false })
+                    // }
+
+                })
+
         }
     }
 

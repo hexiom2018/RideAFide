@@ -23,95 +23,52 @@ class ProfileDetails extends React.Component {
         }
     }
 
-    getValue(response, value, length, index) {
-        var myres = response.split(',')[index]
-        var text
-        console.log(myres, 'myres')
-        switch (value) {
-            case 'fullname':
-                var fullname = myres.slice(length, myres.length - 1);
-                text = fullname
-                break;
-            case 'address':
-                var address = myres.slice(length, myres.length - 1);
-                text = address
-                break;
-            case 'sms_allowed':
-                var sms_allowed = myres.slice(length, myres.length - 1);
-                text = sms_allowed
-                break;
-            case 'phone':
-                var phone = myres.slice(length, myres.length - 1);
-                text = phone
-                break;
-            case 'country':
-                var country = myres.slice(length, myres.length - 1);
-                text = country
-                break;
-            case 'zip':
-                var zip = myres.slice(length, myres.length - 1);
-                text = zip
-                break;
-            case 'state':
-                var state = myres.slice(length, myres.length - 2);
-                text = state
-                break;
-            case 'city':
-                var city = myres.slice(length, myres.length - 2);
-                text = city
-                break;
-            default:
-                break;
-        }
-
-        return text
-
-    }
+        // var myres = response.split(',')[index]
+        
 
     update(token) {
         const{checked2,checked1} = this.state
-        var count = 0
         const that = this
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.status === 200 && this.response) {
-                console.log(this.response, 'my response')
-                that.setState({
-                    full_name: that.getValue(this.response, 'fullname', 14, 0),
-                    address: that.getValue(this.response, 'address', 11, 1),
-                    sms_allowed: that.getValue(this.response, 'sms_allowed', 15, 2),
-                    phone: that.getValue(this.response, 'phone', 9, 3),
-                    country: that.getValue(this.response, 'country', 11, 4),
-                    zip: that.getValue(this.response, 'zip', 7, 5),
-                    state: that.getValue(this.response, 'state', 10, 6),
-                    city: that.getValue(this.response, 'city', 9, 7),
-                    dataLoading: true
-                })
-                if (that.getValue(this.response, 'sms_allowed', 15, 2) === 'no') {
-                    that.setState({ checked1: !checked1 })
-                    that.setState({ checked2: !checked2 })
-                }
+        let request = {
+            method: "GET",
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': 'Bearer ' + token
+            },
 
-            }
+        };
+        fetch('https://rideafide.com/wp-json/app/v2/passenger/get_all_info', request)
+            .then(response => {
+                // console.log(response, 'ye dhekho response');
+                response.json().then(function (data) {
+                    console.log(data, 'ye dhekho data');
+                    that.setState({ 
+                                    full_name: data.fullname,
+                                    address: data.address,
+                                    sms_allowed: data.sms_allowed,
+                                    phone: data.phone,
+                                    country: data.country,
+                                    zip: data.zip,
+                                    state: data.state[0],
+                                    city: data.city[0],
+                                    dataLoading: true
+                                })
+                                if (data.sms_allowed === 'no') {
+                                                that.setState({ checked1: !checked1 })
+                                                that.setState({ checked2: !checked2 })
+                                            }
 
-        }
-        xhttp.open("GET", "https://rideafide.com/wp-json/app/v2/passenger/get_all_info", true);
-        // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.setRequestHeader("Authorization", 'Bearer ' + token);
-        xhttp.send()
-        // xhttp.send(`action=${`personal_info_section`}&address=${address}&sms_allowed=${sms}&phone=${phone}&country=${country}&zip=${zip}&state=${state}&city=${city}&full_name=${full_name}`);
+                });
+            })
+            .catch(error => {
+                console.error(error, 'ye error ');
+
+            })
     }
 
 
-    componentWillMount() {
-
-    }
 
     componentDidMount() {
-
-        // console.log(AsyncStorage.getItem('token'), 'token')
-
-
         this._retrieveData('token').then((token) => {
             this.setState({ token })
             this.update(token)

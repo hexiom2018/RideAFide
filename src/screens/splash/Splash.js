@@ -86,20 +86,20 @@ class Splash extends React.Component {
                                     })
                                     this.props.navigation.dispatch(resetAction)
                                 }
-                                else if (detail1 === 'false' && detail2 === 'false') {
-                                    const resetAction = StackActions.reset({
-                                        index: 0,
-                                        actions: [
-                                            NavigationActions.navigate({ routeName: 'PersonalInfo' }),
-                                        ]
-                                    })
-                                    this.props.navigation.dispatch(resetAction)
-                                }
+                                // else if (detail1 === 'false' && detail2 === 'false') {
+                                //     const resetAction = StackActions.reset({
+                                //         index: 0,
+                                //         actions: [
+                                //             NavigationActions.navigate({ routeName: 'PersonalInfo' }),
+                                //         ]
+                                //     })
+                                //     this.props.navigation.dispatch(resetAction)
+                                // }
                                  else {
                                     const resetAction = StackActions.reset({
                                         index: 0,
                                         actions: [
-                                            NavigationActions.navigate({ routeName: 'LogIn' }),
+                                            NavigationActions.navigate({ routeName: 'Scan' }),
                                         ]
                                     })
                                     this.props.navigation.dispatch(resetAction)

@@ -42,6 +42,7 @@ class Email extends React.Component {
         } else {
             this._getLocationAsync();
         }
+        
     }
 
 
@@ -185,56 +186,89 @@ class Email extends React.Component {
             if (reg.test(username) === true) {
 
                 let that = this
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    console.log(this.response, 'eeskdjbsak')
+              
+                let request = {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': "application/x-www-form-urlencoded; charset=UTF=8"
+                    },
+                    body:`username=${username}&password=${password}`,
+                };
+                fetch('https://rideafide.com/wp-json/app/v2/auth/login', request)
+                    .then(response => {
+                        // console.log(response, 'ye dhekho response');
+                        response.json().then(function (data) {
+                            console.log(data.jwt, 'ye dhekho token');
+                            var token =  data.jwt
+                            that._storeData('email', username).then(() => {
 
-                    if (this.status === 200) {
-                        count = 1
-                        var myres = this.response.split(',').pop().slice(7)
-                        var token = myres.slice(0, myres.length - 2)
+                                        })
+                            that._storeData('token', token).then((store) => {
+                                            const resetAction = StackActions.reset({
+                                                index: 0,
+                                                actions: [
+                                                    NavigationActions.navigate({ routeName: 'Scan' }),
+                                                ]
+                                            })
+                                            that.props.navigation.dispatch(resetAction)
+                                            that.props.navigation.navigate('Scan')
+                
+                                            that.setState({
+                                                loading: false
+                                            })
+                                        })
+                                    
+                        });
+                    })
+                    .catch(error => {
+                        console.error(error, 'ye error ');
+    
+                    })
+                
 
-                        that._storeData('email', username).then(() => {
+                //     if (this.status === 200) {
+                //         count = 1
+                //         var myres = this.response.split(',').pop().slice(7)
+                //         var token = myres.slice(0, myres.length - 2)
 
-                        })
-                        that._storeData('token', token).then((store) => {
-                            const resetAction = StackActions.reset({
-                                index: 0,
-                                actions: [
-                                    NavigationActions.navigate({ routeName: 'Scan' }),
-                                ]
-                            })
-                            that.props.navigation.dispatch(resetAction)
-                            // that.props.navigation.navigate('Scan')
+                //         that._storeData('email', username).then(() => {
 
-                            // that.setState({
-                            //     loading: false
-                            // })
-                        })
-                    }
-                    else if (this.status === 401 && !count) {
-                        count = 1
-                        alert('Invalid Email Or Password')
-                        that.setState({
-                            loading: false
-                        })
-                    }
-                    else if (!count && this.status === 500) {
-                        count = 1
-                        alert('Something went wrong')
-                        that.setState({
-                            loading: false
-                        })
-                    }
-                    // if (this.status) {
-                    //     that.setState({
-                    //         loading: false
-                    //     })
-                    // }
-                }
-                xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/auth/login", true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send(`username=${username}&password=${password}`);
+                //         })
+                //         that._storeData('token', token).then((store) => {
+                //             const resetAction = StackActions.reset({
+                //                 index: 0,
+                //                 actions: [
+                //                     NavigationActions.navigate({ routeName: 'Scan' }),
+                //                 ]
+                //             })
+                //             that.props.navigation.dispatch(resetAction)
+                //             // that.props.navigation.navigate('Scan')
+
+                //             // that.setState({
+                //             //     loading: false
+                //             // })
+                //         })
+                //     }
+                //     else if (this.status === 401 && !count) {
+                //         count = 1
+                //         alert('Invalid Email Or Password')
+                //         that.setState({
+                //             loading: false
+                //         })
+                //     }
+                //     else if (!count && this.status === 500) {
+                //         count = 1
+                //         alert('Something went wrong')
+                //         that.setState({
+                //             loading: false
+                //         })
+                //     }
+                //     // if (this.status) {
+                //     //     that.setState({
+                //     //         loading: false
+                //     //     })
+                //     // }
+                // 
 
             }
             else {

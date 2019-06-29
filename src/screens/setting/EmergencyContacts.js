@@ -18,53 +18,45 @@ class EmergencyContacts extends React.Component {
         }
     }
 
-    getValue(response, value, length, index) {
-        var myres = response.split(',')[index]
-        var text
-        console.log(myres, 'myres')
-        switch (value) {
-            case 'parent_emails':
-                var parent_emails = myres.slice(length, myres.length - 1);
-                text = parent_emails
-                break;
-            case 'parent_numbers':
-                var parent_numbers = myres.slice(length, myres.length - 1);
-                text = parent_numbers
-                break;
-            case 'message':
-                var message = myres.slice(length, myres.length - 2);
-                text = message
-                break;
-            default:
-                break;
-        }
 
-        return text
-
-    }
 
     update(token) {
         var count = 0
         const that = this
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.status === 200 && this.response) {
-                console.log(this.response, 'my response')
-                that.setState({
-                    Email_1: that.getValue(this.response, 'parent_emails', 17, 8),
-                    numbers_1: that.getValue(this.response, 'parent_numbers', 18, 9),
-                    message: that.getValue(this.response, 'message', 11, 10),
-                    dataLoading: true
-                })
+        let request = {
+            method: "GET",
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': 'Bearer ' + token
+            },
 
-            }
+        };
+        fetch('https://rideafide.com/wp-json/app/v2/passenger/get_all_info', request)
+            .then(response => {
+                // console.log(response, 'ye dhekho response');
+                response.json().then(function (data) {
+                    // console.log(data, 'ye dhekho data');
+                    var emails = data.parent_emails.split(',')
+                    console.log(emails, 'emails');
 
-        }
-        xhttp.open("GET", "https://rideafide.com/wp-json/app/v2/passenger/get_all_info", true);
-        // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.setRequestHeader("Authorization", 'Bearer ' + token);
-        xhttp.send()
-        // xhttp.send(`action=${`personal_info_section`}&address=${address}&sms_allowed=${sms}&phone=${phone}&country=${country}&zip=${zip}&state=${state}&city=${city}&full_name=${full_name}`);
+                    var numbers = data.parent_numbers.split(',')
+                    console.log(numbers, 'numbers');
+
+                    that.setState({
+                        Email_1: emails[0],
+                        Email_2: emails[1],
+                        message: data.message,
+                        numbers_1: numbers[0],
+                        numbers_2: numbers[1],
+                        dataLoading: true
+                    })
+                });
+            })
+            .catch(error => {
+                console.error(error, 'ye error ');
+
+            })
+
     }
 
 
@@ -160,7 +152,7 @@ class EmergencyContacts extends React.Component {
                         'Sucess',
                         `Thank's for submit`,
                         [
-                            { text: 'OK', onPress: () => that.props.navigation.navigate('LogIn') },
+                            { text: 'OK', onPress: () => that.props.navigation.navigate('Scan') },
                         ],
                         { cancelable: false },
                     )
@@ -197,11 +189,11 @@ class EmergencyContacts extends React.Component {
                             </View>
 
                         </View>
-                        {!dataLoading && 
-                        <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
-                        <Text style={styles.heading}> emergency_section</Text>
-                        <ActivityIndicator size="large" color="#00ff00" /></View>
-                    }
+                        {!dataLoading &&
+                            <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
+                                <Text style={styles.heading}> emergency_section</Text>
+                                <ActivityIndicator size="large" color="#00ff00" /></View>
+                        }
 
 
                         {dataLoading &&
