@@ -10,6 +10,11 @@ import logo from '../../../assets/newlogo2/newlogo.png'
 import { AsyncStorage } from 'react-native';
 import UnderLine from "../../../assets/underline.png";
 import { StackActions, NavigationActions } from 'react-navigation';
+import alerticon from "../../../assets/alerticon.png"
+import RegisterIcon from "../../../assets/RegisterIcon.png"
+import Scanicon from "../../../assets/Scanicon.png"
+import Verifyicon from "../../../assets/Verifyicon.png"
+
 
 class Splash extends React.Component {
     constructor(props) {
@@ -17,13 +22,20 @@ class Splash extends React.Component {
         this.state = {
             welcomeText: [
                 {
-                    text: 'Identify by scanning any rideshare drivers RideAfide emblem.'
+                    text: 'Sign up as a rideshare passenger with the RideAfide app.',
+                    icon: RegisterIcon
                 },
                 {
-                    text: 'Verify your drivers vehicle, license plate & picture.'
+                    text: 'Identify by scanning any rideshare drivers emblem.',
+                    icon: Scanicon
                 },
                 {
-                    text: 'Notify your emergency contact through the app if you feel threatened or uncomfortable.'
+                    text: 'Verify your drivers vehicle, license plate and profile picture.',
+                    icon: Verifyicon
+                },
+                {
+                    text: 'Notify your emergency contacts directly from the RideAfide app.',
+                    icon: alerticon
                 }
             ],
             splash: false
@@ -95,7 +107,7 @@ class Splash extends React.Component {
                                 //     })
                                 //     this.props.navigation.dispatch(resetAction)
                                 // }
-                                 else {
+                                else {
                                     const resetAction = StackActions.reset({
                                         index: 0,
                                         actions: [
@@ -130,18 +142,18 @@ class Splash extends React.Component {
     }
 
 
-    Details(text, key) {
+    Details(items, key) {
         return (
             <View key={key} style={{ justifyContent: 'flex-start', flexDirection: 'row', paddingHorizontal: '2%' }}>
-                <View style={{ width: '20%', alignSelf: 'flex-start' }}>
-                    <Icon
-                        size={40}
-                        name={'chevron-right'}
+                <View style={{ width: '22%', alignSelf: 'center' ,justifyContent:'center'}}>
+                    <Image
+                        style={{ height: 40, width:40}}
+                        source={items.icon}
                     />
                 </View>
-                <View style={{ alignSelf: 'flex-start', width: '80%', paddingRight: '5%' }}>
+                <View style={{ alignSelf: 'flex-start', width: '78%', paddingRight: '5%' }}>
                     <Text style={{ fontSize: 18 }}>
-                        {text}
+                        {items.text}
                     </Text>
                 </View>
             </View>
@@ -155,22 +167,20 @@ class Splash extends React.Component {
                 {
                     splash &&
                     <View style={styles.main}>
+                    {/* <ScrollView style={{flex:1}}>    */}
                         <View style={{ paddingVertical: '4%', alignItems: 'center' }}>
                             <Image
                                 source={logo}
                             />
                         </View>
+                        <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
+
                         <View style={{ paddingVertical: '3%', }}>
                             <Text style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center' }}>
                                 {'How to verify your ride?'}
                             </Text>
                         </View>
-                        <View style={{ height: 2 }}>
-                            <Image
-                                style={{ height: 7, width: '100%' }}
-                                source={UnderLine}
-                            />
-                        </View>
+                       
                         <View style={{ justifyContent: 'center', flexGrow: 1 }}>
                             {
                                 welcomeText &&
@@ -178,13 +188,20 @@ class Splash extends React.Component {
                                     return (
                                         <View key={index} style={{ marginBottom: '7%' }}>
                                             {
-                                                this.Details(items.text, index)
+                                                this.Details(items, index)
                                             }
                                         </View>
                                     )
                                 })
                             }
                         </View>
+                        <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
+                        <View style={{ paddingVertical: '3%', }}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center' }}>
+                            Identify - Verify - Notify
+                            </Text>
+                        </View>
+                        <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
                         <View style={{ alignItems: 'center', flexGrow: 1, justifyContent: 'center', marginVertical: 10 }}>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#77d8c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
                                 <View>
@@ -194,7 +211,8 @@ class Splash extends React.Component {
                                 </View>
                             </TouchableOpacity>
                         </View>
-                    </View >
+                    {/* </ScrollView> */}
+                    </View > 
                 }
             </>
         );

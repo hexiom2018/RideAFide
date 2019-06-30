@@ -194,23 +194,23 @@ class EmergencyContacts extends React.Component {
 
                         {!dataLoading &&
                             <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
-                                <Text style={styles.heading}> emergency_section</Text>
+                                <Text style={styles.heading}> Emergency Section</Text>
                                 <ActivityIndicator size="large" color="#00ff00" /></View>
                         }
 
 
                         {dataLoading &&
                             <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
-                                <Text style={styles.heading}> emergency_section</Text>
+                                <Text style={styles.heading}> Emergency Section</Text>
                                 <View style={{ width: '90%' }} >
-                                    <Text style={styles.text}>parent_emails</Text>
+                                    <Text style={styles.text}>Emergency Contact Emails</Text>
                                 </View>
                                 <View style={styles.container}>
 
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'email-address'}
-                                            placeholder={'Enter emails 1'}
+                                            placeholder={'Emergency Emails 1'}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ Email_1: e })}
                                             value={Email_1}
@@ -230,7 +230,7 @@ class EmergencyContacts extends React.Component {
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'email-address'}
-                                            placeholder={'Enter emails 2'}
+                                            placeholder={'Emergency Emails 2'}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ Email_2: e })}
                                             value={Email_2}
@@ -250,14 +250,14 @@ class EmergencyContacts extends React.Component {
                                 </View>
 
                                 <View style={{ width: '90%' }} >
-                                    <Text style={styles.text}>Emergency Contact's</Text>
+                                    <Text style={styles.text}>Emergency Contact Mobile</Text>
                                 </View>
                                 <View style={styles.container}>
 
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'email-address'}
-                                            placeholder={' Contact 1 '}
+                                            placeholder={'  Emergency Contact Mobile Number 1 '}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ numbers_1: e })}
                                             value={numbers_1}
@@ -277,7 +277,7 @@ class EmergencyContacts extends React.Component {
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'email-address'}
-                                            placeholder={'Contact 2'}
+                                            placeholder={'Emergency Contact Mobile Number 2'}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ numbers_2: e })}
                                             value={numbers_2}
@@ -298,7 +298,7 @@ class EmergencyContacts extends React.Component {
                                 </View>
 
                                 <View style={{ width: '90%' }}>
-                                    <Text style={styles.text}>Message</Text>
+                                    <Text style={styles.text}>Emergency Message</Text>
                                 </View>
                                 <View style={styles.container}>
 
