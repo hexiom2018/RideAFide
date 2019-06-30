@@ -1,12 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View,ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import Navigation from './navigation';
 // console.disableYellowBox = true;
 
 export default class App extends React.Component {
   render() {
     return (
-       <Navigation/>
+      <>
+        <StatusBar barStyle="default" />
+        <Navigation />
+      </>
     );
   }
 }

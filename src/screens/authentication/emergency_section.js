@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Button from '../../components/button/Button'
 import tick from '../../../assets/email/tick-checked.png'
@@ -144,9 +144,10 @@ class Emergency extends React.Component {
         return (
             <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
                 <ScrollView style={{ flex: 1, marginTop: 24 }} >
-                    <View style={{ flex: 1, justifyContent: 'center', }}>
-                        <View style={{ flexDirection: 'row', paddingVertical: '6%', justifyContent: 'center' }}>
-                            <View style={{ width: '60%', paddingLeft: 15, height: 30, justifyContent: 'center' }}>
+                    <StatusBar backgroundColor={'white'} />
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
+                            <View style={{ width: '60%', height: 30, alignItems: 'center', justifyContent: 'center' }}>
                                 <Image
                                     // style={{ width: 100, height: 100 }}
                                     source={logo}
@@ -168,7 +169,7 @@ class Emergency extends React.Component {
                                 <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'email-address'}
-                                        placeholder={'Emergency Emails 1'}
+                                        placeholder={'Emergency Email 1'}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ Email_1: e })}
                                         value={Email_1}
@@ -179,7 +180,7 @@ class Emergency extends React.Component {
                                             borderColor: '#77d8c5',
                                             textAlign: 'center',
                                             paddingHorizontal: 10,
-                                            paddingVertical: 10,
+                                            paddingVertical: 7,
                                             borderRadius: 7,
                                             fontStyle: 'italic', marginBottom: 2
                                         }}
@@ -188,7 +189,7 @@ class Emergency extends React.Component {
                                 <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'email-address'}
-                                        placeholder={'Emergency Emails 2'}
+                                        placeholder={'Emergency Email 2'}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ Email_2: e })}
                                         value={Email_2}
@@ -199,7 +200,7 @@ class Emergency extends React.Component {
                                             borderColor: '#77d8c5',
                                             textAlign: 'center',
                                             paddingHorizontal: 10,
-                                            paddingVertical: 10,
+                                            paddingVertical: 7,
                                             borderRadius: 7,
                                             fontStyle: 'italic', marginTop: 2
                                         }}
@@ -215,7 +216,7 @@ class Emergency extends React.Component {
                                 <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'email-address'}
-                                        placeholder={' Emergency Contact Mobile Number 1 '}
+                                        placeholder={' Emergency Mobile Number 1 '}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ numbers_1: e })}
                                         value={numbers_1}
@@ -226,7 +227,7 @@ class Emergency extends React.Component {
                                             borderColor: '#77d8c5',
                                             textAlign: 'center',
                                             paddingHorizontal: 10,
-                                            paddingVertical: 10,
+                                            paddingVertical: 7,
                                             borderRadius: 7,
                                             fontStyle: 'italic', marginBottom: 2
                                         }}
@@ -235,7 +236,7 @@ class Emergency extends React.Component {
                                 <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'email-address'}
-                                        placeholder={'Emergency Contact Mobile Number 2'}
+                                        placeholder={'Emergency Mobile Number 2'}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ numbers_2: e })}
                                         value={numbers_2}
@@ -247,7 +248,7 @@ class Emergency extends React.Component {
                                             borderColor: '#77d8c5',
                                             textAlign: 'center',
                                             paddingHorizontal: 10,
-                                            paddingVertical: 10,
+                                            paddingVertical: 7,
                                             borderRadius: 7,
                                             fontStyle: 'italic', marginTop: 2
                                         }}
@@ -259,27 +260,32 @@ class Emergency extends React.Component {
                                 <Text style={styles.text}>Emergency Message</Text>
                             </View>
                             <View style={styles.container}>
-
-
                                 <View style={{ width: '100%' }}>
                                     <TextInput
-                                        keyboardType={'ascii-capable'}
-                                        placeholder={'Enter message '}
+                                        keyboardType={'default'}
+                                        placeholder={"Hi this is {{contact name}} I am using a ride share service and I feel endangered, can you please try calling me or texting me @{{phone number}}, If I don't answer or respond you may want to contact the local Police Department for assistance."}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ message: e })}
                                         value={message}
-
+                                        multiline={true}
+                                        numberOfLines={5}
+                                        editable={true}
                                         style={{
                                             borderWidth: 1,
                                             color: '#6a6a6a',
                                             borderColor: '#77d8c5',
-                                            textAlign: 'center',
+                                            // alignItems:'flex-start',
                                             paddingHorizontal: 10,
-                                            paddingVertical: 10,
+                                            // paddingVertical: 7,
                                             borderRadius: 7,
                                             fontStyle: 'italic'
                                         }}
                                     />
+                                </View>
+                                <View>
+                                    <Text style={{ fontSize: 11, color: 'grey', textAlign: 'center' }}>
+                                        {'*Leaving the information between the tags {{...}} will automatically send your contact information to the emergency contacts'}
+                                    </Text>
                                 </View>
                             </View>
 
@@ -319,7 +325,7 @@ const styles = StyleSheet.create({
         // elevation: 5,
         // shadowColor: 'grey',
         marginTop: 10,
-        marginBottom: 20,
+        marginBottom: 10,
         alignItems: "center",
         justifyContent: 'space-between'
     },
@@ -328,7 +334,7 @@ const styles = StyleSheet.create({
         height: 50,
         width: '95%',
         fontSize: 18,
-        paddingVertical: 10,
+        // paddingVertical: 10,
     },
     button: {
         width: '100%',
@@ -345,7 +351,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '600',
         // color: "#77d8c5",
-        paddingVertical: 20
+        paddingVertical: 10
     },
     create: {
         fontSize: 16,

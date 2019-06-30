@@ -311,7 +311,7 @@ class Email extends React.Component {
                 </Modal>
                 <StatusBar hidden={true} />
                 <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                    <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
+                    <View style={{ width: '60%', height: 50, alignItems: 'center', justifyContent: 'center' }}>
                         <Image
                             source={logo}
                         />

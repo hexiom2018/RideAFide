@@ -140,7 +140,7 @@ class Setting extends React.Component {
 
                 <StatusBar hidden={true} />
                 <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                    <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
+                    <View style={{ width: '60%', alignItems: 'center', height: 50, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}

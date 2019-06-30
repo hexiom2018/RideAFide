@@ -23,11 +23,11 @@ class ProfileDetails extends React.Component {
         }
     }
 
-        // var myres = response.split(',')[index]
-        
+    // var myres = response.split(',')[index]
+
 
     update(token) {
-        const{checked2,checked1} = this.state
+        const { checked2, checked1 } = this.state
         const that = this
         let request = {
             method: "GET",
@@ -42,21 +42,21 @@ class ProfileDetails extends React.Component {
                 // console.log(response, 'ye dhekho response');
                 response.json().then(function (data) {
                     console.log(data, 'ye dhekho data');
-                    that.setState({ 
-                                    full_name: data.fullname,
-                                    address: data.address,
-                                    sms_allowed: data.sms_allowed,
-                                    phone: data.phone,
-                                    country: data.country,
-                                    zip: data.zip,
-                                    state: data.state[0],
-                                    city: data.city[0],
-                                    dataLoading: true
-                                })
-                                if (data.sms_allowed === 'no') {
-                                                that.setState({ checked1: !checked1 })
-                                                that.setState({ checked2: !checked2 })
-                                            }
+                    that.setState({
+                        full_name: data.fullname,
+                        address: data.address,
+                        sms_allowed: data.sms_allowed,
+                        phone: data.phone,
+                        country: data.country,
+                        zip: data.zip,
+                        state: data.state[0],
+                        city: data.city[0],
+                        dataLoading: true
+                    })
+                    if (data.sms_allowed === 'no') {
+                        that.setState({ checked1: !checked1 })
+                        that.setState({ checked2: !checked2 })
+                    }
 
                 });
             })
@@ -181,7 +181,7 @@ class ProfileDetails extends React.Component {
         return (
             <View style={{ flex: 1, justifyContent: 'center', }}>
                 <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                    <View style={{ width: '60%', paddingLeft: 15, height: 30, justifyContent: 'center' }}>
+                    <View style={{ width: '60%', alignItems: 'center', height: 30, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}
@@ -201,14 +201,14 @@ class ProfileDetails extends React.Component {
                         <ScrollView style={{ flex: 1, marginTop: 24 }} >
                             <View style={{ alignItems: "center", justifyContent: 'center', width: '100%' }} >
                                 <View style={{ width: '90%' }} >
-                                    <Text style={styles.text}>Full Name</Text>
+                                    <Text style={styles.text}>Name</Text>
                                 </View>
                                 <View style={styles.container}>
 
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'email-address'}
-                                            placeholder={'Enter full_name'}
+                                            placeholder={'Enter First and Last Name'}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ full_name: e })}
                                             value={full_name}
@@ -228,14 +228,14 @@ class ProfileDetails extends React.Component {
                                 </View>
 
                                 <View style={{ width: '90%' }} >
-                                    <Text style={styles.text}>Phone Number</Text>
+                                    <Text style={styles.text}>Mobile Phone</Text>
                                 </View>
                                 <View style={styles.container}>
 
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'email-address'}
-                                            placeholder={'Enter phone Number'}
+                                            placeholder={'Enter Mobile Number'}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ phone: e })}
                                             value={phone}
@@ -266,7 +266,7 @@ class ProfileDetails extends React.Component {
                                         <TextInput
                                             keyboardType={'ascii-capable'}
                                             // secureTextEntry={true}
-                                            placeholder={'Enter address '}
+                                            placeholder={'Enter Address'}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ address: e })}
                                             value={address}
@@ -285,49 +285,18 @@ class ProfileDetails extends React.Component {
                                     </View>
                                 </View>
                                 <View style={{ width: '90%' }}>
-                                    <Text style={styles.text}>Country</Text>
+                                    <Text style={styles.text}>City</Text>
                                 </View>
                                 <View style={styles.container}>
-
-
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'ascii-capable'}
-                                            // secureTextEntry={true}
-                                            placeholder={'Enter Country '}
+                                            // secureTextEntry={true}/
+                                            placeholder={'Enter City '}
                                             placeholderTextColor={'#686868'}
-                                            onChangeText={e => this.setState({ country: e })}
-                                            value={country}
+                                            onChangeText={e => this.setState({ city: e })}
+                                            value={city}
                                             textContentType={'password'}
-                                            style={{
-                                                borderWidth: 1,
-                                                color: '#6a6a6a',
-                                                borderColor: '#77d8c5',
-                                                textAlign: 'center',
-                                                paddingHorizontal: 10,
-                                                paddingVertical: 10,
-                                                borderRadius: 7,
-                                                fontStyle: 'italic'
-                                            }}
-                                        />
-                                    </View>
-                                </View>
-                                <View style={{ width: '90%' }}>
-                                    <Text style={styles.text}>Zip Code</Text>
-                                </View>
-                                <View style={styles.container}>
-
-
-                                    <View style={{ width: '100%' }}>
-                                        <TextInput
-                                            keyboardType={'ascii-capable'}
-                                            // secureTextEntry={true}
-                                            placeholder={'Enter zip code'}
-                                            placeholderTextColor={'#686868'}
-                                            onChangeText={e => this.setState({ zip: e })}
-                                            value={zip}
-                                            textContentType={'password'}
-                                            keyboardType={'number-pad'}
                                             style={{
                                                 borderWidth: 1,
                                                 color: '#6a6a6a',
@@ -370,20 +339,19 @@ class ProfileDetails extends React.Component {
                                     </View>
                                 </View>
                                 <View style={{ width: '90%' }}>
-                                    <Text style={styles.text}>City</Text>
+                                    <Text style={styles.text}>Zip Code</Text>
                                 </View>
                                 <View style={styles.container}>
-
-
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'ascii-capable'}
-                                            // secureTextEntry={true}/
-                                            placeholder={'Enter city '}
+                                            // secureTextEntry={true}
+                                            placeholder={'Enter Zip Code'}
                                             placeholderTextColor={'#686868'}
-                                            onChangeText={e => this.setState({ city: e })}
-                                            value={city}
+                                            onChangeText={e => this.setState({ zip: e })}
+                                            value={zip}
                                             textContentType={'password'}
+                                            keyboardType={'number-pad'}
                                             style={{
                                                 borderWidth: 1,
                                                 color: '#6a6a6a',
@@ -398,7 +366,36 @@ class ProfileDetails extends React.Component {
                                     </View>
                                 </View>
                                 <View style={{ width: '90%' }}>
-                                    <Text style={styles.text}>sms_allowed</Text>
+                                    <Text style={styles.text}>Country</Text>
+                                </View>
+                                <View style={styles.container}>
+
+
+                                    <View style={{ width: '100%' }}>
+                                        <TextInput
+                                            keyboardType={'ascii-capable'}
+                                            // secureTextEntry={true}
+                                            placeholder={'Enter Country'}
+                                            placeholderTextColor={'#686868'}
+                                            onChangeText={e => this.setState({ country: e })}
+                                            value={country}
+                                            textContentType={'password'}
+                                            style={{
+                                                borderWidth: 1,
+                                                color: '#6a6a6a',
+                                                borderColor: '#77d8c5',
+                                                textAlign: 'center',
+                                                paddingHorizontal: 10,
+                                                paddingVertical: 10,
+                                                borderRadius: 7,
+                                                fontStyle: 'italic'
+                                            }}
+                                        />
+                                    </View>
+                                </View>
+
+                                <View style={{ width: '90%' }}>
+                                    <Text style={styles.text}>Text Message Allowed</Text>
                                 </View>
                                 <View style={styles.container}>
 

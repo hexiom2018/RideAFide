@@ -113,7 +113,7 @@ class ForgetPassword extends React.Component {
 
             <KeyboardAvoidingView style={{ flex: 1, position: 'relative', }} behavior={'padding'} enabled>
                 <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                    <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
+                    <View style={{ width: '60%', height: 50, alignItems: 'center', justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}
@@ -163,7 +163,7 @@ class ForgetPassword extends React.Component {
                             <View style={{ width: '80%' }}>
                                 <TextInput
                                     keyboardType={'email-address'}
-                                    placeholder={'Enter email here'}
+                                    placeholder={'Enter email'}
                                     placeholderTextColor={'#686868'}
                                     // change={(value) => this.onChange(value, 'email')}
                                     onChangeText={(email) => this.setState({ email })}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, StatusBar, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import logo from '../../../assets/email/logo.png'
 import tick from '../../../assets/green-tick1.png'
@@ -103,8 +103,8 @@ class SignUp extends React.Component {
         const { email, password, username, LastName, select, ticked, loading } = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', }}>
-                <View style={{ flexDirection: 'row', paddingVertical: '7%', justifyContent: 'center' }}>
-                    <View style={{ width: '60%', paddingLeft: 15, height: 50, justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
+                    <View style={{ width: '60%', height: 50, alignItems: 'center', justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}
@@ -128,7 +128,7 @@ class SignUp extends React.Component {
                                 <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'email-address'}
-                                        placeholder={'Enter username'}
+                                        placeholder={'Enter User Name'}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ username: e })}
                                         value={username}
@@ -150,7 +150,7 @@ class SignUp extends React.Component {
                                 <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'email-address'}
-                                        placeholder={'Enter email '}
+                                        placeholder={'Enter Email Address'}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ email: e })}
                                         value={email}
@@ -174,7 +174,7 @@ class SignUp extends React.Component {
                                     <TextInput
                                         keyboardType={'ascii-capable'}
                                         secureTextEntry={true}
-                                        placeholder={'Enter password '}
+                                        placeholder={'Enter Password'}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ password: e })}
                                         value={password}

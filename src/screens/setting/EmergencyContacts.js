@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text,StatusBar, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Button from '../../components/button/Button'
 import tick from '../../../assets/email/tick-checked.png'
@@ -179,9 +179,10 @@ class EmergencyContacts extends React.Component {
         return (
             <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
                 <ScrollView style={{ flex: 1, }} >
+                <StatusBar backgroundColor={'white'} />
                     <View style={{ flex: 1, justifyContent: 'center', }}>
                         <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                            <View style={{ width: '60%', paddingLeft: 15, height: 30, justifyContent: 'center' }}>
+                            <View style={{ width: '60%', alignItems: 'center', height: 30, justifyContent: 'center' }}>
                                 <Image
                                     // style={{ width: 100, height: 100 }}
                                     source={logo}
@@ -210,7 +211,7 @@ class EmergencyContacts extends React.Component {
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'email-address'}
-                                            placeholder={'Emergency Emails 1'}
+                                            placeholder={'Emergency Email 1'}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ Email_1: e })}
                                             value={Email_1}
@@ -230,7 +231,7 @@ class EmergencyContacts extends React.Component {
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'email-address'}
-                                            placeholder={'Emergency Emails 2'}
+                                            placeholder={'Emergency Email 2'}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ Email_2: e })}
                                             value={Email_2}
@@ -257,7 +258,7 @@ class EmergencyContacts extends React.Component {
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'email-address'}
-                                            placeholder={'  Emergency Contact Mobile Number 1 '}
+                                            placeholder={'  Emergency Mobile Number 1 '}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ numbers_1: e })}
                                             value={numbers_1}
@@ -277,7 +278,7 @@ class EmergencyContacts extends React.Component {
                                     <View style={{ width: '100%' }}>
                                         <TextInput
                                             keyboardType={'email-address'}
-                                            placeholder={'Emergency Contact Mobile Number 2'}
+                                            placeholder={'Emergency Mobile Number 2'}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ numbers_2: e })}
                                             value={numbers_2}
