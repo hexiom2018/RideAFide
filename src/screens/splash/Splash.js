@@ -144,15 +144,15 @@ class Splash extends React.Component {
 
     Details(items, key) {
         return (
-            <View key={key} style={{ justifyContent: 'flex-start', flexDirection: 'row', paddingHorizontal: '2%' }}>
-                <View style={{ width: '22%', alignSelf: 'center' ,justifyContent:'center'}}>
+            <View key={key} style={{ justifyContent: 'flex-start', flexDirection: 'row', paddingVertical: '2%', paddingHorizontal: '2%' }}>
+                <View style={{ width: '30%', alignSelf: 'center', alignItems: 'center', justifyContent: 'center' }}>
                     <Image
-                        style={{ height: 40, width:40}}
+                        // style={{ height: '100%', width: '100%' }}
                         source={items.icon}
                     />
                 </View>
-                <View style={{ alignSelf: 'flex-start', width: '78%', paddingRight: '5%' }}>
-                    <Text style={{ fontSize: 18 }}>
+                <View style={{ alignSelf: 'flex-start', width: '70%', paddingRight: '5%' }}>
+                    <Text style={{ fontSize: 16 }}>
                         {items.text}
                     </Text>
                 </View>
@@ -167,8 +167,8 @@ class Splash extends React.Component {
                 {
                     splash &&
                     <View style={styles.main}>
-                    {/* <ScrollView style={{flex:1}}>    */}
-                        <View style={{ paddingVertical: '4%', alignItems: 'center' }}>
+                        {/* <ScrollView style={{flex:1}}>    */}
+                        <View style={{ paddingVertical: '6%', alignItems: 'center' }}>
                             <Image
                                 source={logo}
                             />
@@ -180,25 +180,29 @@ class Splash extends React.Component {
                                 {'How to verify your ride?'}
                             </Text>
                         </View>
-                       
-                        <View style={{ justifyContent: 'center', flexGrow: 1 }}>
-                            {
-                                welcomeText &&
-                                welcomeText.map((items, index) => {
-                                    return (
-                                        <View key={index} style={{ marginBottom: '7%' }}>
-                                            {
-                                                this.Details(items, index)
-                                            }
-                                        </View>
-                                    )
-                                })
-                            }
-                        </View>
+
+
+                        <ScrollView style={{ flexGrow: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
+                            <View style={{ justifyContent: 'center', flexGrow: 1 }}>
+                                {
+                                    welcomeText &&
+                                    welcomeText.map((items, index) => {
+                                        return (
+                                            <View key={index}>
+                                                {
+                                                    this.Details(items, index)
+                                                }
+                                            </View>
+                                        )
+                                    })
+                                }
+                            </View>
+                        </ScrollView>
+
                         <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
                         <View style={{ paddingVertical: '3%', }}>
                             <Text style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center' }}>
-                            Identify - Verify - Notify
+                                Identify - Verify - Notify
                             </Text>
                         </View>
                         <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
@@ -211,8 +215,8 @@ class Splash extends React.Component {
                                 </View>
                             </TouchableOpacity>
                         </View>
-                    {/* </ScrollView> */}
-                    </View > 
+                        {/* </ScrollView> */}
+                    </View >
                 }
             </>
         );

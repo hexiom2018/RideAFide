@@ -178,7 +178,7 @@ class EmergencyContacts extends React.Component {
         const { numbers_1, numbers_2, message, Email_1, Email_2, loading, Update, dataLoading } = this.state
         return (
             <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
-                <ScrollView style={{ flex: 1, marginTop: 24 }} >
+                <ScrollView style={{ flex: 1, }} >
                     <View style={{ flex: 1, justifyContent: 'center', }}>
                         <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
                             <View style={{ width: '60%', paddingLeft: 15, height: 30, justifyContent: 'center' }}>
@@ -221,7 +221,7 @@ class EmergencyContacts extends React.Component {
                                                 borderColor: '#77d8c5',
                                                 textAlign: 'center',
                                                 paddingHorizontal: 10,
-                                                paddingVertical: 10,
+                                                paddingVertical: 7,
                                                 borderRadius: 7,
                                                 fontStyle: 'italic', marginBottom: 2
                                             }}
@@ -241,7 +241,7 @@ class EmergencyContacts extends React.Component {
                                                 borderColor: '#77d8c5',
                                                 textAlign: 'center',
                                                 paddingHorizontal: 10,
-                                                paddingVertical: 10,
+                                                paddingVertical: 7,
                                                 borderRadius: 7,
                                                 fontStyle: 'italic', marginTop: 2
                                             }}
@@ -268,7 +268,7 @@ class EmergencyContacts extends React.Component {
                                                 borderColor: '#77d8c5',
                                                 textAlign: 'center',
                                                 paddingHorizontal: 10,
-                                                paddingVertical: 10,
+                                                paddingVertical: 7,
                                                 borderRadius: 7,
                                                 fontStyle: 'italic', marginBottom: 2
                                             }}
@@ -289,7 +289,7 @@ class EmergencyContacts extends React.Component {
                                                 borderColor: '#77d8c5',
                                                 textAlign: 'center',
                                                 paddingHorizontal: 10,
-                                                paddingVertical: 10,
+                                                paddingVertical: 7,
                                                 borderRadius: 7,
                                                 fontStyle: 'italic', marginTop: 2
                                             }}
@@ -301,27 +301,32 @@ class EmergencyContacts extends React.Component {
                                     <Text style={styles.text}>Emergency Message</Text>
                                 </View>
                                 <View style={styles.container}>
-
-
                                     <View style={{ width: '100%' }}>
                                         <TextInput
-                                            keyboardType={'ascii-capable'}
-                                            placeholder={'Enter message '}
+                                            keyboardType={'default'}
+                                            placeholder={"Hi this is {{contact name}} I am using a ride share service and I feel endangered, can you please try calling me or texting me @{{phone number}}, If I don't answer or respond you may want to contact the local Police Department for assistance."}
                                             placeholderTextColor={'#686868'}
                                             onChangeText={e => this.setState({ message: e })}
                                             value={message}
-
+                                            multiline={true}
+                                            numberOfLines={5}
+                                            editable={true}
                                             style={{
                                                 borderWidth: 1,
                                                 color: '#6a6a6a',
                                                 borderColor: '#77d8c5',
-                                                textAlign: 'center',
+                                                // alignItems:'flex-start',
                                                 paddingHorizontal: 10,
-                                                paddingVertical: 10,
+                                                // paddingVertical: 7,
                                                 borderRadius: 7,
                                                 fontStyle: 'italic'
                                             }}
                                         />
+                                    </View>
+                                    <View>
+                                        <Text style={{ fontSize: 11, color: 'grey', textAlign: 'center' }}>
+                                            {'*Leaving the information between the tags {{...}} will automatically send your contact information to the emergency contacts'}
+                                        </Text>
                                     </View>
                                 </View>
 
@@ -362,7 +367,7 @@ const styles = StyleSheet.create({
         // elevation: 5,
         // shadowColor: 'grey',
         marginTop: 10,
-        marginBottom: 20,
+        marginBottom: 10,
         alignItems: "center",
         justifyContent: 'space-between'
     },
@@ -388,7 +393,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '600',
         // color: "#77d8c5",
-        paddingVertical: 20
+        paddingVertical: '4%'
     },
     create: {
         fontSize: 16,
