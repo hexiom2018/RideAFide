@@ -54,7 +54,6 @@ class Emergency extends React.Component {
         }
     };
 
-
     create() {
         const { numbers_1, numbers_2, message, Email_1, Email_2, token } = this.state
 
@@ -81,60 +80,54 @@ class Emergency extends React.Component {
 
         else {
 
-            if (Email_1) {
-
-                Emails.push(Email_1)
-            } if (Email_2) {
-
-                Emails.push(Email_2)
-            }
-
-
-            if (numbers_1) {
-
-                Numbers.push(numbers_1)
-            } if (numbers_2) {
-
-                Numbers.push(numbers_2)
-            }
-
+          
             this.setState({
                 loading: true,
             })
+                console.log(Emails,Numbers,message,"look")
 
             var count = 0
             const that = this
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
+            let request = {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded; charset=UTF=8",
+                    'Authorization': 'Bearer ' + token
+                },
+                body: `action=${`emergency_section`}&parent_emails=${Email_1},${Email_2}&parent_numbers=${numbers_1},${numbers_2}&message=${message}`
+            };
 
-                if (this.status === 200 && !count) {
+            fetch('https://rideafide.com/wp-json/app/v2/passenger/update_passenger', request)
+                .then(response => {
+                    response.json().then(function (data) {
+                        console.log(data, 'ye dhekho data');
+                       
+                        that._storeData('detailpg2', 'true')
+                        Alert.alert(
+                            'Sucess',
+                            `ThankYou for submitting.`,
+                            [
+                                { text: 'OK', onPress: () => that.props.navigation.navigate('Scan') },
+                            ],
+                            { cancelable: false },
+                        )
+                        that.setState({
+                            loading: false
+                        })
+                    });
 
-                    // console.log(this.response, 'this response')
-                    count = 1
-                    that._storeData('detailpg2', 'true').then(() => {
-
-                    })
-                    Alert.alert(
-                        'Sucess',
-                        `Thank's for submit`,
-                        [
-                            { text: 'OK', onPress: () => that.props.navigation.navigate('LogIn') },
-                        ],
-                        { cancelable: false },
-                    )
-                    that.setState({
-                        loading: false
-                    })
-                }
-
-
-            }
-            xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/passenger/update_passenger", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.setRequestHeader("Authorization", 'Bearer ' + token);
-            xhttp.send(`action=${`emergency_section`}&parent_emails=${Emails}&parent_numbers=${Numbers}&message=${message}`);
+                })
+                .catch(error => {
+                    console.error(error.data.status, 'ye error ');
+                })
+          
+            // xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/passenger/update_passenger", true);
+            // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // xhttp.setRequestHeader("Authorization", 'Bearer ' + token);
+            // xhttp.send(`action=${`emergency_section`}&parent_emails=${Emails}&parent_numbers=${Numbers}&message=${message}`);
         }
     }
+
 
     static navigationOptions = { header: null }
 
@@ -215,7 +208,7 @@ class Emergency extends React.Component {
                                 <View style={{ width: '100%' }}>
                                     <TextInput
                                         keyboardType={'email-address'}
-                                        placeholder={' Emergency Mobile Number 1 '}
+                                        placeholder={'Emergency Mobile Number 1'}
                                         placeholderTextColor={'#686868'}
                                         onChangeText={e => this.setState({ numbers_1: e })}
                                         value={numbers_1}
