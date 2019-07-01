@@ -35,7 +35,7 @@ class EmergencyContacts extends React.Component {
             .then(response => {
                 // console.log(response, 'ye dhekho response');
                 response.json().then(function (data) {
-                    // console.log(data, 'ye dhekho data');
+                    console.log(data, 'ye dhekho data');
                     var emails = data.parent_emails.split(',')
                     console.log(emails, 'emails');
 
@@ -150,7 +150,7 @@ class EmergencyContacts extends React.Component {
 
                     Alert.alert(
                         'Sucess',
-                        `Thank's for submit`,
+                        `ThankYou for submitting.`,
                         [
                             { text: 'OK', onPress: () => that.props.navigation.navigate('Scan') },
                         ],
@@ -168,7 +168,7 @@ class EmergencyContacts extends React.Component {
             xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/passenger/update_passenger", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.setRequestHeader("Authorization", 'Bearer ' + token);
-            xhttp.send(`action=${`emergency_section`}&parent_emails=${Emails}&parent_numbers=${Numbers}&message=${message}`);
+            xhttp.send(`action=${`emergency_section`}&parent_emails=${Email_1},${Email_2}&parent_numbers=${numbers_1},${numbers_2}&message=${message}`);
         }
     }
 
