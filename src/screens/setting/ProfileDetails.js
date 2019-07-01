@@ -138,7 +138,7 @@ class ProfileDetails extends React.Component {
 
                     Alert.alert(
                         'Sucess',
-                        `'Thank's for submit`,
+                        `ThankYou for submitting.`,
                         [
                             { text: 'ok', onPress: () => that.props.navigation.navigate('Scan') },
                         ],
@@ -195,7 +195,8 @@ class ProfileDetails extends React.Component {
                     <Text style={styles.heading}>User Information</Text>
                 </View>
 
-                {!dataLoading && <ActivityIndicator size="large" color="#00ff00" />}
+                {!dataLoading && <View style={{ alignItems: "center", justifyContent: 'center', width: '100%',flex:1 }} >
+                                <ActivityIndicator size="large" color="#00ff00" /></View>}
                 {dataLoading &&
                     <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
                         <ScrollView style={{ flex: 1, marginTop: 24 }} >

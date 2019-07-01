@@ -105,7 +105,7 @@ class PersonalInfo extends React.Component {
 
                     Alert.alert(
                         'Sucess',
-                        `'Thank's for submit`,
+                        `ThankYou for submitting.`,
                         [
                             { text: 'Next', onPress: () => that.props.navigation.navigate('Emergency') },
                         ],
