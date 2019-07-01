@@ -164,12 +164,12 @@ class UpdatePassword extends React.Component {
                     }}>
                         <View style={{ width: '80%', }}>
 
-                            <Text style={{ textAlign: 'center', fontSize: 13, color: '#686868', fontWeight: '400', justifyContent: 'center' }}>
-                                {`User-Name:`}
+                            <Text style={{ textAlign: 'center', fontSize: 13, color: '#686868', fontWeight: 'bold', justifyContent: 'center' }}>
+                                {`User Name:`}
                             </Text>
                             <TextInput
                                 keyboardType={'email-address'}
-                                placeholder={'Enter User name '}
+                                placeholder={'Enter User Name '}
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(email) => this.setState({ email })}
                                 value={email}
@@ -236,7 +236,7 @@ class UpdatePassword extends React.Component {
                             </Text>
                             <TextInput
                                 keyboardType={'email-address'}
-                                placeholder={'Enter Password '}
+                                placeholder={'Enter New Password '}
                                 placeholderTextColor={'#686868'}
                                 onChangeText={(NewPassword) => this.setState({ NewPassword })}
                                 value={NewPassword}
