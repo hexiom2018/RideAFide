@@ -122,7 +122,6 @@ class Emergency extends React.Component {
                         ],
                         { cancelable: false },
                     )
-                    that
                     that.setState({
                         loading: false
                     })
