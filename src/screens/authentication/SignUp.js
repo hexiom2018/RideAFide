@@ -42,6 +42,7 @@ class SignUp extends React.Component {
         }
     };
 
+    
     create() {
         const { email, password, username, ticked } = this.state
 
@@ -76,6 +77,9 @@ class SignUp extends React.Component {
                         console.log(data, 'ye dhekho data');
                         var token = data.jwt
                         that._storeData('detailpg1', 'false').then(() => {
+
+                        })
+                        that._storeData('email', email).then(() => {
 
                         })
                         that._storeData('detailpg2', 'false').then(() => {
@@ -235,7 +239,7 @@ class SignUp extends React.Component {
                                         {'OR'}
                                     </Text>
                                 </View>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')} activeOpacity={0.7} style={{ width: '90%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')} activeOpacity={0.7} style={{ width: '90%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 ,marginBottom:20}}>
                                     <View>
                                         <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
                                             {'Login'}
