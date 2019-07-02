@@ -119,7 +119,7 @@ class Scan extends React.Component {
         if (statuss === 200) {
             Alert.alert(
                 'Success',
-                'Thanks for submit your feedback.',
+                'ThankYou for submitting',
                 [
                     { text: 'OK', onPress: () => console.log('OK Pressed') },
                 ],
@@ -138,7 +138,7 @@ class Scan extends React.Component {
         })
         Alert.alert(
             'Success',
-            'Thanks for submit your feedback.',
+            'ThankYou for submitting',
             [
                 { text: 'OK', onPress: () => console.log('OK Pressed') },
             ],
@@ -236,7 +236,7 @@ class Scan extends React.Component {
         })
         Alert.alert(
             'Success',
-            'Thanks for submit your feedback.',
+            'ThankYou for submitting',
             [
                 { text: 'OK', onPress: () => console.log('OK Pressed') },
             ],

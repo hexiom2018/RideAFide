@@ -12,8 +12,11 @@ import EmergencyContacts from '../src/screens/setting/EmergencyContacts'
 import Setting from  '../src/screens/setting'
 import ProfileDetails from '../src/screens/setting/ProfileDetails'
 import QrHistory from '../src/screens/setting/QrHistory'
+import About from '../src/screens/setting/about'
+import Terms from '../src/screens/setting/Terms'
 
 const StackNavigator = createStackNavigator({
+   
     Splash: {
         screen: Splash
     },
@@ -33,11 +36,18 @@ const StackNavigator = createStackNavigator({
     ForgetPassword: {
         screen: ForgetPassword
     },
+    
+    Scan: {
+        screen: Scan
+    },
     Setting: {
         screen: Setting
     },
-    Scan: {
-        screen: Scan
+    Terms: {
+        screen: Terms
+    },
+    About: {
+        screen: About
     },
     PersonalInfo: {
         screen: PersonalInfo

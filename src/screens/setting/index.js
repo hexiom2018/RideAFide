@@ -223,7 +223,7 @@ class Setting extends React.Component {
                             {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
                             </View> */}
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={this._goToURLabout}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('About')}>
                             <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
                                 <View style={{ width: '50%', }}>
 
@@ -237,7 +237,7 @@ class Setting extends React.Component {
                             {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>
                             </View> */}
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={this._goToURLtermsuser}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Terms')}>
                             <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, flexDirection: "row", width: '100%' }}>
                                 <View style={{ width: '90%', }}>
 

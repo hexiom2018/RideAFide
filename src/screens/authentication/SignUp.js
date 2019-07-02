@@ -217,9 +217,14 @@ class SignUp extends React.Component {
                                 <View style={{ width: '80%' }}>
                                     <TouchableOpacity activeOpacity={0.8} onPress={() => this.setState({ ticked: !ticked })}>
                                         <Text style={{ color: '#787878', fontSize: 14, fontWeight: '500' }}>
-                                            {'By signing up you agree that you are 18 years or older and agree to the Terms of Use and Privacy Policy.'}
+                                            {`By signing up you agree that you are 18 years or older and agree to the Terms of Use and Privacy Policy.`}
                                         </Text>
                                     </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Terms')} activeOpacity={0.7} >
+                                    <Text style={{ fontSize: 14, fontWeight: '500', color:'#1cbbb4'  }}>
+                                       (Terms of Use and Privacy Policy)
+                                    </Text>
+                            </TouchableOpacity>
                                 </View>
                             </View>
                             <View style={{ alignItems: 'center', width: '90%', marginTop: 7 }}>
