@@ -13,7 +13,6 @@ import Untick from '../../../assets/email/untick.png'
 import mail from '../../../assets/settings.png'
 import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import { StackActions, NavigationActions } from 'react-navigation';
 
 
@@ -141,14 +140,7 @@ class Setting extends React.Component {
 
                 <StatusBar hidden={true} />
                 <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Scan')} style={{ marginLeft: 20, width: '10%', height: 50, justifyContent: 'center' }}>
-                        <Ionicons
-                            color={'#1cbbb4'}
-                            name={'ios-arrow-back'}
-                            size={36}
-                        />
-                    </TouchableOpacity>
-                    <View style={{ width: '50%', alignItems: 'center', height: 50, justifyContent: 'center' }}>
+                    <View style={{ width: '60%', alignItems: 'center', height: 50, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}
@@ -439,4 +431,3 @@ const styles = StyleSheet.create({
     }
 })
 export default Setting;
-

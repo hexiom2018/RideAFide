@@ -15,8 +15,8 @@ import Untick from '../../../assets/email/untick.png'
 import mail from '../../../assets/settings.png'
 import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
-
-
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import Headers from '../../components/header/Header'
 class ForgetPassword extends React.Component {
     static navigationOptions = {
         header: null
@@ -112,38 +112,9 @@ class ForgetPassword extends React.Component {
 
 
             <KeyboardAvoidingView style={{ flex: 1, position: 'relative', }} behavior={'padding'} enabled>
-                <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                    <View style={{ width: '60%', height: 50, alignItems: 'center', justifyContent: 'center' }}>
-                        <Image
-                            // style={{ width: 100, height: 100 }}
-                            source={logo}
-                        />
-                    </View>
-
-                    {/* <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column', alignItems: 'center', }}>
-                        <TouchableOpacity activeOpacity={0.7}>
-                            <Image
-                                // style={{ width: '100%', height: '100%' }}
-                                source={mail}
-                            />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 12, color: '#5dc5c0' }}>
-                            {'Settings'}
-                        </Text>
-
-                    </View> */}
-                    {/* <View style={{ paddingHorizontal: '2%', height: 50, marginRight: '5%', flexDirection: 'column', alignItems: 'center' }}>
-                        <TouchableOpacity activeOpacity={0.7}>
-                            <Image
-                                // style={{ width: '100%', height: '100%' }}
-                                source={scan}
-                            />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 12 }} >
-                            {'Scan'}
-                        </Text>
-                    </View> */}
-                </View>
+                <Headers
+                    back={() => this.props.navigation.navigate('LogIn')}
+                />
                 <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
 
                 <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingVertical: 40 }}>

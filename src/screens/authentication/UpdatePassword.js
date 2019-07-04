@@ -14,7 +14,7 @@ import mail from '../../../assets/settings.png'
 import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
+import Headers from '../../components/header/Header'
 
 
 class UpdatePassword extends React.Component {
@@ -122,45 +122,9 @@ class UpdatePassword extends React.Component {
             <View style={styles.main}>
 
                 <StatusBar backgroundColor={'white'} />
-                <View style={{ flexDirection: 'row', paddingVertical: '10%' }}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')} style={{ marginLeft: 14, width: '10%', height: 50, justifyContent: 'center' }}>
-                        <Ionicons
-                            color={'#1cbbb4'}
-                            name={'ios-arrow-back'}
-                            size={36}
-                        />
-                    </TouchableOpacity>
-                    <View style={{ width: '50%', alignItems: 'center', height: 50, justifyContent: 'center' }}>
-                        <Image
-                            // style={{ width: 100, height: 100 }}
-                            source={logo}
-                        />
-                    </View>
-
-                    <View style={{ paddingHorizontal: '2%', height: 50, borderWidth: 1, borderColor: "#5dc5c0", flexDirection: 'column', alignItems: 'center', }}>
-                        <TouchableOpacity activeOpacity={0.7}>
-                            <Image
-                                // style={{ width: '100%', height: '100%' }}
-                                source={mail}
-                            />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 12, color: '#5dc5c0' }}>
-                            {'Settings'}
-                        </Text>
-
-                    </View>
-                    <View style={{ paddingHorizontal: '2%', height: 50, marginRight: '5%', flexDirection: 'column', alignItems: 'center' }}>
-                        <TouchableOpacity activeOpacity={0.7}>
-                            <Image
-                                // style={{ width: '100%', height: '100%' }}
-                                source={scan}
-                            />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 12 }} >
-                            {'Scan'}
-                        </Text>
-                    </View>
-                </View>
+                <Headers
+                    back={() => this.props.navigation.navigate('Setting')}
+                />
                 <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
 
                 <View style={[styles.minDiv, { paddingVertical: '6%' }]}>
