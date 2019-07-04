@@ -17,6 +17,8 @@ import Back from '../../../assets/back.png'
 import Setting from '../../../assets/settingicon.png'
 import History from '../../../assets/History.png'
 import UnderLine from "../../../assets/underline.png";
+import backIcon from '../../../assets/back2.png'
+
 
 class Scan extends React.Component {
     constructor(props) {
@@ -276,6 +278,16 @@ class Scan extends React.Component {
                                                     onBarCodeRead={this._handleBarCodeRead}
                                                     style={[StyleSheet.absoluteFill, styles.container]}
                                                 >
+                                                    <View style={{ alignItems: 'flex-start', paddingVertical: '15%', paddingHorizontal: '4%', position: 'absolute', top: 0, width: '100%' }}>
+                                                        <TouchableOpacity onPress={() => this.setState({ barcode: false })} activeOpacity={0.7}>
+                                                            <View style={{ width: 40, height: 40 }}>
+                                                                <Image
+                                                                    style={{ width: '100%', height: '100%' }}
+                                                                    source={backIcon}
+                                                                />
+                                                            </View>
+                                                        </TouchableOpacity>
+                                                    </View>
                                                     <Text style={styles.description}>Scan RideAfide Emblem</Text>
                                                     <Image
                                                         style={styles.qr}
@@ -458,6 +470,7 @@ const qrSize = width * 0.9
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        position: 'relative',
         alignItems: 'center',
     },
     main: {

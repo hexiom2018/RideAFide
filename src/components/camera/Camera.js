@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Camera, Permissions, Video } from 'expo';
 import { Icon } from 'react-native-elements'
-
+import backIcon from '../../../assets/back2.png'
 
 export default class CameraExample extends React.Component {
     constructor(props) {
@@ -99,10 +99,10 @@ export default class CameraExample extends React.Component {
                                 source={{ uri: uri }}
                                 rate={1.0}
                                 volume={1.0}
-                                isMuted={false}
+                                isMuted={true}
                                 resizeMode="cover"
-                                shouldPlay
-                                isLooping
+                                // shouldPlay
+                                // isLooping
 
                                 style={{ flex: 1 }}
                             // style={{ width: 350, height: 350 }}
@@ -174,6 +174,18 @@ export default class CameraExample extends React.Component {
                         </View>
                     </View>
                 }
+                {/* {
+                    <View style={{ alignItems: 'flex-start', paddingVertical: '10%', paddingHorizontal: '4%', position: 'absolute', top: 0, width: '100%' }}>
+                        <TouchableOpacity onPress={() => this.goBack()} activeOpacity={0.7}>
+                            <View style={{ width: 40, height: 40 }}>
+                                <Image
+                                    style={{ width: '100%', height: '100%' }}
+                                    source={backIcon}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                } */}
             </View>)
     }
 
