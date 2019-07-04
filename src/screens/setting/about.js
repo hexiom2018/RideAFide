@@ -2,12 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, Linking, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Button from '../../components/button/Button'
-import { Header, Input, CheckBox } from 'react-native-elements';
+import { Input, CheckBox } from 'react-native-elements';
 import tick from '../../../assets/email/tick-checked.png'
 import Untick from '../../../assets/email/untick.png'
 import mail from '../../../assets/settings.png'
 import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
+import Header from '../../components/header/Header'
 class About extends React.Component {
     constructor(props) {
         super(props)
@@ -18,28 +19,15 @@ class About extends React.Component {
     }
 
 
-
-
-
-
-
-
-
     static navigationOptions = { header: null }
 
     render() {
         const { QrScans } = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', }}>
-                <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                    <View style={{ width: '60%', alignItems: 'center', height: 30, justifyContent: 'center' }}>
-                        <Image
-                            // style={{ width: 100, height: 100 }}
-                            source={logo}
-                        />
-                    </View>
-
-                </View>
+                <Header
+                    back={() => this.props.navigation.navigate('Setting')}
+                />
                 <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
 
                 <View style={{ justifyContent: 'center', alignContent: 'center', width: '100%', flexDirection: 'column' }}>
@@ -62,30 +50,30 @@ Designed with a 19 point proprietary verification system, RideAfide is determine
                             <Text style={styles.text}>Launched in 2019, we are launching the first ever independently certified and verified rideshare safety platform.</Text>
                         </View>
 
-                        <View style={{ flex: 1, width: '90%', flexDirection: 'row', alignItems: 'center', justifyContent:'space-between' }} >
+                        <View style={{ flex: 1, width: '90%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
                             <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
-                            <View style={{ paddingVertical: '3%', width: '20%'}}>
-                                <Text style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center',color:'#1cbbb4' }}>
-                                1 
+                            <View style={{ paddingVertical: '3%', width: '20%' }}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center', color: '#1cbbb4' }}>
+                                    1
                             </Text>
                                 <Text style={{ fontWeight: '300', fontSize: 13, textAlign: 'center' }}>
-                                Idea 
+                                    Idea
                             </Text>
                             </View>
-                            <View style={{ paddingVertical: '3%',width: '45%' }}>
-                                <Text style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center',color:'#1cbbb4' }}>
-                                850+ 
+                            <View style={{ paddingVertical: '3%', width: '45%' }}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center', color: '#1cbbb4' }}>
+                                    850+
                             </Text>
                                 <Text style={{ fontWeight: '300', fontSize: 13, textAlign: 'center' }}>
-                                 Hours of Research & Development 
+                                    Hours of Research & Development
                             </Text>
                             </View>
-                            <View style={{ paddingVertical: '3%',width: '30%' }}>
-                                <Text style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center',color:'#1cbbb4' }}>
-                                 35+
+                            <View style={{ paddingVertical: '3%', width: '30%' }}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center', color: '#1cbbb4' }}>
+                                    35+
                             </Text>
                                 <Text style={{ fontWeight: '300', fontSize: 13, textAlign: 'center' }}>
-                         QR Code Designs
+                                    QR Code Designs
                             </Text>
                             </View>
                             <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
@@ -94,17 +82,17 @@ Designed with a 19 point proprietary verification system, RideAfide is determine
                             <Text style={{ fontSize: 20, fontWeight: '500', textAlign: 'center', paddingVertical: 15, }}>Reviews From Popular Media Says... </Text>
                             <Text style={styles.text}>We are currently seeking reviews from media sources and welcome any and all resources to reach out to us at RideAfide to discuss how we are adding a level of safety and security to the ridesharing community.</Text>
                             <Text style={{ fontSize: 15, fontWeight: '500', textAlign: 'center', paddingVertical: 15, }}>Tech Crunch or Your Media Firm</Text>
-                        
+
                         </View>
                         <View style={{ flex: 1, width: '90%', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }} >
                             <Text style={styles.text}>We are currently seeking reviews from media sources and welcome any and all resources to reach out to us at RideAfide to discuss how we are adding a level of safety and security to the ridesharing community.</Text>
                             <Text style={{ fontSize: 15, fontWeight: '500', textAlign: 'center', paddingVertical: 15, }}>Today Show or Your Media Firm</Text>
-                        
+
                         </View>
                         <View style={{ flex: 1, width: '90%', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'space-between' }} >
-                        <Text style={{ fontSize: 15, fontWeight: '500', textAlign: 'center', paddingVertical: 15, }}>Effective date as of</Text>
+                            <Text style={{ fontSize: 15, fontWeight: '500', textAlign: 'center', paddingVertical: 15, }}>Effective date as of</Text>
                             <Text style={{ fontSize: 15, fontWeight: '300', textAlign: 'center', paddingVertical: 5, }}>June 01, 2019</Text>
-                        
+
                         </View>
                     </View>
 
@@ -143,8 +131,8 @@ const styles = StyleSheet.create({
     },
     text1: {
         fontSize: 15,
-        fontWeight:'400',
-        lineHeight:20,
+        fontWeight: '400',
+        lineHeight: 20,
         paddingVertical: 10
 
     },

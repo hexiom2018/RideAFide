@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text,StatusBar, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, StatusBar, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Button from '../../components/button/Button'
 import tick from '../../../assets/email/tick-checked.png'
@@ -7,6 +7,8 @@ import Untick from '../../../assets/email/untick.png'
 import mail from '../../../assets/settings.png'
 import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import Header from '../../components/header/Header';
 class EmergencyContacts extends React.Component {
     constructor(props) {
         super(props)
@@ -179,18 +181,11 @@ class EmergencyContacts extends React.Component {
         return (
             <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
                 <ScrollView style={{ flex: 1, }} >
-                <StatusBar backgroundColor={'white'} />
-                    <View style={{ flex: 1, justifyContent: 'center', }}>
-                        <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                            <View style={{ width: '60%', alignItems: 'center', height: 30, justifyContent: 'center' }}>
-                                <Image
-                                    // style={{ width: 100, height: 100 }}
-                                    source={logo}
-                                />
-                            </View>
-
-                        </View>
-
+                    <StatusBar backgroundColor={'white'} />
+                    <View style={{ flex: 1 }}>
+                        <Header
+                            back={() => this.props.navigation.navigate('Setting')}
+                        />
                         <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
 
                         {!dataLoading &&

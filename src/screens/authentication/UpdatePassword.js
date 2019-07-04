@@ -13,6 +13,8 @@ import Untick from '../../../assets/email/untick.png'
 import mail from '../../../assets/settings.png'
 import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
 
 
 class UpdatePassword extends React.Component {
@@ -121,7 +123,14 @@ class UpdatePassword extends React.Component {
 
                 <StatusBar backgroundColor={'white'} />
                 <View style={{ flexDirection: 'row', paddingVertical: '10%' }}>
-                    <View style={{ width: '60%', alignItems: 'center', height: 50, justifyContent: 'center' }}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')} style={{ marginLeft: 14, width: '10%', height: 50, justifyContent: 'center' }}>
+                        <Ionicons
+                            color={'#1cbbb4'}
+                            name={'ios-arrow-back'}
+                            size={36}
+                        />
+                    </TouchableOpacity>
+                    <View style={{ width: '50%', alignItems: 'center', height: 50, justifyContent: 'center' }}>
                         <Image
                             // style={{ width: 100, height: 100 }}
                             source={logo}

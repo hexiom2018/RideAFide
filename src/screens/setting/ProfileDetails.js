@@ -2,12 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Button from '../../components/button/Button'
-import { Header, Input, CheckBox } from 'react-native-elements';
+import {  Input, CheckBox } from 'react-native-elements';
 import tick from '../../../assets/email/tick-checked.png'
 import Untick from '../../../assets/email/untick.png'
 import mail from '../../../assets/settings.png'
 import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
+import Header from '../../components/header/Header'
 class ProfileDetails extends React.Component {
     constructor(props) {
         super(props)
@@ -179,24 +180,18 @@ class ProfileDetails extends React.Component {
     render() {
         const { address, phone, full_name, country, zip, state, loading, city, checked1, checked2, dataLoading } = this.state
         return (
-            <View style={{ flex: 1, justifyContent: 'center', }}>
-                <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                    <View style={{ width: '60%', alignItems: 'center', height: 30, justifyContent: 'center' }}>
-                        <Image
-                            // style={{ width: 100, height: 100 }}
-                            source={logo}
-                        />
-                    </View>
-
-                </View>
+            <View style={{ flex: 1 }}>
+                <Header
+                    back={() => this.props.navigation.navigate('Setting')}
+                />
                 <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
 
                 <View style={{ justifyContent: 'center', alignContent: 'center', width: '100%' }}>
                     <Text style={styles.heading}>User Information</Text>
                 </View>
 
-                {!dataLoading && <View style={{ alignItems: "center", justifyContent: 'center', width: '100%',flex:1 }} >
-                                <ActivityIndicator size="large" color="#00ff00" /></View>}
+                {!dataLoading && <View style={{ alignItems: "center", justifyContent: 'center', width: '100%', flex: 1 }} >
+                    <ActivityIndicator size="large" color="#00ff00" /></View>}
                 {dataLoading &&
                     <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
                         <ScrollView style={{ flex: 1, marginTop: 24 }} >

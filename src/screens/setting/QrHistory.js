@@ -2,12 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, Linking, AsyncStorage, ActivityIndicator, Alert, Image, TouchableOpacity } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Button from '../../components/button/Button'
-import { Header, Input, CheckBox } from 'react-native-elements';
+import { Input, CheckBox } from 'react-native-elements';
 import tick from '../../../assets/email/tick-checked.png'
 import Untick from '../../../assets/email/untick.png'
 import mail from '../../../assets/settings.png'
 import scan from '../../../assets/Scan.png'
 import logo from '../../../assets/email/logo.png'
+import Header from '../../components/header/Header';
 class QrHistory extends React.Component {
     constructor(props) {
         super(props)
@@ -121,15 +122,9 @@ class QrHistory extends React.Component {
         const { QrScans } = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', }}>
-                <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                    <View style={{ width: '60%', alignItems: 'center', height: 30, justifyContent: 'center' }}>
-                        <Image
-                            // style={{ width: 100, height: 100 }}
-                            source={logo}
-                        />
-                    </View>
-
-                </View>
+                <Header
+                    back={() => this.props.navigation.navigate('Setting')}
+                />
                 <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
 
                 <View style={{ justifyContent: 'center', alignContent: 'center', width: '100%', borderBottomWidth: 1, borderBottomColor: '#77d8c5' }}>
