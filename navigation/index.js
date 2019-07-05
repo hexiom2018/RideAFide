@@ -14,6 +14,8 @@ import ProfileDetails from '../src/screens/setting/ProfileDetails'
 import QrHistory from '../src/screens/setting/QrHistory'
 import About from '../src/screens/setting/about'
 import Terms from '../src/screens/setting/Terms'
+import SettingTerms from '../src/screens/authentication/SettingTerms'
+
 
 const StackNavigator = createStackNavigator({
    
@@ -60,6 +62,9 @@ const StackNavigator = createStackNavigator({
     },
     ProfileDetails: {
         screen: ProfileDetails
+    },
+    SettingTerms: {
+        screen: SettingTerms
     },
 },
 );

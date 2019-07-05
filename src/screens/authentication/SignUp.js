@@ -41,8 +41,13 @@ class SignUp extends React.Component {
             console.log(error, 'error')
         }
     };
+    _goToPolicy = () => {
+       
+       
+        this.props.navigation.navigate('SettingTerms')
+    }
 
-    
+
     create() {
         const { email, password, username, ticked } = this.state
 
@@ -220,11 +225,11 @@ class SignUp extends React.Component {
                                             {`By signing up you agree that you are 18 years or older and agree to the Terms of Use and Privacy Policy.`}
                                         </Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Terms')} activeOpacity={0.7} >
-                                    <Text style={{ fontSize: 14, fontWeight: '500', color:'#1cbbb4'  }}>
-                                       (Terms of Use and Privacy Policy)
+                                    <TouchableOpacity onPress={() => this._goToPolicy()} activeOpacity={0.7} >
+                                        <Text style={{ fontSize: 14, fontWeight: '500', color: '#1cbbb4' }}>
+                                            (Terms of Use and Privacy Policy)
                                     </Text>
-                            </TouchableOpacity>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                             <View style={{ alignItems: 'center', width: '90%', marginTop: 7 }}>
@@ -244,7 +249,7 @@ class SignUp extends React.Component {
                                         {'OR'}
                                     </Text>
                                 </View>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')} activeOpacity={0.7} style={{ width: '90%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 ,marginBottom:20}}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')} activeOpacity={0.7} style={{ width: '90%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10, marginBottom: 20 }}>
                                     <View>
                                         <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
                                             {'Login'}

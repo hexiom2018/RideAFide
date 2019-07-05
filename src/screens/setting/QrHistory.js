@@ -13,8 +13,9 @@ class QrHistory extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            loading: false,
+            loading: true,
             count: 0,
+            QrScans: false
         }
     }
 
@@ -33,8 +34,15 @@ class QrHistory extends React.Component {
             .then(response => {
                 // console.log(response, 'ye dhekho response');
                 response.json().then(function (data) {
-                    // console.log(data["1"].ID, 'ye dhekho data');
-                    that.run(data)
+                    console.log(data, 'ye dhekho data');
+                    if(data.total == 0){
+                        that.setState({
+                            loading: false
+                        })
+                    }else{
+
+                        that.run(data)
+                    }
 
                 });
             })
@@ -52,7 +60,8 @@ class QrHistory extends React.Component {
             console.log(data[i], "ye ye ye??")
             dataArray.push(data[i])
             this.setState({
-                QrScans: dataArray
+                QrScans: dataArray,
+                loading: false
             })
         }
     }
@@ -119,7 +128,7 @@ class QrHistory extends React.Component {
         });
     }
     render() {
-        const { QrScans } = this.state
+        const { QrScans ,loading} = this.state
         return (
             <View style={{ flex: 1, justifyContent: 'center', }}>
                 <Header
@@ -130,7 +139,11 @@ class QrHistory extends React.Component {
                 <View style={{ justifyContent: 'center', alignContent: 'center', width: '100%', borderBottomWidth: 1, borderBottomColor: '#77d8c5' }}>
                     <Text style={styles.heading}>Scan History</Text>
                 </View>
-                {!QrScans &&
+                {!QrScans && loading &&
+                    <View style={{ flex: 1, width: '100%', alignItems: 'center', justifyContent: "center" }} >
+                        <ActivityIndicator size="large" color="#00ff00" />
+                    </View>}
+                {!QrScans && !loading &&
                     <View style={{ flex: 1, width: '100%', alignItems: 'center', justifyContent: "center" }} >
                         <Text style={styles.text1}>
                             No History
@@ -162,7 +175,7 @@ class QrHistory extends React.Component {
                                             <Text style={styles.text}>URL: <Text style={styles.hyperLink} onPress={() => this._goToURL(i.url)}>{i.url}</Text></Text>
                                         </View>
                                         <View style={{ width: '100%', flexDirection: 'row', height: '31%', justifyContent: 'space-around', alignItems: 'center' }}>
-                                            {i.video_log === 'null' ? null : <TouchableOpacity onPress={() => this.video(i.video_log)} activeOpacity={0.7} style={{ width: '40%', backgroundColor: '#FC0600', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                            {!i.video_log ? null : <TouchableOpacity onPress={() => this.video(i.video_log)} activeOpacity={0.7} style={{ width: '40%', backgroundColor: '#FC0600', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
                                                 <View>
                                                     <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
                                                         {'Video'}

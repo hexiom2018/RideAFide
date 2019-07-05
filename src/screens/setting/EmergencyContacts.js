@@ -38,18 +38,14 @@ class EmergencyContacts extends React.Component {
                 // console.log(response, 'ye dhekho response');
                 response.json().then(function (data) {
                     console.log(data, 'ye dhekho data');
-                    var emails = data.parent_emails.split(',')
-                    console.log(emails, 'emails');
-
-                    var numbers = data.parent_numbers.split(',')
-                    console.log(numbers, 'numbers');
+              
 
                     that.setState({
-                        Email_1: emails[0],
-                        Email_2: emails[1],
+                        Email_1: data.parent_emails[0],
+                        Email_2: data.parent_emails[1],
                         message: data.message,
-                        numbers_1: numbers[0],
-                        numbers_2: numbers[1],
+                        numbers_1: data.parent_numbers[0],
+                        numbers_2: data.parent_numbers[1],
                         dataLoading: true
                     })
                 });
@@ -170,7 +166,7 @@ class EmergencyContacts extends React.Component {
             xhttp.open("POST", "https://rideafide.com/wp-json/app/v2/passenger/update_passenger", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.setRequestHeader("Authorization", 'Bearer ' + token);
-            xhttp.send(`action=${`emergency_section`}&parent_emails=${Email_1},${Email_2}&parent_numbers=${numbers_1},${numbers_2}&message=${message}`);
+            xhttp.send(`action=${`emergency_section`}&parent_emails=${[Email_1,Email_2]}&parent_numbers=${[numbers_1,numbers_2]}&message=${message}`);
         }
     }
 

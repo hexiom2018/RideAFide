@@ -94,7 +94,7 @@ class Emergency extends React.Component {
                     'Content-Type': "application/x-www-form-urlencoded; charset=UTF=8",
                     'Authorization': 'Bearer ' + token
                 },
-                body: `action=${`emergency_section`}&parent_emails=${Email_1},${Email_2}&parent_numbers=${numbers_1},${numbers_2}&message=${message}`
+                body: `action=${`emergency_section`}&parent_emails=${[Email_1,Email_2]}&parent_numbers=${[numbers_1,numbers_2]}&message=${message}`
             };
 
             fetch('https://rideafide.com/wp-json/app/v2/passenger/update_passenger', request)
