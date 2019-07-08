@@ -288,7 +288,7 @@ class Setting extends React.Component {
                                 </View>
                                 <View style={{ width: '50%', alignItems: 'flex-end' }}>
 
-                                    <Text style={{ color: '#000000', fontSize: 18, paddingRight: 4 }}>1.0.1</Text>
+                                    <Text style={{ color: '#000000', fontSize: 18, paddingRight: 4 }}>1.0</Text>
                                 </View>
                             </View>
                             {/* <View style={{ paddingVertical: 10, borderBottomColor: 'black', borderBottomWidth: 1, }}>

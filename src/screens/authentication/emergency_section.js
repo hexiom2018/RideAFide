@@ -12,7 +12,8 @@ class Emergency extends React.Component {
         super(props)
         this.state = {
             loading: false,
-            count: 0
+            count: 0,
+            message:`Hi this is {{contact name}} I am using a ride share service and I feel endangered, can you please try calling me or texting me @{{phone number}}, If I don't answer or respond you may want to contact the local Police Department for assistance.`
         }
     }
 
