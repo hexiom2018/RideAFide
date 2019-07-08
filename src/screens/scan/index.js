@@ -140,7 +140,7 @@ class Scan extends React.Component {
         })
         Alert.alert(
             'Success',
-            'ThankYou for submitting',
+            'Thanks for your submission, it will be stored in your History',
             [
                 { text: 'OK', onPress: () => console.log('OK Pressed') },
             ],
@@ -238,7 +238,7 @@ class Scan extends React.Component {
         })
         Alert.alert(
             'Success',
-            'ThankYou for submitting',
+            'Thanks for your submission, it will be stored in your History',
             [
                 { text: 'OK', onPress: () => console.log('OK Pressed') },
             ],
