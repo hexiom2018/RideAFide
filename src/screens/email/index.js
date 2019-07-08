@@ -2,7 +2,7 @@ import React from 'react';
 import {
     View, Platform, Dimensions, AppState, Linking, Image,
     Text, StyleSheet, ActivityIndicator, TouchableOpacity, StatusBar, Button,
-    TextInput, KeyboardAvoidingView
+    TextInput, KeyboardAvoidingView, ScrollView
 } from 'react-native';
 import { Header, Input, CheckBox } from 'react-native-elements';
 import { Constants, Location, Permissions, Contacts, Notifications, IntentLauncherAndroid } from 'expo';
@@ -294,7 +294,7 @@ class Email extends React.Component {
 
     render() {
         const { username, openSetting, password, loading } = this.state
-
+        const screen = Dimensions.get('screen');
         return (
             <View style={styles.main}>
                 <Modal
@@ -319,104 +319,111 @@ class Email extends React.Component {
 
                 </View>
                 <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
-
-                <View style={styles.minDiv}>
-
-
-                    <View style={{
-                        height: '20%',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        // borderWidth:1
-                    }}>
-                        <View style={{ width: '80%' }}>
-                            <TextInput
-                                keyboardType={'email-address'}
-                                placeholder={'Enter Email '}
-                                placeholderTextColor={'#686868'}
-                                onChangeText={(username) => this.setState({ username })}
-                                value={username}
-                                textContentType={'emailAddress'}
-                                style={{
-                                    borderWidth: 1,
-                                    color: '#6a6a6a',
-                                    borderColor: '#77d8c5',
-                                    textAlign: 'center',
-                                    paddingHorizontal: 10,
-                                    paddingVertical: 10,
-                                    borderRadius: 7,
-                                    fontStyle: 'italic'
-                                }}
-                            />
-                        </View>
-                    </View>
-
-                    <View style={{
-                        height: '20%',
-                        alignItems: 'center',
-                        paddingVertical: 10,
-                        // borderWidth:1
-                    }}>
-                        <View style={{ width: '80%' }}>
-                            <TextInput
-                                keyboardType={'ascii-capable'}
-                                secureTextEntry={true}
-                                placeholder={'Enter password '}
-                                placeholderTextColor={'#686868'}
-                                onChangeText={(password) => this.setState({ password })}
-                                value={password}
-                                textContentType={'password'}
-                                style={{
-                                    borderWidth: 1,
-                                    color: '#6a6a6a',
-                                    borderColor: '#77d8c5',
-                                    textAlign: 'center',
-                                    paddingHorizontal: 10,
-                                    paddingVertical: 10,
-                                    borderRadius: 7,
-                                    fontStyle: 'italic'
-                                }}
-                            />
-                        </View>
-                    </View>
+                <KeyboardAvoidingView behavior={'padding'} style={{ height: screen.height }}>
+                    <ScrollView scrollEnabled={false}>
 
 
-                    <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: '5%', }}>
+                        <View style={styles.minDiv}>
 
-                        <View style={{ alignItems: 'center' }}>
-                            {
-                                !loading &&
-                                <TouchableOpacity onPress={() => this.LoginAction()} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
-                                    <View>
-                                        <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
-                                            {'Login'}
+
+                            <View style={{
+                                height: '20%',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                paddingBottom: 8,
+                                // borderWidth:1
+                            }}>
+                                <View style={{ width: '80%' }}>
+                                    <TextInput
+                                        keyboardType={'email-address'}
+                                        placeholder={'Enter Email '}
+                                        placeholderTextColor={'#686868'}
+                                        onChangeText={(username) => this.setState({ username })}
+                                        value={username}
+                                        textContentType={'emailAddress'}
+                                        style={{
+                                            borderWidth: 1,
+                                            color: '#6a6a6a',
+                                            borderColor: '#77d8c5',
+                                            textAlign: 'center',
+                                            paddingHorizontal: 10,
+                                            paddingVertical: 10,
+                                            borderRadius: 7,
+                                            fontStyle: 'italic'
+                                        }}
+                                    />
+                                </View>
+                            </View>
+
+                            <View style={{
+                                height: '20%',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                paddingBottom: 20,
+                                // borderWidth:1
+                            }}>
+                                <View style={{ width: '80%' }}>
+                                    <TextInput
+                                        keyboardType={'ascii-capable'}
+                                        secureTextEntry={true}
+                                        placeholder={'Enter password '}
+                                        placeholderTextColor={'#686868'}
+                                        onChangeText={(password) => this.setState({ password })}
+                                        value={password}
+                                        textContentType={'password'}
+                                        style={{
+                                            borderWidth: 1,
+                                            color: '#6a6a6a',
+                                            borderColor: '#77d8c5',
+                                            textAlign: 'center',
+                                            paddingHorizontal: 10,
+                                            paddingVertical: 10,
+                                            borderRadius: 7,
+                                            fontStyle: 'italic'
+                                        }}
+                                    />
+                                </View>
+                            </View>
+
+
+                            <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: '5%', paddingTop: '8%' }}>
+
+                                <View style={{ alignItems: 'center' }}>
+                                    {
+                                        !loading &&
+                                        <TouchableOpacity onPress={() => this.LoginAction()} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                            <View>
+                                                <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
+                                                    {'Login'}
+                                                </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    }
+                                    {loading && <ActivityIndicator size="large" color="#00ff00" />}
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ForgetPassword')}>
+                                        <View style={{ paddingVertical: 10 }}>
+                                            <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Forgot Password?</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <View style={{ alignItems: 'center', paddingVertical: 15 }}>
+                                        <Text style={{ fontSize: 20, color: 'grey' }}>
+                                            {'OR'}
                                         </Text>
                                     </View>
-                                </TouchableOpacity>
-                            }
-                            {loading && <ActivityIndicator size="large" color="#00ff00" />}
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('ForgetPassword')}>
-                                <View style={{ paddingVertical: 10 }}>
-                                    <Text style={{ color: '#6a6a6a', textDecorationLine: 'underline' }}>Forgot Password?</Text>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
+                                        <View>
+                                            <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
+                                                {'Create Account'}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
                                 </View>
-                            </TouchableOpacity>
-                            <View style={{ alignItems: 'center', paddingVertical: 15 }}>
-                                <Text style={{ fontSize: 20, color: 'grey' }}>
-                                    {'OR'}
-                                </Text>
+
                             </View>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#7ad6c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
-                                <View>
-                                    <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
-                                        {'Create Account'}
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
+
                         </View>
-
-                    </View>
-
-                </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </View>
         );
     }
@@ -425,11 +432,12 @@ class Email extends React.Component {
 const styles = StyleSheet.create({
     main: {
         flex: 1,
-        justifyContent: 'space-around'
+        // justifyContent: 'space-around'
     },
     minDiv: {
         flex: 1,
         flexDirection: 'column',
+        paddingTop: '16%'
     },
     Email: {
         // borderWidth: 1,
