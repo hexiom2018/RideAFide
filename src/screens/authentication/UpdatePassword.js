@@ -121,7 +121,7 @@ class UpdatePassword extends React.Component {
         return (
             <View style={styles.main}>
 
-                <StatusBar backgroundColor={'white'} />
+                {/* <StatusBar backgroundColor={'white'} /> */}
                 <Headers
                     back={() => this.props.navigation.navigate('Setting')}
                 />

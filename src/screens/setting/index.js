@@ -138,7 +138,7 @@ class Setting extends React.Component {
         return (
             <View style={styles.main}>
 
-                <StatusBar hidden={true} />
+                {/* <StatusBar hidden={true} /> */}
                 <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
                     <View style={{ width: '60%', alignItems: 'center', height: 50, justifyContent: 'center' }}>
                         <Image

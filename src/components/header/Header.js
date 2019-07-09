@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, View, TouchableOpacity } from 'react-native';
+import { Constants } from 'expo';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import logo from '../../../assets/email/logo.png'
 
@@ -16,23 +17,26 @@ export default class Header extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <TouchableOpacity
-                    style={{ marginLeft: 12 }}
-                    onPress={() => this.back()}
-                >
-                    <Ionicons
-                        color={'#1cbbb4'}
-                        name={'ios-arrow-back'}
-                        size={34}
-                    />
-                </TouchableOpacity>
-                <View style={styles.appLogo}>
-                    <Image
-                        source={logo}
-                    />
+            <View>
+                <View style={styles.statusBar} />
+                <View style={styles.container}>
+                    <TouchableOpacity
+                        style={{ marginLeft: 12 }}
+                        onPress={() => this.back()}
+                    >
+                        <Ionicons
+                            color={'#1cbbb4'}
+                            name={'ios-arrow-back'}
+                            size={34}
+                        />
+                    </TouchableOpacity>
+                    <View style={styles.appLogo}>
+                        <Image
+                            source={logo}
+                        />
+                    </View>
+                    <View style={{ marginRight: 20 }} />
                 </View>
-                <View style={{ marginRight: 20 }} />
             </View>
         );
     }
@@ -49,7 +53,11 @@ const styles = StyleSheet.create({
     appLogo: {
         width: '60%',
         alignItems: 'center',
-        height: 30,
+        height: 36,
         justifyContent: 'center'
+    },
+    statusBar: {
+        opacity: 0.2,
+        height: Constants.statusBarHeight,
     },
 });

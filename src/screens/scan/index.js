@@ -263,7 +263,7 @@ class Scan extends React.Component {
                         <CameraExample duration={60000} back={() => this.back()} VideoUri={(uri) => this.getUri(uri)} />
                         :
                         <>
-                            <StatusBar hidden={true} />
+                            {/* <StatusBar hidden={true} /> */}
 
                             {barcode &&
                                 <View style={styles.main}>

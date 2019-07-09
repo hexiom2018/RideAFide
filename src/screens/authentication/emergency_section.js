@@ -137,7 +137,7 @@ class Emergency extends React.Component {
         return (
             <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
                 <ScrollView style={{ flex: 1, marginTop: 24 }} >
-                    <StatusBar backgroundColor={'white'} />
+                    {/* <StatusBar backgroundColor={'white'} /> */}
                     <View style={{ flex: 1, justifyContent: 'center' }}>
                         <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
                             <View style={{ width: '60%', height: 30, alignItems: 'center', justifyContent: 'center' }}>

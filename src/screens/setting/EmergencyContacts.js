@@ -177,7 +177,7 @@ class EmergencyContacts extends React.Component {
         return (
             <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }} behavior={'padding'}>
                 <ScrollView style={{ flex: 1, }} >
-                    <StatusBar backgroundColor={'white'} />
+                    {/* <StatusBar backgroundColor={'white'} /> */}
                     <View style={{ flex: 1 }}>
                         <Header
                             back={() => this.props.navigation.navigate('Setting')}

@@ -234,7 +234,7 @@ class Send extends React.Component {
                         <CameraExample duration={60000} back={() => this.back()} VideoUri={(uri) => this.getUri(uri)} />
                         :
                         <>
-                            <StatusBar hidden={true} />
+                            {/* <StatusBar hidden={true} /> */}
                             {lastScannedUrl !== null &&
                                 <View style={styles.minDiv}>
                                     <View style={{ flexDirection: 'row', backgroundColor: '#1C3136', height: '15%', alignItems: 'center', justifyContent: 'center' }}>

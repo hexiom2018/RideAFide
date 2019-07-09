@@ -309,9 +309,10 @@ class Email extends React.Component {
                         </Button>
                     </View>
                 </Modal>
-                <StatusBar hidden={true} />
+                {/* <StatusBar hidden={true} /> */}
+                <View style={styles.statusBar} />
                 <View style={{ flexDirection: 'row', paddingVertical: '10%', justifyContent: 'center' }}>
-                    <View style={{ width: '60%', height: 50, alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ width: '60%', height: 36, alignItems: 'center', justifyContent: 'center' }}>
                         <Image
                             source={logo}
                         />
@@ -530,7 +531,11 @@ const styles = StyleSheet.create({
     buttonTittle: {
         fontSize: 16,
         color: 'white'
-    }
+    },
+    statusBar: {
+        opacity: 0.2,
+        height: Constants.statusBarHeight,
+    },
 })
 export default Email;
 
