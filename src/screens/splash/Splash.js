@@ -98,15 +98,6 @@ class Splash extends React.Component {
                                     })
                                     this.props.navigation.dispatch(resetAction)
                                 }
-                                // else if (detail1 === 'false' && detail2 === 'false') {
-                                //     const resetAction = StackActions.reset({
-                                //         index: 0,
-                                //         actions: [
-                                //             NavigationActions.navigate({ routeName: 'PersonalInfo' }),
-                                //         ]
-                                //     })
-                                //     this.props.navigation.dispatch(resetAction)
-                                // }
                                 else {
                                     const resetAction = StackActions.reset({
                                         index: 0,
@@ -182,7 +173,7 @@ class Splash extends React.Component {
                         </View>
 
 
-                        <ScrollView style={{ flexGrow: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
+                        {/* <ScrollView style={{ flexGrow: 1 }} contentContainerStyle={{ flexGrow: 1 }}> */}
                             <View style={{ justifyContent: 'center', flexGrow: 1 }}>
                                 {
                                     welcomeText &&
@@ -197,7 +188,7 @@ class Splash extends React.Component {
                                     })
                                 }
                             </View>
-                        </ScrollView>
+                        {/* </ScrollView> */}
 
                         <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
                         <View style={{ paddingVertical: '3%', }}>
@@ -206,7 +197,7 @@ class Splash extends React.Component {
                             </Text>
                         </View>
                         <View style={{ backgroundColor: '#1cbbb4', height: 7 }} />
-                        <View style={{ alignItems: 'center', flexGrow: 1, justifyContent: 'center', marginVertical: 10 }}>
+                        <View style={{ alignItems: 'center', flexGrow: 1, justifyContent: 'center', marginVertical: '3%' }}>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('LogIn')} activeOpacity={0.7} style={{ width: '70%', backgroundColor: '#77d8c5', borderColor: '#77d8c5', borderWidth: 1, paddingVertical: 2, borderRadius: 10 }}>
                                 <View>
                                     <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>

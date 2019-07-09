@@ -2,7 +2,9 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Camera, Permissions, Video } from 'expo';
 import { Icon } from 'react-native-elements'
-import backIcon from '../../../assets/back2.png'
+import backIcon from '../../../assets/back.png'
+import RecordImg from '../../../assets/record-button.png'
+import sendImg from '../../../assets/send.png'
 
 export default class CameraExample extends React.Component {
     constructor(props) {
@@ -113,7 +115,7 @@ export default class CameraExample extends React.Component {
                 </View>
                 {
                     uri ?
-                        <View style={[styles.btn, { paddingVertical: 5 }]}>
+                        <View style={[styles.btn]}>
                             <TouchableOpacity onPress={() => this.goBack()} style={styles.opacity3}>
                                 <Text style={{ textAlign: 'center' }}>Back</Text>
                                 {/* <Icon name='arrow-back' /> */}
@@ -128,9 +130,13 @@ export default class CameraExample extends React.Component {
                             </TouchableOpacity>
                         </View>
                         :
-                        <View style={[styles.btn, { paddingVertical: 5 }]}>
+                        <View style={[styles.btn]}>
                             <TouchableOpacity onPress={() => this.goBack()} style={styles.opacity2}>
-                                <Icon name='arrow-back' />
+                                {/* <Icon name='arrow-back' /> */}
+                                <Image
+                                    style={{ width: 35, height: 35 }}
+                                    source={backIcon}
+                                />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.opacity5} onPress={() => {
                                 if (cameraIsRecording) {
@@ -147,10 +153,18 @@ export default class CameraExample extends React.Component {
                             }}>
                                 {
                                     this.state.cameraIsRecording ?
-                                        <Text style={{ paddingLeft: "22%", fontSize: 14, fontWeight: 'bold' }}>SEND</Text>
+                                        // <Text style={{ paddingLeft: "22%", fontSize: 14, fontWeight: 'bold' }}>SEND</Text>
                                         // <Icon name='videocam-off' />
+                                        <Image
+                                            style={{ width: 70, height: 70 }}
+                                            source={sendImg}
+                                        />
                                         :
-                                        <Text style={{ paddingLeft: "17%", fontSize: 14, fontWeight: 'bold' }}>Record</Text>
+                                        <Image
+                                            style={{ width: 70, height: 70 }}
+                                            source={RecordImg}
+                                        />
+                                    // <Text style={{ paddingLeft: "17%", fontSize: 14, fontWeight: 'bold' }}>Record</Text>
                                     // <Icon name='videocam' />
                                     // <Image source={{uri:video}}/>
                                 }
@@ -167,7 +181,7 @@ export default class CameraExample extends React.Component {
                 {
                     cameraIsRecording &&
                     <View style={{ alignItems: 'flex-end', paddingVertical: '10%', paddingHorizontal: '4%', position: 'absolute', top: 0, width: '100%' }}>
-                        <View style={{ width: 40, height: 40, borderRadius: 100, justifyContent: 'center', borderColor: 'antiquewhite', borderWidth: 2 }}>
+                        <View style={{ width: 40, backgroundColor: 'red', height: 40, borderRadius: 100, justifyContent: 'center', borderColor: 'antiquewhite', borderWidth: 2 }}>
                             <Text style={{ color: 'white', fontSize: 18, textAlign: 'center' }}>
                                 {timer}
                             </Text>
@@ -204,23 +218,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     opacity2: {
-        // left: 0,
         width: 70,
-        height: 50,
-        // borderWidth: 2,
+        height: 60,
         borderRadius: 70,
-        borderColor: 'white',
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         textAlign: 'center',
         justifyContent: 'center'
-    }, opacity5: {
+    },
+    opacity5: {
         // left: 10,
         width: 70,
         height: 60,
-        borderWidth: 2,
-        borderRadius: 100,
+        // borderRadius: 100,
         borderColor: 'black',
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         textAlign: 'center',
         justifyContent: 'center'
     },
@@ -235,7 +246,7 @@ const styles = StyleSheet.create({
         // borderColor: 'grey',
         borderRadius: 70,
         borderColor: 'white',
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         textAlign: 'center',
         justifyContent: 'center'
 
@@ -246,11 +257,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     btn: {
-        height: "12%",
-        // flex: 1,
         flexDirection: 'row',
         textAlign: 'center',
         justifyContent: 'space-evenly',
-        left: 0
+        left: 0,
+        backgroundColor: '#1C3136',
+        paddingVertical: '5%',
     }
 })
